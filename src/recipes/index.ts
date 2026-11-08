@@ -10,10 +10,11 @@ import { rockClusterRecipe } from '../../examples/recipes/rock-cluster/index.ts'
 import { hydrangeaRecipe } from '../../examples/recipes/hydrangea/index.ts';
 import { mushroomRecipe } from '../../examples/recipes/mushroom-cluster/index.ts';
 import { windmillRecipe } from '../../examples/recipes/windmill/index.ts';
+import { slimeRecipe } from '../../examples/recipes/slime/index.ts';
 import { rabbitRecipe } from '../../examples/recipes/stylized-rabbit/index.ts';
 import { humanoidRecipe,foxRecipe } from './rigged.ts';
 export type { Recipe, RecipeCase } from './types.ts';
 
 export const registry = new RecipeRegistry();
-for (const entry of [lanternRecipe,cottageRecipe,treeRecipe,fenceRecipe,crateRecipe,boulderRecipe,benchRecipe,planterRecipe,treasureChestRecipe,wheelbarrowRecipe,stoneWellRecipe,coniferRecipe,rockClusterRecipe,hydrangeaRecipe,mushroomRecipe,windmillRecipe,humanoidRecipe,foxRecipe,rabbitRecipe]) registry.register(entry);
+for (const entry of [lanternRecipe,cottageRecipe,treeRecipe,fenceRecipe,crateRecipe,boulderRecipe,benchRecipe,planterRecipe,treasureChestRecipe,wheelbarrowRecipe,stoneWellRecipe,coniferRecipe,rockClusterRecipe,hydrangeaRecipe,mushroomRecipe,windmillRecipe,slimeRecipe,humanoidRecipe,foxRecipe,rabbitRecipe]) registry.register(entry);
 export const recipe = (id: string) => registry.get(id);
