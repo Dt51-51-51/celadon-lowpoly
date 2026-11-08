@@ -62,8 +62,8 @@ function build(input: unknown): AssetBuild {
   const deep = mix(c.body, [0, 0, 0], 0.22);
   const plates = Array.from({ length: 26 }, () => { const y = random() * 1.6 - 0.6, a = random() * Math.PI * 2, s = Math.sqrt(1 - y * y); return new Vector3(Math.cos(a) * s, y, Math.sin(a) * s); });
   const center = new Vector3(0, h * 0.4, 0);
-  const crack = h * 0.028;
-  const faceWindow = (d: Vector3) => d.z > 0.35 && Math.abs(d.x) < 0.8 && d.y < 0.62;
+  const crack = h * 0.024;
+  const faceWindow = (d: Vector3) => d.z > 0.15 && (d.x / 0.82) ** 2 + ((d.y - 0.16) / 0.62) ** 2 < 1;
   const bodyPaint = (pt: Vector3, n: Vector3): SculptRGB => {
     if (crust && pt.y > h * 0.2) {
       const dir = pt.clone().sub(center).normalize();
@@ -107,34 +107,33 @@ function build(input: unknown): AssetBuild {
   const seat = (x: number, y: number) => body.surface(face, new Vector3(x, y, 1), h * 2);
   const glowFaces: SculptRGB[] = [c.glow];
   for (const side of [1, -1]) {
-    const dir = new Vector3(side * 0.36, 0.14, 1).normalize(), at = seat(dir.x, dir.y);
+    const dir = new Vector3(side * (mood === 'sleepy' ? 0.36 : mood === 'angry' ? 0.46 : 0.4), 0.14, 1).normalize(), at = seat(dir.x, dir.y);
     if (mood === 'sleepy') {
       body.decal('eye' + side, at, dir, [{ radius: eye * 0.42, paint: c.pupil }], { up: new Vector3(0, 1, 0), stretch: 2.4, segments: 12, detail: 4 });
     } else {
       const white = mood === 'angry' ? eye * 0.85 : eye;
-      body.decal('eye' + side, at, dir, [{ radius: white, paint: c.eye }, { radius: white * 0.5, paint: c.pupil }], { up: new Vector3(0, 1, 0), stretch: mood === 'angry' ? 1.15 : 0.9, segments: 14, detail: 4 });
-      body.paint('glint' + side, at.clone().addScaledVector(new Vector3(-0.45, 0.6, 0), white * 0.4), [white * 0.2, white * 0.2, white * 0.6], { forward: dir, paint: c.eye, detail: 4 });
+      body.decal('eye' + side, at, dir, [{ radius: white, paint: c.eye }, { radius: white * 0.5, paint: c.pupil }, { radius: white * 0.16, paint: c.eye, offset: [-white * 0.15, white * 0.2] }], { up: new Vector3(0, 1, 0), stretch: mood === 'angry' ? 1.15 : 0.9, segments: 14, detail: 4 });
     }
     if (mood === 'angry') {
-      const brow = at.clone().add(new Vector3(side * eye * 0.05, eye * 0.78, 0)), tilt = new Vector3(side, 0.55, 0).normalize();
-      body.paint('brow' + side, brow, [eye * 1.15, eye * 0.38, eye * 1.2], { forward: dir, up: new Vector3(0, 0, 0).crossVectors(dir, tilt).normalize(), paint: c.pupil, detail: 4 });
+      const browAt = body.surface(face, at.clone().add(new Vector3(-side * eye * 0.3, eye * 1.3, 0)).sub(face).normalize(), h * 2);
+      body.decal('brow' + side, browAt, browAt.clone().sub(center).normalize(), [{ radius: eye * 0.24, paint: c.pupil }], { up: new Vector3(-0.85, side, 0).normalize(), stretch: 3.2, segments: 14, detail: 4 });
     } else {
-      const cheek = seat(side * 0.62, -0.08);
-      body.paint('cheek' + side, cheek, [eye * 0.55, eye * 0.32, eye * 0.6], { forward: new Vector3(side * 0.62, -0.08, 1).normalize(), paint: c.glow, detail: 3 });
+      const cheekAim = at.clone().add(new Vector3(side * eye * 0.95, -eye * 1.15, 0)).sub(face), cheekDir = cheekAim.clone().normalize(), cheekAt = body.surface(face, cheekDir, h * 2);
+      body.decal('cheek' + side, cheekAt, cheekAt.clone().sub(center).normalize(), [{ radius: eye * 0.3, paint: c.glow }], { up: new Vector3(0, 1, 0), stretch: 1.45, segments: 12, detail: 3 });
     }
   }
-  const mouthDir = new Vector3(0, mood === 'angry' ? -0.12 : -0.1, 1).normalize(), mouthAt = seat(0, mouthDir.y);
-  if (mood === 'happy') body.decal('mouth', mouthAt, mouthDir, [{ radius: eye * 0.3, paint: c.pupil }, { radius: eye * 0.13, paint: c.glow }], { up: new Vector3(0, 1, 0), stretch: 1.9, segments: 12, detail: 4 });
+  const mouthDir = new Vector3(0, mood === 'angry' ? -0.16 : -0.24, 1).normalize(), mouthAt = seat(0, mouthDir.y);
+  if (mood === 'happy') body.decal('mouth', mouthAt, mouthDir, [{ radius: eye * 0.3, paint: c.pupil }, { radius: eye * 0.15, paint: c.glow, offset: [0, -eye * 0.08] }], { up: new Vector3(0, 1, 0), stretch: 1.9, segments: 12, detail: 4 });
   else if (mood === 'angry') body.decal('mouth', mouthAt, mouthDir, [{ radius: eye * 0.3, paint: c.pupil }, { radius: eye * 0.13, paint: c.glow }], { up: new Vector3(0, 1, 0), stretch: 3.4, segments: 12, detail: 4 });
   else body.decal('mouth', mouthAt, mouthDir, [{ radius: eye * 0.2, paint: c.pupil }], { up: new Vector3(0, 1, 0), stretch: 1, segments: 10, detail: 4 });
   if (!crust) {
     const hiDir = new Vector3(-0.55, 0.75, 0.45).normalize(), hi = body.surface(center, hiDir, h * 2);
-    body.paint('shine', hi, [r * 0.2, r * 0.09, r * 0.3], { forward: hiDir, up: new Vector3(0.6, 0.4, 0).normalize(), paint: c.shine, detail: 3 });
-    body.paint('shine2', hi.clone().add(new Vector3(r * 0.2, -h * 0.05, r * 0.08)), [r * 0.06, r * 0.06, r * 0.2], { forward: hiDir, paint: c.shine, detail: 3 });
-    for (let i = 0; i < 4; i++) {
-      const d = new Vector3(random() * 2 - 1, random() * 0.6 - 0.1, random() * 2 - 1).normalize();
-      if (d.z > 0.4 && Math.abs(d.x) < 0.6) d.z = -d.z;
-      body.paint('bubble' + i, body.surface(center, d, h * 2), [r * 0.05, r * 0.05, r * 0.05], { paint: c.shine, detail: 3 });
+    body.decal('shine', hi, hiDir, [{ radius: r * 0.075, paint: c.shine }], { up: new Vector3(0.6, 0.5, 0).normalize(), stretch: 2.2, segments: 12, detail: 3 });
+    const hi2Dir = new Vector3(0.35, 0.55, 0.55).normalize();
+    body.decal('shine2', body.surface(center, hi2Dir, h * 2), hi2Dir, [{ radius: r * 0.04, paint: c.shine }], { up: new Vector3(0, 1, 0), stretch: 1, segments: 10, detail: 3 });
+    for (let i = 0; i < 3; i++) {
+      const d = new Vector3(-0.8 + i * 0.6 + random() * 0.2, 0.55 + random() * 0.25, -0.5 - random() * 0.3).normalize();
+      body.decal('bubble' + i, body.surface(center, d, h * 2), d, [{ radius: r * 0.045, paint: c.shine }], { up: new Vector3(0, 1, 0), stretch: 1, segments: 10, detail: 3 });
     }
   }
   if (crust) {
@@ -150,7 +149,7 @@ function build(input: unknown): AssetBuild {
     sprout.limb('stem', [tip, stemEnd], [r * 0.035, r * 0.03]);
     sprout.ellipsoid('leaf', stemEnd.clone().addScaledVector(leafDir, r * 0.12), [r * 0.07, r * 0.03, r * 0.15], { forward: leafDir });
   }
-  const result = sculpt.build({ triangles: crust ? 3400 : 2600, cell: h * 0.011, floor: 0, jitter: 0.02 });
+  const result = sculpt.build({ triangles: crust ? 4400 : 2800, cell: h * 0.011, floor: 0, jitter: 0.02 });
   const t = result.topology;
   if (t.shells < 1 || t.boundaryEdges || t.windingErrors) throw new Error('Slime body is not a closed surface (' + JSON.stringify(t) + ')');
   const full = result.geometry();

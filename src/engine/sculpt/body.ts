@@ -3,8 +3,9 @@ import { coneShape, ellipsoidShape, frameOf, SculptField, type SculptNode, type 
 import { marchTetrahedra, type NetMesh } from './nets.ts';
 import { reduceMesh, type ReducedMesh } from './reduce.ts';
 import { remeshSurface } from './remesh.ts';
-import { insetDecal, type SculptDecal } from './decal.ts';
+import { decalOutline, decalRingAt, insetDecal, type SculptDecal } from './decal.ts';
 import { inspectTopology, faceShells, type TopologyReport } from './topology.ts';
+import { cutSeams, faceKey } from './seams.ts';
 
 export type { SculptPaint, SculptRGB } from './field.ts';
 
@@ -33,6 +34,7 @@ export interface SculptBuildOptions {
   borderWeight?: number;
   lengthWeight?: number;
   relax?: number;
+  seams?: boolean;
 }
 
 interface ShapeHome { part: SculptPart, reach: number }
@@ -70,16 +72,17 @@ export class SculptPart implements SculptNode {
     this.body.overlays.push(ellipsoidShape(this.body.nextId(), this.name + '.' + label, center, radii, frameOf(options.forward, options.up), options.taper ?? 0, look.bone, look.paint, look.detail));
     return this;
   }
-  decal(label: string, center: Vector3, axis: Vector3, rings: { radius: number, paint: SculptPaint }[], options: { up?: Vector3, stretch?: number, segments?: number, detail?: number } = {}): this {
+  decal(label: string, center: Vector3, axis: Vector3, rings: { radius: number, paint: SculptPaint, offset?: [number, number] }[], options: { up?: Vector3, stretch?: number, segments?: number, detail?: number } = {}): this {
     if (!rings.length || rings.some((ring, index) => !(ring.radius > 0) || (index > 0 && ring.radius >= rings[index - 1]!.radius))) throw new Error('Sculpt decal ' + label + ' needs rings with shrinking positive radii');
     const frame = frameOf(axis, options.up);
     const stretch = options.stretch ?? 1, detail = options.detail ?? Math.max(this.look.detail, 3);
     const shapes = rings.map((ring, index) => {
-      const shape = ellipsoidShape(this.body.nextId(), this.name + '.' + label + '[' + index + ']', center, [ring.radius * stretch, ring.radius, rings[0]!.radius * 3], frame, 0, this.look.bone, ring.paint, detail);
+      const middle = center.clone().addScaledVector(frame.right, ring.offset?.[0] ?? 0).addScaledVector(frame.up, ring.offset?.[1] ?? 0);
+      const shape = ellipsoidShape(this.body.nextId(), this.name + '.' + label + '[' + index + ']', middle, [ring.radius * stretch, ring.radius, rings[0]!.radius * 3], frame, 0, this.look.bone, ring.paint, detail);
       this.body.overlays.push(shape);
-      return { shape, radius: ring.radius };
+      return { shape, radius: ring.radius, ...(ring.offset ? { offset: ring.offset } : {}) };
     });
-    this.body.decals.push({ label: this.name + '.' + label, center: center.clone(), axis: frame.forward, right: frame.right, up: frame.up, stretch, segments: options.segments ?? 12, rings: shapes });
+        this.body.decals.push({ label: this.name + '.' + label, center: center.clone(), axis: frame.forward, right: frame.right, up: frame.up, stretch, segments: options.segments ?? 12, pad: rings[0]!.radius * 0.2, rings: shapes });
     return this;
   }
   attach(name: string, options: SculptPartOptions = {}): SculptPart {
@@ -216,13 +219,18 @@ export class SculptBody {
       throw new Error('Sculpt surface is broken near ' + [...places].map(([label, at]) => label + ' (' + at + ')').join(', ') + ': ' + JSON.stringify({ ...report, problems: undefined }));
     }
     const centroid = new Vector3(), normal = new Vector3();
+    const decalRingShapes = new Set(this.decals.flatMap(decal => decal.rings.map(ring => ring.shape)));
     const faceColor = (mesh: ReducedMesh, f: number): SculptRGB => {
       const [a, b, c] = [mesh.faces[f * 3]!, mesh.faces[f * 3 + 1]!, mesh.faces[f * 3 + 2]!];
       const p = (v: number) => new Vector3(mesh.positions[v * 3]!, mesh.positions[v * 3 + 1]!, mesh.positions[v * 3 + 2]!);
       const pa = p(a), pb = p(b), pc = p(c);
       centroid.copy(pa).add(pb).add(pc).multiplyScalar(1 / 3);
       normal.copy(pb).sub(pa).cross(pc.clone().sub(pa)).normalize();
-      const owner = field.ownerAt(centroid.x, centroid.y, centroid.z);
+      for (const decal of this.decals) {
+        const ring = decalRingAt(decal, centroid.x, centroid.y, centroid.z);
+        if (ring) return typeof ring.shape.paint === 'function' ? ring.shape.paint(centroid.clone(), normal.clone()) : ring.shape.paint;
+      }
+      const owner = field.ownerAt(centroid.x, centroid.y, centroid.z, decalRingShapes);
       return typeof owner.paint === 'function' ? owner.paint(centroid.clone(), normal.clone()) : owner.paint;
     };
     const byId = new Map(all.map(shape => [shape.id, shape]));
@@ -250,6 +258,23 @@ export class SculptBody {
     const importance = Float64Array.from(vertexOwners, owner => owner.detail);
     let mesh = reduceMesh(dense, { target: Math.round(options.triangles * 2.5), importance, region: denseRegions, borderWeight: options.borderWeight ?? 2, lengthWeight: options.lengthWeight ?? 0.002 });
     mesh = remeshSurface(mesh, field, cell, options.triangles, options.relax ?? 8);
+    let painted: Map<string, SculptRGB> | null = null;
+    if (options.seams !== false) {
+      let edgeSum = 0;
+      for (let f = 0; f < mesh.faces.length / 3; f++) for (let e = 0; e < 3; e++) {
+        const u = mesh.faces[f * 3 + e]!, v = mesh.faces[f * 3 + (e + 1) % 3]!;
+        edgeSum += Math.hypot(mesh.positions[u * 3]! - mesh.positions[v * 3]!, mesh.positions[u * 3 + 1]! - mesh.positions[v * 3 + 1]!, mesh.positions[u * 3 + 2]! - mesh.positions[v * 3 + 2]!);
+      }
+      const edge = edgeSum / mesh.faces.length;
+      for (const decal of this.decals) decal.pad = Math.max(decal.rings[0]!.radius * 0.2, edge * 0.9);
+      const decalShapes = new Set(this.decals.flatMap(decal => decal.rings.map(ring => ring.shape)));
+      const cut = cutSeams(mesh, (point, normal) => {
+        for (const [index, decal] of this.decals.entries()) if (decalOutline(decal, point.x, point.y, point.z)) return { key: 'decal:' + index, color: null };
+        const owner = field.ownerAt(point.x, point.y, point.z, decalShapes), color = typeof owner.paint === 'function' ? owner.paint(point.clone(), normal.clone()) : owner.paint;
+        return { key: colorKey(color), color };
+      });
+      mesh = cut.mesh; painted = cut.colors;
+    }
     for (const decal of this.decals) mesh = insetDecal(mesh, field, decal, cell);
     const topology = inspectTopology(mesh.faces, mesh.positions.length / 3);
     if (topology.shells !== 1 || topology.boundaryEdges || topology.nonManifoldEdges || topology.windingErrors || topology.pinchedVertices) throw new Error('Sculpt reduction broke the surface: ' + JSON.stringify(topology));
@@ -260,8 +285,9 @@ export class SculptBody {
     }
     const jitter = options.jitter ?? 0;
     const colors = Array.from({ length: mesh.faces.length / 3 }, (_, f) => {
-      const base = faceColor(mesh, f);
+      const base = painted?.get(faceKey(mesh.faces, f)) ?? faceColor(mesh, f);
       if (!jitter) return base;
+      for (let k = 0; k < 3; k++) centroid.setComponent(k, (mesh.positions[mesh.faces[f * 3]! * 3 + k]! + mesh.positions[mesh.faces[f * 3 + 1]! * 3 + k]! + mesh.positions[mesh.faces[f * 3 + 2]! * 3 + k]!) / 3);
       const shade = 1 + jitter * (hash3(centroid.x * 97, centroid.y * 97, centroid.z * 97) * 2 - 1);
       return base.map(value => Math.min(1, Math.max(0, value * shade))) as SculptRGB;
     });

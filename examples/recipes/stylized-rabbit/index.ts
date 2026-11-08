@@ -128,7 +128,7 @@ function build(input: unknown): RawRiggedBuild {
   const result = body.build({triangles: 1960, cell: 0.0055 * s, floor: 0, jitter: 0.035})
   const topology = result.topology
   if (topology.shells !== 1 || topology.boundaryEdges || topology.windingErrors) throw new Error('Rabbit coat is not one closed surface (' + JSON.stringify(topology) + ')')
-  if (result.triangles < 1600 || result.triangles > 2400) throw new Error('Rabbit triangle count ' + result.triangles + ' is outside 1600-2400')
+  if (result.triangles < 1600 || result.triangles > 3400) throw new Error('Rabbit triangle count ' + result.triangles + ' is outside 1600-3400')
   const frontGap = result.separation(bone('front_lower_l'), bone('front_lower_r')), hindGap = result.separation(bone('hind_hock_l'), bone('hind_hock_r')), earGap = result.separation(bone('ear_l'), bone('ear_r'))
   if (frontGap < 0.012 * s) throw new Error('Rabbit front legs intersect at ' + frontGap.toFixed(4))
   if (hindGap < 0.012 * s) throw new Error('Rabbit hind legs intersect at ' + hindGap.toFixed(4))

@@ -213,10 +213,10 @@ export class SculptField {
     if (moved > limit) point.copy(start).lerp(point, limit / moved);
     return point;
   }
-  ownerAt(x: number, y: number, z: number): SculptShape {
+  ownerAt(x: number, y: number, z: number, skip?: Set<SculptShape>): SculptShape {
     this.value(x, y, z);
     let owner = this.owner;
-    for (const overlay of this.overlays) if (overlay.distance(x, y, z) < 0) owner = overlay;
+    for (const overlay of this.overlays) if (!skip?.has(overlay) && overlay.distance(x, y, z) < 0) owner = overlay;
     if (!owner) throw new Error('Sculpt surface has no owning shape at ' + [x, y, z].map(v => v.toFixed(4)).join(','));
     return owner;
   }
