@@ -11,6 +11,7 @@ import { validateRigMotion } from '../src/rigging/validation.ts';
 import type { RiggedAssetBuild } from '../src/rigging/types.ts';
 import { buildDesignSnapshot } from '../src/studio/design-snapshot.ts';
 import { modelStyle } from '../src/site/discovery.ts';
+import { assertSameBytes } from './same-bytes.ts';
 
 for(const family of ['stylized-humanoid','stylized-fox']){
  test(family+' catalog edits and GLB export retain bound skins and clips',async()=>{
@@ -25,7 +26,7 @@ for(const family of ['stylized-humanoid','stylized-fox']){
      assert.deepEqual(snapshot.config,build.config);
      const bytes=await exportDeliverable(snapshot),validation=await validateBytes(bytes);
      assert.equal(validation.issues.numErrors,0);assert.equal(validation.issues.numWarnings,0);
-     assert.deepEqual(bytes,await exportDeliverable(snapshot));
+     assertSameBytes(bytes,await exportDeliverable(snapshot),'repeat export');
      const gltf=await new GLTFLoader().parseAsync(Uint8Array.from(bytes).buffer,'');
      assert.deepEqual(gltf.animations.map(clip=>clip.name),['idle','walk']);let skins=0;
      gltf.scene.traverse(object=>{if(object instanceof SkinnedMesh){skins++;assert.equal(object.skeleton.bones.length,build.rig.bones.length);assert.equal(object.geometry.getAttribute('position').count,object.geometry.getAttribute('skinWeight').count);object.geometry.dispose();object.skeleton.dispose();for(const material of Array.isArray(object.material)?object.material:[object.material])material.dispose();}});

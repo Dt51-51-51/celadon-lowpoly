@@ -12,6 +12,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { SkinnedMesh } from 'three';
 import { validateBytes } from 'gltf-validator';
 import { descriptor } from '../src/catalog/index.ts';
+import { assertSameBytes } from './same-bytes.ts';
 
 test('agent 3 fresh install bootstraps fourteen recipes and exports edited animated rigs',{timeout:180000},async()=>{
  const base=resolve('evidence/rigged-catalog');await mkdir(base,{recursive:true});const output=await mkdtemp(join(base,'agent3-'));
@@ -26,8 +27,8 @@ test('agent 3 fresh install bootstraps fourteen recipes and exports edited anima
   const parameters=family==='stylized-humanoid'?{height:1.9}:{bodyLength:.6},first=join(project,family),edited=join(project,family+'-edited');
   run('runtime.mjs',['build','--family',family,'--parameters',JSON.stringify(parameters),'--out',first]);
   run('runtime.mjs',['build','--config',join(first,'asset.design.json'),'--out',edited]);
-  const bytes=await readFile(join(edited,'asset.glb'));assert.deepEqual(bytes,await readFile(join(first,'asset.glb')));
-  const baseline=await readFile(join(base,(family==='stylized-humanoid'?'humanoid':'fox')+'-custom-before.glb'));assert.deepEqual(bytes,baseline);
+  const bytes=await readFile(join(edited,'asset.glb'));assertSameBytes(bytes,await readFile(join(first,'asset.glb')),'edited rebuild');
+  const baseline=await readFile(join(base,(family==='stylized-humanoid'?'humanoid':'fox')+'-custom-before.glb'));assertSameBytes(bytes,baseline,'rig baseline');
   const validation=await validateBytes(bytes);assert.equal(validation.issues.numErrors,0);assert.equal(validation.issues.numWarnings,0);
   const gltf=await new GLTFLoader().parseAsync(Uint8Array.from(bytes).buffer,'');assert.deepEqual(gltf.animations.map(clip=>clip.name),['idle','walk']);let skins=0;
   gltf.scene.traverse(object=>{if(object instanceof SkinnedMesh){skins++;object.geometry.dispose();object.skeleton.dispose();for(const material of Array.isArray(object.material)?object.material:[object.material])material.dispose();}});assert.ok(skins>0);

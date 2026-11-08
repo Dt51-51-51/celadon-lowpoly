@@ -18,14 +18,14 @@ function build(input:unknown):RawRiggedBuild {
   const config=save(input),p=config.applied,L=Number(p.bodyLength),H=L*Number(p.heightRatio),W=H*Number(p.chestRatio),headLength=L*Number(p.headRatio),headY=H*1.16,headBack=L*.62,skullLength=headLength*(1-Number(p.muzzleRatio)),tailLength=L*Number(p.tailRatio),tailRadius=L*Number(p.tailFullness),pawY=L*.025;
   const root=new Group();root.name='stylized-fox';const bones:Bone[]=[],byName=new Map<string,Bone>(),points=new Map<string,Vector3>();
   function bone(name:string,point:Vector3,parent?:string){const node=new Bone();node.name=name;points.set(name,point);node.position.copy(point).sub(parent?points.get(parent)!:new Vector3());(parent?byName.get(parent)!:root).add(node);bones.push(node);byName.set(name,node);}
-  bone('motion_root',new Vector3());bone('pelvis',new Vector3(0,H*.96,-L*.5),'motion_root');bone('spine',new Vector3(0,H*.98,0),'pelvis');bone('chest',new Vector3(0,H,L*.5),'spine');bone('neck',new Vector3(0,H*1.1,L*.6),'chest');bone('head',new Vector3(0,headY,headBack+skullLength*.35),'neck');
+  bone('motion_root',new Vector3());bone('pelvis',new Vector3(0,H*.9,-L*.5),'motion_root');bone('spine',new Vector3(0,H*.92,0),'pelvis');bone('chest',new Vector3(0,H,L*.5),'spine');bone('neck',new Vector3(0,H*1.1,L*.6),'chest');bone('head',new Vector3(0,headY,headBack+skullLength*.35),'neck');
   for(const [suffix,side] of [['l',1],['r',-1]] as const)bone('ear_'+suffix,new Vector3(side*headLength*.23,headY+headLength*.22,headBack+skullLength*.24),'head');
   const tailNames=['tail_base','tail_mid_a','tail_mid_b','tail_tip'],tailTimes=[0,.32,.68,1];
-  for(let i=0;i<4;i++)bone(tailNames[i]!,new Vector3(0,H*(.85-.62*tailTimes[i]!),-L*.55-tailLength*.8*tailTimes[i]!),i?tailNames[i-1]:'pelvis');
+  for(let i=0;i<4;i++)bone(tailNames[i]!,new Vector3(0,H*(.8-.42*tailTimes[i]!-.22*tailTimes[i]!*tailTimes[i]!),-L*.55-tailLength*.78*tailTimes[i]!),i?tailNames[i-1]:'pelvis');
   for(const [suffix,side] of [['l',1],['r',-1]] as const){
     const x=side*W*.42;
-    bone('scapula_'+suffix,new Vector3(x*.78,H*1.03,L*.44),'chest');bone('front_upper_'+suffix,new Vector3(x,H*.9,L*.5),'scapula_'+suffix);bone('front_lower_'+suffix,new Vector3(x,H*.48,L*.445),'front_upper_'+suffix);bone('front_paw_'+suffix,new Vector3(x,pawY,L*.525),'front_lower_'+suffix);
-    bone('hind_thigh_'+suffix,new Vector3(x,H*.92,-L*.51),'pelvis');bone('hind_shin_'+suffix,new Vector3(x,H*.56,-L*.405),'hind_thigh_'+suffix);bone('hind_hock_'+suffix,new Vector3(x,H*.24,-L*.575),'hind_shin_'+suffix);bone('hind_paw_'+suffix,new Vector3(x,pawY,-L*.465),'hind_hock_'+suffix);
+    bone('scapula_'+suffix,new Vector3(x*.78,H*1.03,L*.44),'chest');bone('front_upper_'+suffix,new Vector3(x,H*.9,L*.5),'scapula_'+suffix);bone('front_lower_'+suffix,new Vector3(x,H*.44,L*.445),'front_upper_'+suffix);bone('front_paw_'+suffix,new Vector3(x,pawY,L*.525),'front_lower_'+suffix);
+    bone('hind_thigh_'+suffix,new Vector3(x,H*.8,-L*.5),'pelvis');bone('hind_shin_'+suffix,new Vector3(x,H*.5,-L*.4),'hind_thigh_'+suffix);bone('hind_hock_'+suffix,new Vector3(x,H*.24,-L*.575),'hind_shin_'+suffix);bone('hind_paw_'+suffix,new Vector3(x,pawY,-L*.465),'hind_hock_'+suffix);
   }
   const index=(name:string)=>bones.indexOf(byName.get(name)!),P=(name:string)=>points.get(name)!.clone();
   type RGB=[number,number,number];const rgb=(v:unknown):RGB=>{const c=new Color(String(v));return [c.r,c.g,c.b];};
@@ -33,17 +33,17 @@ function build(input:unknown):RawRiggedBuild {
   const sockY=H*.34,tailStart=P('tail_base'),tailEnd=P('tail_tip'),tailSpan=tailStart.distanceTo(tailEnd);
   const coat=(pt:Vector3,n:Vector3):RGB=>{if(pt.y<sockY&&(Math.abs(pt.z-L*.5)<L*.12||Math.abs(pt.z+L*.5)<L*.16))return dark;if(n.y<-.45&&pt.y<H*.95)return cream;if(pt.z>L*.38&&pt.y<H*1.02&&pt.y>H*.6&&n.z>.2)return cream;return fur;};
   const sculpt=new SculptBody({bone:index('spine'),paint:coat,detail:1,blend:.045*L});const torso=sculpt.root;
-  torso.ellipsoid('haunch',new Vector3(0,H*.82,-L*.44),[H*.2,H*.2,L*.26],{bone:index('pelvis')});
-  torso.ellipsoid('belly',new Vector3(0,H*.84,-L*.05),[H*.19,H*.2,L*.42],{bone:index('spine')});
-  torso.ellipsoid('chest',new Vector3(0,H*.88,L*.4),[H*.21,H*.25,L*.24],{bone:index('chest'),forward:new Vector3(0,-.3,1)});
-  torso.ellipsoid('neck',new Vector3(0,H*1.04,L*.56),[H*.15,H*.22,L*.16],{bone:index('neck'),forward:new Vector3(0,.7,.7)});
+  torso.ellipsoid('haunch',new Vector3(0,H*.76,-L*.42),[H*.17,H*.21,L*.27],{bone:index('pelvis')});
+  torso.ellipsoid('belly',new Vector3(0,H*.76,-L*.02),[H*.18,H*.22,L*.44],{bone:index('spine')});
+  torso.ellipsoid('chest',new Vector3(0,H*.76,L*.38),[H*.2,H*.29,L*.25],{bone:index('chest'),forward:new Vector3(0,-.3,1)});
+  torso.ellipsoid('neck',new Vector3(0,H*1.0,L*.56),[H*.15,H*.24,L*.17],{bone:index('neck'),forward:new Vector3(0,.7,.7)});
   const hc=new Vector3(0,headY,headBack+skullLength*.4),muzzleLen=headLength-skullLength;
   const headPaint=(pt:Vector3,n:Vector3):RGB=>{const l=pt.clone().sub(hc);if(l.z>skullLength*.45&&l.y<-headLength*.03)return cream;if(l.y<-headLength*.08&&n.y<0)return cream;return fur;};
   const skull=torso.attach('head',{bone:index('head'),paint:headPaint,join:.025*L,blend:.02*L});
-  skull.ellipsoid('cranium',hc,[headLength*.4,headLength*.35,skullLength*.75]);
-  for(const side of [1,-1])skull.ellipsoid('cheek',hc.clone().add(new Vector3(side*headLength*.16,-headLength*.08,skullLength*.05)),[headLength*.17,headLength*.15,skullLength*.4]);
+  skull.ellipsoid('cranium',hc,[headLength*.46,headLength*.4,skullLength*.82]);
+  for(const side of [1,-1])skull.ellipsoid('cheek',hc.clone().add(new Vector3(side*headLength*.16,-headLength*.08,skullLength*.05)),[headLength*.2,headLength*.17,skullLength*.45]);
   const muzzleBase=hc.clone().add(new Vector3(0,-headLength*.07,skullLength*.45)),muzzleTip=muzzleBase.clone().add(new Vector3(0,-headLength*.05,muzzleLen*1.05));
-  skull.limb('muzzle',[muzzleBase,muzzleTip],[headLength*.15,headLength*.055]);
+  skull.limb('muzzle',[muzzleBase,muzzleTip],[headLength*.18,headLength*.075]);
   const noseAt=skull.surface(muzzleTip.clone().add(new Vector3(0,0,-muzzleLen*.2)),new Vector3(0,.15,1));
   skull.attach('nose',{paint:dark,detail:3,join:.004*L,blend:.004*L}).ellipsoid('pad',noseAt,[headLength*.045,headLength*.035,headLength*.035]);
   for(const side of [1,-1] as const){
@@ -57,19 +57,19 @@ function build(input:unknown):RawRiggedBuild {
   }
   const tailPaint=(pt:Vector3):RGB=>pt.distanceTo(tailStart)>tailSpan*.8?cream:fur;
   const tail=torso.attach('tail',{bone:index('tail_base'),paint:tailPaint,join:.02*L,blend:.03*L});
-  const tailNamesAll=['tail_base','tail_mid_a','tail_mid_b','tail_tip'],tailR=[.35,.85,1,.75];
-  for(let i=0;i<3;i++){const a=P(tailNamesAll[i]!),b=P(tailNamesAll[i+1]!);tail.limb('seg'+i,[a,b],[tailRadius*.62*tailR[i]!,tailRadius*.62*tailR[i+1]!],{bone:index(tailNamesAll[i+1]!)});}
+  const tailNamesAll=['tail_base','tail_mid_a','tail_mid_b','tail_tip'],tailR=[.45,.95,1.1,.85];
+  for(let i=0;i<3;i++){const a=P(tailNamesAll[i]!),b=P(tailNamesAll[i+1]!);tail.limb('seg'+i,[a,b],[tailRadius*.72*tailR[i]!,tailRadius*.72*tailR[i+1]!],{bone:index(tailNamesAll[i+1]!)});}
   tail.ellipsoid('tip',tailEnd.clone().addScaledVector(tailEnd.clone().sub(P('tail_mid_b')).normalize(),tailRadius*.4),[tailRadius*.4,tailRadius*.4,tailRadius*.6],{bone:index('tail_tip'),forward:tailEnd.clone().sub(P('tail_mid_b'))});
   for(const suffix of ['l','r']){
     const fu=P('front_upper_'+suffix),fl=P('front_lower_'+suffix),fp=P('front_paw_'+suffix),ft=fp.clone();ft.y=L*.02;
     const front=torso.attach('front_'+suffix,{bone:index('front_upper_'+suffix),join:.03*L,blend:.012*L});
-    front.limb('arm',[fu.clone().add(new Vector3(0,H*.05,0)),fl,ft],[H*.09,H*.065,H*.055],{bones:[index('front_upper_'+suffix),index('front_lower_'+suffix)]});
+    front.limb('arm',[fu.clone().add(new Vector3(0,H*.05,0)),fl,ft],[H*.1,H*.075,H*.06],{bones:[index('front_upper_'+suffix),index('front_lower_'+suffix)]});
     front.ellipsoid('paw',new Vector3(fp.x,L*.022,fp.z+L*.02),[H*.07,L*.024,L*.06],{bone:index('front_paw_'+suffix)});
     const ht=P('hind_thigh_'+suffix),hs=P('hind_shin_'+suffix),hh=P('hind_hock_'+suffix),hp=P('hind_paw_'+suffix),hpt=hp.clone();hpt.y=L*.02;
     const hind=torso.attach('hind_'+suffix,{bone:index('hind_thigh_'+suffix),join:.035*L,blend:.015*L});
-    hind.ellipsoid('thigh',ht.clone().lerp(hs,.4),[H*.14,H*.22,L*.14],{bone:index('hind_thigh_'+suffix),forward:hs.clone().sub(ht)});hind.limb('upper',[ht,hs],[H*.13,H*.075],{bone:index('hind_thigh_'+suffix)});
-    hind.limb('shin',[hs,hh],[H*.07,H*.055],{bone:index('hind_shin_'+suffix)});
-    hind.limb('foot',[hh,hpt],[H*.055,H*.05],{bone:index('hind_hock_'+suffix)});
+    hind.ellipsoid('thigh',ht.clone().lerp(hs,.3).setX(ht.x*.7),[H*.1,H*.17,L*.13],{bone:index('hind_thigh_'+suffix),forward:hs.clone().sub(ht)});hind.limb('upper',[ht,hs],[H*.1,H*.075],{bone:index('hind_thigh_'+suffix)});
+    hind.limb('shin',[hs,hh],[H*.08,H*.06],{bone:index('hind_shin_'+suffix)});
+    hind.limb('foot',[hh,hpt],[H*.06,H*.055],{bone:index('hind_hock_'+suffix)});
     hind.ellipsoid('paw',new Vector3(hp.x,L*.022,hp.z+L*.02),[H*.07,L*.024,L*.06],{bone:index('hind_paw_'+suffix)});
   }
   const result=sculpt.build({triangles:2200,cell:.0065*L/.44,floor:0,jitter:.03});

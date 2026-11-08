@@ -13,6 +13,7 @@ import { catalog, buildAsset, disposeAsset } from '../src/catalog/index.ts';
 import { exportDeliverable } from '../src/catalog/delivery.ts';
 import { measurements } from '../src/catalog/measure.ts';
 import { sha256 } from '../scripts/provenance.ts';
+import { assertSameBytes } from './same-bytes.ts';
 
 const project=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const evidenceRoot=process.env.MCP_TEST_EVIDENCE_ROOT;
@@ -112,7 +113,7 @@ test('real v2 stdio client: four tools, all families, exact exports and filesyst
       const validation=await validateBytes(bytes);assert.equal(validation.issues.numErrors,0);assert.equal(validation.issues.numWarnings,0);
       const build=buildAsset(d.id,parameters);
       try {
-        assert.deepEqual(bytes,Buffer.from(await exportDeliverable(build)));assert.deepEqual(variant.semantics,build.semantics);
+        assertSameBytes(bytes,await exportDeliverable(build),'variant export');assert.deepEqual(variant.semantics,build.semantics);
         const expected=measurements(build);
         assert.deepEqual(variant.dimensions,build.dimensions.toArray());
         assert.deepEqual(variant.dimensionsOrder,['width','height','depth']);assert.equal(variant.dimensionsUnit,'m');

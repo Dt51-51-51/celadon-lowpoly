@@ -5,6 +5,7 @@ import { Mesh,Vector3 } from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { validateBytes } from 'gltf-validator';
 import { terrainParameters,loadEnvironment,saveEnvironment,buildEnvironment,createSurface,exportEnvironment } from '../src/environment/index.ts';
+import { assertSameBytes } from './same-bytes.ts';
 
 const base=()=>({formatVersion:1,terrain:terrainParameters({cells:8,seed:17}),tiles:[{x:-1,z:0},{x:0,z:0}],placements:[],roads:[{id:'track',width:1.5,path:[{x:-6,z:3},{x:6,z:3}]}],water:[] as unknown[]});
 
@@ -35,7 +36,7 @@ test('joined roads cross the tile seam and follow terrain inside each exported t
     assert.ok(seam);
     const bytes=await exportEnvironment(build),report=await validateBytes(bytes);
     assert.equal(report.issues.numErrors,0);assert.equal(report.issues.numWarnings,0);
-    assert.deepEqual(bytes,await exportEnvironment(build));
+    assertSameBytes(bytes,await exportEnvironment(build),'repeat export');
     const gltf=await new GLTFLoader().parseAsync(Uint8Array.from(bytes).buffer,'');gltf.scene.updateMatrixWorld(true);
     const exported=gltf.scene.getObjectByName('road-track') as Mesh,attribute=exported.geometry.getAttribute('position');
     for(let i=0;i<attribute.count;i+=3){
@@ -70,7 +71,7 @@ test('water is flat, clipped to the shoreline and roundtrips canonically',async(
     }
     assert.ok(shore);assert.equal(saveEnvironment(build.config),saveEnvironment(JSON.parse(saveEnvironment(build.config))));
     const bytes=await exportEnvironment(build),report=await validateBytes(bytes);assert.equal(report.issues.numErrors,0);
-    assert.deepEqual(bytes,await exportEnvironment(build));
+    assertSameBytes(bytes,await exportEnvironment(build),'repeat export');
   }finally{build.dispose();}
   for(const change of [{elevation:-20},{width:0},{x:100},{depth:Infinity}]){
     const invalid=structuredClone(input);Object.assign(invalid.water[0] as object,change);assert.throws(()=>buildEnvironment(invalid));
