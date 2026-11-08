@@ -359,6 +359,13 @@
       "softwareLicense": "Apache-2.0",
       "contentLicense": "CC0-1.0",
       "contentDesignation": "Original supplied default and curated preset parameter content for rigged-rabbit; external material and private edits excluded."
+    },
+    "hydrangea": {
+      "author": "Woodland Workshop project authors",
+      "statement": "Original project-authored starter implementation and parameter content; third-party dependencies retain upstream terms.",
+      "softwareLicense": "Apache-2.0",
+      "contentLicense": "CC0-1.0",
+      "contentDesignation": "Original supplied default and curated preset parameter content for hydrangea; external material and private edits excluded."
     }
   }
 }

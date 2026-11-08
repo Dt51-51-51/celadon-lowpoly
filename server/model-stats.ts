@@ -1,7 +1,7 @@
 import type {Env,PrivateObjects} from './types.ts';
 import {deliver} from './delivery.ts';
 import {glbStats,type ModelStats} from './glb-stats.ts';
-const cacheKey=(id:string)=>'https://model-stats.polyspoon.invalid/v1/'+id;
+const cacheKey=(id:string)=>'https://model-stats.polyspoon.invalid/v2/'+id;
 const store=()=>typeof caches==='undefined'?null:(caches as unknown as {default:Cache}).default;
 export async function modelStats(env:Env,objects:PrivateObjects,id:string):Promise<ModelStats|null>{
  const cache=store(),cached=await cache?.match(cacheKey(id));if(cached)return await cached.json() as ModelStats|null;
