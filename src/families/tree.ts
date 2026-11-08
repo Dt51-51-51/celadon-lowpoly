@@ -1,23 +1,12 @@
 import { taperedSweep } from '../engine/geometry.ts';
+import { irregularClump } from '../engine/sculpt/clump.ts';
 import { Vector3 } from 'three';
 import { ConvexGeometry } from 'three/addons/geometries/ConvexGeometry.js';
 import { Assembly } from './assembly.ts';
 import type { Configuration, Role } from './config.ts';
 
 function crownGeometry(size: [number, number, number], random: () => number) {
-  const phase=random()*Math.PI*2,points:Vector3[]=[];
-  for(let i=0;i<34;i++) {
-    const y=1-2*(i+.5)/34,angle=i*2.399963+phase;
-    const radius=Math.sqrt(1-y*y),growth=1+.10*Math.sin(angle+phase)*radius;
-    points.push(new Vector3(Math.cos(angle)*radius*growth+.18*y,y+.07*Math.sin(angle*2+phase)*radius,Math.sin(angle)*radius*(1-.08*y)));
-  }
-  const geometry=new ConvexGeometry(points);
-  geometry.computeBoundingBox();
-  const bounds=geometry.boundingBox!,extent=bounds.getSize(new Vector3()),center=bounds.getCenter(new Vector3());
-  geometry.translate(-center.x,-center.y,-center.z);
-  geometry.scale(size[0]/extent.x,size[1]/extent.y,size[2]/extent.z);
-  geometry.computeVertexNormals();
-  return geometry;
+  return irregularClump(size, random);
 }
 
 export function tree(config: Configuration) {

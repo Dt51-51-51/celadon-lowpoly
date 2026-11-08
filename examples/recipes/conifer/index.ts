@@ -2,7 +2,8 @@ import {loadConstructionDesign} from '../../../src/engine/construction-migration
 import {load as loadPrior} from '../../../src/recipes/legacy-v1/conifer.ts';
 import { Box3, BufferGeometry, Group, Mesh, MeshStandardMaterial, Matrix4, Vector3 } from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-import { facetedLoft, taperedSweep } from '../../../src/engine/geometry.ts';
+import { taperedSweep } from '../../../src/engine/geometry.ts';
+import { solidTuft } from '../../../src/engine/sculpt/tuft.ts';
 import { parseControls, parameterState, plainRecord } from '../../../src/engine/parameters.ts';
 import type { Control, Design, Descriptor } from '../../../src/engine/parameters.ts';
 import type { AssetBuild } from '../../../src/catalog/types.ts';
@@ -40,23 +41,28 @@ function build(input:unknown):AssetBuild {
     return spine[index]!.clone().lerp(spine[index+1]!,y/6*7-index);
   };
   add('trunk','bark',taperedSweep(spine.map((v,i)=>({center:v.toArray(),radius:.14*(1-i/8)**1.3+.008})),7));
-  function spray(name:string,start:Vector3,end:Vector3,width:number,depth:number,role:string,parent:string) {
-    const axis=end.clone().sub(start),length=axis.length();axis.normalize();
+  function vary(name:string){
+    let s=(Number(p.seed)+1)>>>0;
+    for(const ch of name)s=Math.imul(s^ch.charCodeAt(0),16777619)>>>0;
+    return ()=>{s=(Math.imul(s,1664525)+1013904223)>>>0;return s/4294967296;};
+  }
+  function spray(name:string,start:Vector3,end:Vector3,width:number,depth:number,role:string,parent:string,roll=0) {
+    const delta=end.clone().sub(start),length=Math.max(delta.length(),1e-4),axis=delta.multiplyScalar(1/length);
     const side=new Vector3(axis.z,0,-axis.x);
-    if(side.lengthSq()<1e-8)side.set(0,0,1);else side.normalize();
-    const needle=(from:Vector3,to:Vector3,w:number,d:number)=>{
-      const direction=to.clone().sub(from),run=direction.length();direction.normalize();
-      const up=direction.clone().cross(side).normalize(),cross=up.clone().cross(direction).normalize();
-      const outline=Array.from({length:6},(_,i):[number,number]=>[Math.cos(i*Math.PI/3)*d,Math.sin(i*Math.PI/3)*w]);
-      const g=facetedLoft([[0,.45],[.22,1],[1,.008]].map(([t,r])=>({center:[0,run*t!,0] as [number,number,number],outline:outline.map(([x,z]):[number,number]=>[x*r!,z*r!])})));
-      g.applyMatrix4(new Matrix4().makeBasis(up,direction,cross));g.translate(from.x,from.y,from.z);return g;
-    };
-    const pieces=[needle(start,end,width,depth)];
-    for(const direction of [-1,1]){
-      const fork=start.clone().addScaledVector(axis,length*(direction<0?.24:.34));
-      const tip=start.clone().addScaledVector(axis,length*(direction<0?.76:.86)).addScaledVector(side,length*.28*direction);
-      pieces.push(needle(fork,tip,width*.58,depth*.72));
-    }
+    if(side.lengthSq()<1e-8)side.set(1,0,0);else side.normalize();
+    const up=axis.clone().cross(side).normalize(),cross=up.clone().cross(axis).normalize();
+    const s=Math.sin(roll),c=Math.cos(roll);
+    const rolledUp=up.clone().multiplyScalar(c).addScaledVector(cross,s);
+    const rolledSide=cross.clone().multiplyScalar(c).addScaledVector(up,-s);
+    const span=Math.max(width,.12),thick=Math.max(depth,.05),rand=vary(name);
+    const pieces=[[0,1,1],[-.42,.78,.55],[.42,.72,.55]].map(([turn,reach,share])=>{
+      const run=length*reach!,blade=solidTuft(run,span*share!*.5,thick,rand);
+      const fan=axis.clone().multiplyScalar(Math.cos(turn!)).addScaledVector(rolledSide,Math.sin(turn!)).normalize(),fanSide=rolledSide.clone().multiplyScalar(Math.cos(turn!)).addScaledVector(axis,-Math.sin(turn!)).normalize();
+      blade.applyMatrix4(new Matrix4().makeBasis(rolledUp,fan,fanSide));
+      const base=start.clone().addScaledVector(axis,length*(turn!<0?.14:turn!>0?.24:0));
+      blade.translate(base.x+fan.x*run*.5,base.y+fan.y*run*.5,base.z+fan.z*run*.5);
+      return blade;
+    });
     const geometry=mergeGeometries(pieces);
     for(const piece of pieces)piece.dispose();
     add(name,role,geometry,parent);
@@ -71,19 +77,22 @@ function build(input:unknown):AssetBuild {
       const level=y+(random()-.5)*.16;
       const start=centerAt(level),length=(1.6*(1-t)**.65+.32)*(.91+random()*.18);
       const dir=new Vector3(Math.cos(angle),0,Math.sin(angle));
-      const pointAt=(distance:number)=>start.clone().addScaledVector(dir,length*distance).add(new Vector3(0,-length*.24*distance,0));
+      const droop=.18+.42*Math.sin(t*Math.PI);
+      const pointAt=(distance:number)=>start.clone().addScaledVector(dir,length*distance).add(new Vector3(0,-length*droop*distance,0));
       const elbow=pointAt(.52),tip=pointAt(1);
       const branchName='branch-'+tier+'-'+j;
       add(branchName,'bark',taperedSweep([{center:start.toArray(),radius:.052*(1-levelIndex*.09)},{center:elbow.toArray(),radius:.032*(1-levelIndex*.09)},{center:tip.toArray(),radius:.008}],5),'trunk');
-      const depth=(.13+.26*t)*(.55+.45*length);
-      spray('foliage-'+tier+'-'+j+'-0',pointAt(.08),pointAt(.84),length*(.15+.015*Math.sin(angle)),depth,t<.18?'shade':'needles',branchName);
-      spray('foliage-'+tier+'-'+j+'-1',pointAt(.53),pointAt(1.20),length*(.12+.012*Math.cos(angle)),depth*.78,t>.62?'tips':'needles',branchName);
+      const skirt=length*(.62+.16*(1-t)),board=Math.max(.09,length*.07),roll=(j-(n-1)/2)*.12;
+      spray('foliage-'+tier+'-'+j+'-0',pointAt(.16),pointAt(.74),skirt,board,t<.18?'shade':'needles',branchName,roll-.05);
+      spray('foliage-'+tier+'-'+j+'-1',pointAt(.46),pointAt(1.05),skirt*.64,board*.85,t>.62?'tips':'needles',branchName,roll+.06);
     }
   }
-  for(let i=0;i<3;i++){
-    const start=spine[7]!.clone();start.y=5.0+i*.18;
-    const end=start.clone().add(new Vector3(Math.cos(phase+i*2.4)*(.08-i*.02),.80-i*.13,Math.sin(phase+i*2.4)*(.08-i*.02)));
-    spray('foliage-leader-'+i,start,end,.19-i*.045,.17-i*.04,'needles','trunk');
+  for(let i=0;i<5;i++){
+    const y0=3.82+i*.34;
+    const start=centerAt(Math.min(y0,5.15));start.y=y0;
+    const ang=phase+i*1.45;
+    const end=start.clone().add(new Vector3(Math.cos(ang)*Math.max(.04,.18-i*.03),.48,Math.sin(ang)*Math.max(.04,.18-i*.03)));
+    spray('foliage-leader-'+i,start,end,Math.max(.16,.5-i*.07),.07,'needles','trunk');
   }
   root.updateMatrixWorld(true);
   const raw=new Box3().setFromObject(root,true),size=raw.getSize(new Vector3());

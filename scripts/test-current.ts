@@ -17,7 +17,7 @@ const suites:Record<string,string[]>={
     'tests/individual-discovery.test.ts','tests/public-login-redirect.test.ts','tests/public-home-content.test.ts','tests/public-agent-files.test.ts','tests/export-formats.test.ts','tests/hosted-download-labels.test.ts',
     'tests/r2-art-architecture.test.ts','tests/r2-art-tree.test.ts','tests/r2-art-mechanisms.test.ts','tests/r2-art-props-catalog.test.ts','tests/r2-art-furniture-catalog.test.ts','tests/r2-art-organic-catalog.test.ts',
     'tests/r2-current-delivery.test.ts','tests/r2-construction-migration.test.ts','tests/catalog.test.ts','tests/cli.test.ts','tests/export.test.ts','tests/framing.test.ts',
-    'tests/recipe-verify.test.ts','tests/measure.test.ts','tests/sculpt-body.test.ts','tests/workshop-placement.test.ts','tests/revision3-thumbnail-inputs.test.ts','tests/revision3-usage.test.ts',
+    'tests/recipe-verify.test.ts','tests/measure.test.ts','tests/sculpt-body.test.ts','tests/facet-stone.test.ts','tests/foliage-tuft.test.ts','tests/workshop-placement.test.ts','tests/revision3-thumbnail-inputs.test.ts','tests/revision3-usage.test.ts',
     'tests/revision4-defaults.test.ts','tests/revision4-appearance.test.ts','tests/revision4-unity-preparation.test.ts',...recipes,
   ],
   recipes,
