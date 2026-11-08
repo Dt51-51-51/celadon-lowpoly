@@ -16,7 +16,7 @@ test('real animated GLB imports skins and plays contact motion between keys',asy
   const build=buildHumanoid();try{
     const bytes=await exportRiggedAsset(build),validation=await validateBytes(bytes);assert.equal(validation.issues.numErrors,0,JSON.stringify(validation.issues));assert.equal(validation.issues.numWarnings,0,JSON.stringify(validation.issues));assert.deepEqual(bytes,await exportRiggedAsset(build));
     const gltf=await new GLTFLoader().parseAsync(Uint8Array.from(bytes).buffer,''),root=gltf.scene.getObjectByName('stylized-humanoid')!;assert.equal(gltf.animations.length,2);
-    const mesh=root.getObjectByName('humanoid-boots') as SkinnedMesh;assert.ok(mesh.isSkinnedMesh);assert.equal(mesh.skeleton.bones.length,20);
+    const mesh=root.getObjectByName('humanoid-body') as SkinnedMesh;assert.ok(mesh.isSkinnedMesh);assert.equal(mesh.skeleton.bones.length,20);
     const position=mesh.geometry.getAttribute('position'),indices=mesh.geometry.getAttribute('skinIndex'),weights=mesh.geometry.getAttribute('skinWeight');
     const mixer=new AnimationMixer(root),walk=gltf.animations.find(clip=>clip.name==='walk')!,action=mixer.clipAction(walk);action.setLoop(LoopOnce,1);action.clampWhenFinished=true;action.play();
     const references=new Map<string,Vector3[]>();
@@ -31,11 +31,11 @@ test('real animated GLB imports skins and plays contact motion between keys',asy
 
 test('animated validation rejects broken weights, bones and clips',async()=>{
   for(const corrupt of [
-    (build:ReturnType<typeof buildHumanoid>)=>{(build.root.getObjectByName('humanoid-skin') as SkinnedMesh).geometry.getAttribute('skinWeight').setX(0,-1);},
+    (build:ReturnType<typeof buildHumanoid>)=>{(build.root.getObjectByName('humanoid-body') as SkinnedMesh).geometry.getAttribute('skinWeight').setX(0,-1);},
     (build:ReturnType<typeof buildHumanoid>)=>{build.rig.bones[1]!.parent='missing';},
     (build:ReturnType<typeof buildHumanoid>)=>{build.root.animations[0]!.tracks[0]!.name='missing.position';},
     (build:ReturnType<typeof buildHumanoid>)=>{build.root.animations=[];},
-    (build:ReturnType<typeof buildHumanoid>)=>{(build.root.getObjectByName('humanoid-skin') as SkinnedMesh).geometry.getAttribute('position').setY(0,NaN);},
+    (build:ReturnType<typeof buildHumanoid>)=>{(build.root.getObjectByName('humanoid-body') as SkinnedMesh).geometry.getAttribute('position').setY(0,NaN);},
   ]){const build=buildHumanoid();try{corrupt(build);await assert.rejects(exportRiggedAsset(build));}finally{build.dispose();}}
   const build=buildHumanoid();try{validateRig(build.root,build.rig);}finally{build.dispose();}
 });

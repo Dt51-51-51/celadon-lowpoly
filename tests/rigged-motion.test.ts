@@ -24,7 +24,7 @@ test('idle and walk keep actual skinned soles planted between baked keys',()=>{
   for(const input of [{},{height:1.2,legRatio:.43,limbRatio:.065},{height:2.2,legRatio:.53,limbRatio:.035}]){
     const build=buildHumanoid(input);try{
       createHumanoidMotion(build);assert.deepEqual(build.root.animations.map(clip=>clip.name),['idle','walk']);
-      const mesh=build.root.getObjectByName('humanoid-boots') as SkinnedMesh,position=mesh.geometry.getAttribute('position'),indices=mesh.geometry.getAttribute('skinIndex'),weights=mesh.geometry.getAttribute('skinWeight');
+      const mesh=build.root.getObjectByName('humanoid-body') as SkinnedMesh,position=mesh.geometry.getAttribute('position'),indices=mesh.geometry.getAttribute('skinIndex'),weights=mesh.geometry.getAttribute('skinWeight');
       for(const declaration of build.rig.clips){
         const mixer=new AnimationMixer(build.root),clip=build.root.animations.find(clip=>clip.name===declaration.name)!,action=mixer.clipAction(clip);action.setLoop(LoopOnce,1);action.clampWhenFinished=true;action.play();
         const references=new Map<string,Vector3[]>();

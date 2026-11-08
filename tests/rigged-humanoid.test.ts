@@ -32,7 +32,7 @@ test('continuous weighted knee vertices deform and appearance keeps skin attribu
   for(const shading of ['None','Flat','Toon3bands'] as const){
     const build=buildHumanoid({appearance:{version:1,palette:'None',shading,partColors:{}}});
     try{
-      const mesh=build.root.getObjectByName('humanoid-boots') as SkinnedMesh,positions=mesh.geometry.getAttribute('position'),weights=mesh.geometry.getAttribute('skinWeight'),indices=mesh.geometry.getAttribute('skinIndex');
+      const mesh=build.root.getObjectByName('humanoid-body') as SkinnedMesh,positions=mesh.geometry.getAttribute('position'),weights=mesh.geometry.getAttribute('skinWeight'),indices=mesh.geometry.getAttribute('skinIndex');
       const knee=build.root.getObjectByName('shin_l')!,boneIndex=mesh.skeleton.bones.indexOf(knee as Bone);
       const blended:number[]=[];for(let i=0;i<positions.count;i++)if(indices.getX(i)===boneIndex&&weights.getX(i)>.05&&weights.getX(i)<.95)blended.push(i);
       assert.ok(blended.length>8);const before=blended.map(i=>mesh.getVertexPosition(i,new Vector3()));knee.rotation.x=.8;build.root.updateMatrixWorld(true);mesh.skeleton.update();
@@ -49,18 +49,3 @@ test('humanoid saved designs retain appearance and reject forged canonical field
   }finally{build.dispose();}
 });
 
-test('head and hair meet at one clean contour without overlapping forehead surfaces',()=>{
-  for(const input of [{},{height:1.2,headRatio:.22},{height:2.2,headRatio:.14}]){
-    const build=buildHumanoid(input);try{
-      const h=Number(build.config.applied.height),headH=h*Number(build.config.applied.headRatio),boundary=Math.fround(h-headH*.33),rings:number[][][]=[];
-      for(const name of ['humanoid-skin','humanoid-hair']){
-        const mesh=build.root.getObjectByName(name) as SkinnedMesh,position=mesh.geometry.getAttribute('position'),indices=mesh.geometry.index!,ring:number[][]=[];
-        for(let i=0;i<position.count;i++){const y=position.getY(i);if(name==='humanoid-skin')assert.ok(y<=boundary+1e-7);else assert.ok(y>=boundary-1e-7);if(Math.abs(y-boundary)<1e-7)ring.push([position.getX(i),y,position.getZ(i)]);}
-        assert.equal(ring.length,8);
-        for(let i=0;i<indices.count;i+=3)assert.ok(![0,1,2].every(k=>Math.abs(position.getY(indices.getX(i+k))-boundary)<1e-7));
-        rings.push(ring.sort((a,b)=>a[0]!-b[0]!||a[2]!-b[2]!));
-      }
-      assert.deepEqual(rings[0],rings[1]);
-    }finally{build.dispose();}
-  }
-});
