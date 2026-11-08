@@ -32,7 +32,7 @@ The shape is closer. The ears, eyes, mouth and tail still need work. If you can 
 
 ## Vision
 
-We want to grow a large, open 3D asset community where people and their AI coding agents create, share and improve models together. Polyspoon starts with **low-poly procedural assets** and will expand to assets of every style and level of detail over time. The code, recipes and formats are open, so the community owns what it builds.
+We want to grow a large, open 3D asset community where people and their AI coding agents create, share and improve models together. Polyspoon starts with **low-poly procedural assets** and will expand to assets of every style and level of detail over time. The code, recipes and formats are open, so the community owns what it builds, the engine is OS unlike Polyfork one, and the new version is basically the same quality, I just dont have usage to make 2k + models, so there is where you guys enter, lets improve the engine and make more models.
 
 ## What it does
 
@@ -47,7 +47,6 @@ We want to grow a large, open 3D asset community where people and their AI codin
 - **Every model is reviewed by a person before it is accepted.** Submissions go through a review queue and are published only after an independent human approves them. See [open review](docs/specs/open-review.md) and [review guidance](docs/contributing/review.md).
 - **Automated content checks run first.** An isolated processor rebuilds each upload, then renders it from several angles and reads any text on it to flag offensive shapes or words for the reviewer. The check can only flag or hold a model, never approve it. See [review pipeline v2](docs/specs/review-pipeline-v2.md).
 - **Members can become moderators.** Accounts have member, moderator and admin roles. Moderators handle the review queue, reports and appeals ([marketplace moderation](docs/specs/marketplace-moderation.md)).
-- **Models stay behind login.** The hosted catalog and its downloads are only available to signed-in members.
 
 ## Community
 
