@@ -18,11 +18,12 @@ export const repository={
 
 export const rabbitCompare={
  image:'/brand/rabbit-engine-compare.png',
- alt:'Polyfork forest rabbit beside the Polyspoon rabbit, three-quarter and side.',
- eyebrow:'In progress',
- title:'I am improving the engine.',
- lead:'The rabbit is how I check the generator. The Polyfork forest rabbit is on the left. The Polyspoon rabbit is on the right. The sculpt engine builds it as one closed mesh: body, legs, ears and tail share one surface.',
- note:'The shape is closer. The ears, eyes, mouth and tail still need work. If you can make the generator better, please help. One pull request improves every model that uses it.',
+ alt:'Polyfork forest rabbit beside the Polyspoon rabbit.',
+ eyebrow:'Engine work',
+ title:'The engine keeps getting better.',
+ lead:'The rabbit is now one closed mesh. Body, legs, ears and tail share a single surface.',
+ note:'Ears, eyes and tail still need work. One pull request to the engine improves every model that uses it.',
+ labels:['Polyfork','Polyspoon'],
 };
 
 export const engineLoop:Step[]=[

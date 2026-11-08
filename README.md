@@ -11,7 +11,7 @@
 
 The Polyfork forest rabbit is on the left. The Polyspoon rabbit is on the right. The sculpt engine builds it as one closed mesh: body, legs, ears and tail share one surface.
 
-The shape is closer. The ears, eyes, mouth and tail still need work. If you can make the generator better, please help. One pull request improves every model that uses it. Start with [Improve the engine](CONTRIBUTING.md#improve-the-engine).
+Ears, eyes and tail still need work. One pull request to the engine improves every model that uses it. Start with [Improve the engine](CONTRIBUTING.md#improve-the-engine).
 
 <p align="center">
   <img src="docs/images/rabbit-engine-compare.png" width="820" alt="Polyfork forest rabbit beside the Polyspoon rabbit, three-quarter and side." />
