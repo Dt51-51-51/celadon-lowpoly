@@ -6,9 +6,12 @@ import { treasureChestRecipe } from '../../examples/recipes/treasure-chest/index
 import { wheelbarrowRecipe } from '../../examples/recipes/wheelbarrow/index.ts';
 import { stoneWellRecipe } from '../../examples/recipes/stone-well/index.ts';
 import { coniferRecipe } from '../../examples/recipes/conifer/index.ts';
+import { rockClusterRecipe } from '../../examples/recipes/rock-cluster/index.ts';
+import { hydrangeaRecipe } from '../../examples/recipes/hydrangea/index.ts';
+import { rabbitRecipe } from '../../examples/recipes/stylized-rabbit/index.ts';
 import { humanoidRecipe,foxRecipe } from './rigged.ts';
 export type { Recipe, RecipeCase } from './types.ts';
 
 export const registry = new RecipeRegistry();
-for (const entry of [lanternRecipe,cottageRecipe,treeRecipe,fenceRecipe,crateRecipe,boulderRecipe,benchRecipe,planterRecipe,treasureChestRecipe,wheelbarrowRecipe,stoneWellRecipe,coniferRecipe,humanoidRecipe,foxRecipe]) registry.register(entry);
+for (const entry of [lanternRecipe,cottageRecipe,treeRecipe,fenceRecipe,crateRecipe,boulderRecipe,benchRecipe,planterRecipe,treasureChestRecipe,wheelbarrowRecipe,stoneWellRecipe,coniferRecipe,rockClusterRecipe,hydrangeaRecipe,humanoidRecipe,foxRecipe,rabbitRecipe]) registry.register(entry);
 export const recipe = (id: string) => registry.get(id);

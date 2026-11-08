@@ -193,7 +193,7 @@ export const rabbitRecipe: Recipe = {
   },
   build, load, finalize, validationCases: [{id: 'default', name: 'Default proportions', parameters: {}}], integrationCases: [],
   constraints: ['Flat-ground paw contact only', 'Shares the four-paw quadruped rig contract with the fox'],
-  presentation: {category: 'animal', order: 102, kitIds: []},
+  presentation: {category: 'Animals', order: 102, kitIds: []},
   source: {entry: 'examples/recipes/stylized-rabbit/index.ts', exportName: 'rabbitRecipe'},
 };
 

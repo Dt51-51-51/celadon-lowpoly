@@ -8,7 +8,6 @@ import {modelStats} from './model-stats.ts';
 import type {PrivateObjects} from './types.ts';
 import {displayTitle,preferredSafetyPreview,SAFETY_PREVIEW_NAMES} from './catalog-presentation.ts';
 
-type Metadata={recipe_id:string;recipe_version:string;model_type:string;style_id:string|null};
 type Row={id:string;asset_id:string;title:string;kind:string;published_at:number|null;votes:number;voted:number;type:string|null;style:string|null;metadataSource:string;subject:string};
 type Artifact={version_id:string;path:string;sha256:string;bytes:number;media_type:string};
 type Facet={value:string;label:string;count:number};
@@ -19,7 +18,7 @@ export async function catalogDiscovery(request:Request,env:Env,actor:Principal|n
  for(const key of params.keys())if(!allowed.includes(key)||params.getAll(key).length!==1)throw new HttpError(400,'invalid_catalog_query');
  const rawQuery=params.get('q')??'';if(rawQuery.length>100)throw new HttpError(400,'query_too_long');const sort=params.get('sort')??'new';if(!['new','top'].includes(sort))throw new HttpError(400,'invalid_catalog_sort');const query=rawQuery.trim(),type=params.get('type')??'',style=params.get('style')??'',rawOffset=params.get('offset')??'0',offset=Number(rawOffset),limit=24;
  if(!/^(0|[1-9][0-9]*)$/.test(rawOffset)||!Number.isSafeInteger(offset)||offset>100000)throw new HttpError(400,'invalid_catalog_offset');
- const metadata=(await env.DB.prepare('SELECT recipe_id,recipe_version,model_type,style_id FROM catalog_recipe_metadata ORDER BY recipe_id').all<Metadata>()).results,types=new Set([...metadata.map(row=>row.model_type),'unclassified']),styles=new Set(Object.keys(styleLabels));
+ const known=(await env.DB.prepare('SELECT model_type FROM catalog_family_type UNION SELECT model_type FROM catalog_recipe_metadata WHERE recipe_id NOT IN (SELECT family FROM catalog_family_type)').all<{model_type:string}>()).results,types=new Set([...known.map(row=>row.model_type),'unclassified']),styles=new Set(Object.keys(styleLabels));
  if(type&&!types.has(type))throw new HttpError(400,'invalid_catalog_type');if(style&&!styles.has(style))throw new HttpError(400,'invalid_catalog_style');
  const where="(instr(lower(d.title),lower(?))>0 OR instr(lower(replace(replace(d.title,'--',' '),'-',' ')),lower(replace(replace(?,'--',' '),'-',' ')))>0) AND (?='' OR COALESCE(d.model_type,'unclassified')=?) AND (?='' OR COALESCE(d.style_id,'unclassified')=?)",bindings=[query,query,type,type,style,style];
  const results=await env.DB.batch<Record<string,unknown>>([
