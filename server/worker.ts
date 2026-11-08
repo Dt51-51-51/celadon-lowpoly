@@ -22,7 +22,7 @@ import {publicResponse,protectedDocument,documentNavigation,publicCatalogRead} f
 
 export function json(value:unknown,status=200):Response{return new Response(JSON.stringify(value),{status,headers:{'content-type':'application/json; charset=utf-8'}});}
 function secured(response:Response):Response {
- const headers=new Headers(response.headers);headers.set('cache-control','private, no-store');headers.set('vary','Cookie, Authorization');headers.set('x-content-type-options','nosniff');headers.set('referrer-policy','same-origin');
+ const headers=new Headers(response.headers),immutable=response.ok&&headers.get('cache-control')==='public, max-age=31536000, immutable';if(!immutable){headers.set('cache-control','private, no-store');headers.set('vary','Cookie, Authorization');}headers.set('x-content-type-options','nosniff');headers.set('referrer-policy','same-origin');
  return new Response(response.body,{status:response.status,statusText:response.statusText,headers});
 }
 export default {
