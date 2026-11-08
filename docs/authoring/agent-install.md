@@ -2,7 +2,7 @@
 
 On the local site's `/docs` page, select your agent app and copy the setup request. Add your model request before sending it. Your agent downloads one archive, inspects it, installs the project skill and bootstraps the local toolkit. Select setup text is available for manual copying. The optional Markdown guides are references, not three required downloads.
 
-The single archive is `agent-bundles/polyspoon-agent-3.zip`, relative to the site's base URL. With a local Vite server, use that server's actual origin. `VITE_POLYSPOON_ORIGIN` can set an explicit HTTP(S) distribution base, including a path prefix. The copyable request and download link use the same base. Routes on `polyspoon.com` are future deployment paths; no hosted installer or protected catalog is claimed to be live.
+The single archive is `agent-bundles/polyspoon-agent-4.zip`, relative to the site's base URL. With a local Vite server, use that server's actual origin. `VITE_POLYSPOON_ORIGIN` can set an explicit HTTP(S) distribution base, including a path prefix. The copyable request and download link use the same base. Routes on `polyspoon.com` are future deployment paths; no hosted installer or protected catalog is claimed to be live.
 
 ## One archive, project installation
 

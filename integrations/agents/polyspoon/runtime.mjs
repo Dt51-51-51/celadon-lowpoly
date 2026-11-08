@@ -10,8 +10,8 @@ if((await readFile(join(toolkit,'.polyspoon-archive'),'utf8')).trim()!==installe
 await import(pathToFileURL(join(compiled,'scripts/node-platform.js')).href);
 const engine=await import(pathToFileURL(join(compiled,'src/catalog/index.js')).href);
 const deliveryRevision=installedState.toolkit.deliveryRevision;
-if(![2,3].includes(deliveryRevision))throw Error('Unsupported source delivery revision');
-const exportAsset=deliveryRevision===3?(await import(pathToFileURL(join(compiled,'src/catalog/delivery.js')).href)).exportDeliverable:(await import(pathToFileURL(join(compiled,'src/catalog/export.js')).href)).exportAsset;
+if(![2,3,4].includes(deliveryRevision))throw Error('Unsupported source delivery revision');
+const exportAsset=deliveryRevision>=3?(await import(pathToFileURL(join(compiled,'src/catalog/delivery.js')).href)).exportDeliverable:(await import(pathToFileURL(join(compiled,'src/catalog/export.js')).href)).exportAsset;
 const {designInput}=await import(pathToFileURL(join(compiled,'src/catalog/appearance.js')).href);
 const {inspectGeometry}=await import(pathToFileURL(join(compiled,'src/lantern/inspect.js')).href);
 const [command,...rest]=process.argv.slice(2);

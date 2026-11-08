@@ -23,5 +23,5 @@ test('public landing copy stays free of private catalog imports and unverifiable
  const sources=await readFile('hosted/public/content.ts','utf8')+await readFile('hosted/public/main.ts','utf8');
  assert.doesNotMatch(sources,/from '\.\.\/\.\.\/src\/(catalog|recipes|families|studio)/);
  assert.ok(Object.values(repository).every(url=>url.startsWith('https://')&&url.includes('DITlieD/polyspoon')));
- assert.ok(sources.includes("'/agent-bundles/polyspoon-agent-3.zip'"));
+ assert.ok(sources.includes("'/agent-bundles/polyspoon-agent-4.zip'"));
 });

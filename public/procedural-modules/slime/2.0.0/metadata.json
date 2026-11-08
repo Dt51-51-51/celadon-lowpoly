@@ -1,0 +1,859 @@
+{
+  "formatVersion": 1,
+  "semantics": {
+    "version": 1,
+    "identity": {
+      "family": "slime",
+      "recipeVersion": "2.0.0"
+    },
+    "coordinates": {
+      "lengthUnit": "m",
+      "up": "+Y",
+      "front": "+Z",
+      "origin": "ground-center",
+      "anchorSpace": "root"
+    },
+    "controls": [
+      {
+        "key": "height",
+        "label": "Height",
+        "kind": "range",
+        "group": "shape",
+        "min": 0.3,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 0.7,
+        "hint": "Ground to tip.",
+        "affects": [
+          "geometry"
+        ],
+        "targets": [
+          "body"
+        ],
+        "unit": "m",
+        "inputUnit": "m",
+        "displayUnit": "m"
+      },
+      {
+        "key": "width",
+        "label": "Width",
+        "kind": "range",
+        "group": "shape",
+        "min": 0.6,
+        "max": 1.6,
+        "step": 0.01,
+        "default": 0.9,
+        "hint": "Body diameter as a multiple of height.",
+        "affects": [
+          "geometry"
+        ],
+        "targets": [
+          "body"
+        ],
+        "unit": "ratio",
+        "inputUnit": "dimensionless",
+        "displayUnit": "ratio"
+      },
+      {
+        "key": "form",
+        "label": "Form",
+        "kind": "choice",
+        "group": "construction",
+        "default": "drop",
+        "options": [
+          {
+            "value": "drop",
+            "label": "Dew drop"
+          },
+          {
+            "value": "dome",
+            "label": "Dome"
+          },
+          {
+            "value": "lumpy",
+            "label": "Lumpy"
+          }
+        ],
+        "hint": "Pointed drop with a curled tip, a wide jelly dome, or a lumpy multi-lobed blob.",
+        "affects": [
+          "geometry"
+        ],
+        "targets": [
+          "body"
+        ],
+        "unit": "none",
+        "inputUnit": "none",
+        "displayUnit": "none"
+      },
+      {
+        "key": "mood",
+        "label": "Mood",
+        "kind": "choice",
+        "group": "construction",
+        "default": "happy",
+        "options": [
+          {
+            "value": "happy",
+            "label": "Happy"
+          },
+          {
+            "value": "sleepy",
+            "label": "Sleepy"
+          },
+          {
+            "value": "angry",
+            "label": "Angry"
+          }
+        ],
+        "hint": "Eyes and mouth.",
+        "affects": [
+          "geometry"
+        ],
+        "targets": [
+          "eye",
+          "pupil"
+        ],
+        "unit": "none",
+        "inputUnit": "none",
+        "displayUnit": "none"
+      },
+      {
+        "key": "eyeSize",
+        "label": "Eye size",
+        "kind": "range",
+        "group": "shape",
+        "min": 0.08,
+        "max": 0.2,
+        "step": 0.005,
+        "default": 0.13,
+        "hint": "Eye radius as a fraction of height.",
+        "affects": [
+          "geometry"
+        ],
+        "targets": [
+          "eye",
+          "pupil"
+        ],
+        "unit": "ratio",
+        "inputUnit": "dimensionless",
+        "displayUnit": "ratio"
+      },
+      {
+        "key": "crown",
+        "label": "Crown",
+        "kind": "toggle",
+        "group": "construction",
+        "default": false,
+        "hint": "A little gold crown on top.",
+        "affects": [
+          "topology"
+        ],
+        "targets": [
+          "accent",
+          "glow"
+        ],
+        "unit": "none",
+        "inputUnit": "none",
+        "displayUnit": "none"
+      },
+      {
+        "key": "crust",
+        "label": "Rock crust",
+        "kind": "toggle",
+        "group": "construction",
+        "default": false,
+        "hint": "Cooled rock plates with glowing cracks.",
+        "affects": [
+          "geometry"
+        ],
+        "targets": [
+          "accent",
+          "glow"
+        ],
+        "unit": "none",
+        "inputUnit": "none",
+        "displayUnit": "none"
+      },
+      {
+        "key": "seed",
+        "label": "Variation seed",
+        "kind": "integer",
+        "group": "construction",
+        "min": 0,
+        "max": 65535,
+        "step": 1,
+        "default": 7,
+        "hint": "Repeatable lobes, drips and plates.",
+        "affects": [
+          "geometry"
+        ],
+        "targets": [
+          "body"
+        ],
+        "unit": "seed",
+        "inputUnit": "integer",
+        "displayUnit": "seed"
+      },
+      {
+        "key": "colorway",
+        "label": "Palette",
+        "kind": "choice",
+        "group": "colors",
+        "default": "lime",
+        "options": [
+          {
+            "value": "lime",
+            "label": "Lime"
+          },
+          {
+            "value": "azure",
+            "label": "Azure"
+          },
+          {
+            "value": "magma",
+            "label": "Magma"
+          }
+        ],
+        "hint": "Slime colors.",
+        "affects": [
+          "material"
+        ],
+        "targets": [
+          "body",
+          "shine",
+          "eye",
+          "pupil",
+          "accent",
+          "glow"
+        ],
+        "unit": "none",
+        "inputUnit": "none",
+        "displayUnit": "none"
+      },
+      {
+        "key": "color.body",
+        "label": "Body",
+        "kind": "color",
+        "group": "colors",
+        "default": "#6fcf4f",
+        "role": "body",
+        "hint": "Jelly body and drips.",
+        "affects": [
+          "material"
+        ],
+        "targets": [
+          "body"
+        ],
+        "unit": "color",
+        "inputUnit": "color",
+        "displayUnit": "color"
+      },
+      {
+        "key": "color.shine",
+        "label": "Shine",
+        "kind": "color",
+        "group": "colors",
+        "default": "#c9f5a8",
+        "role": "shine",
+        "hint": "Highlights and bubbles.",
+        "affects": [
+          "material"
+        ],
+        "targets": [
+          "shine"
+        ],
+        "unit": "color",
+        "inputUnit": "color",
+        "displayUnit": "color"
+      },
+      {
+        "key": "color.eye",
+        "label": "Eye",
+        "kind": "color",
+        "group": "colors",
+        "default": "#fbfbf6",
+        "role": "eye",
+        "hint": "Eye whites.",
+        "affects": [
+          "material"
+        ],
+        "targets": [
+          "eye"
+        ],
+        "unit": "color",
+        "inputUnit": "color",
+        "displayUnit": "color"
+      },
+      {
+        "key": "color.pupil",
+        "label": "Pupil",
+        "kind": "color",
+        "group": "colors",
+        "default": "#1f2a24",
+        "role": "pupil",
+        "hint": "Pupils, brows and mouth.",
+        "affects": [
+          "material"
+        ],
+        "targets": [
+          "pupil"
+        ],
+        "unit": "color",
+        "inputUnit": "color",
+        "displayUnit": "color"
+      },
+      {
+        "key": "color.accent",
+        "label": "Accent",
+        "kind": "color",
+        "group": "colors",
+        "default": "#3d8a3a",
+        "role": "accent",
+        "hint": "Leaf sprout, crown or rock crust.",
+        "affects": [
+          "material"
+        ],
+        "targets": [
+          "accent"
+        ],
+        "unit": "color",
+        "inputUnit": "color",
+        "displayUnit": "color"
+      },
+      {
+        "key": "color.glow",
+        "label": "Glow",
+        "kind": "color",
+        "group": "colors",
+        "default": "#ff8fa3",
+        "role": "glow",
+        "hint": "Gems, cheeks and lava cracks.",
+        "affects": [
+          "material"
+        ],
+        "targets": [
+          "glow"
+        ],
+        "unit": "color",
+        "inputUnit": "color",
+        "displayUnit": "color"
+      }
+    ],
+    "anchors": {
+      "ground": [
+        0,
+        0,
+        0
+      ],
+      "top": [
+        0,
+        0.7458615516297868,
+        0
+      ]
+    },
+    "materials": [
+      {
+        "id": "body"
+      },
+      {
+        "id": "glow"
+      }
+    ],
+    "parts": [
+      {
+        "id": "slime-body",
+        "node": "slime-body",
+        "materialId": "body",
+        "material": "body",
+        "group": "static"
+      },
+      {
+        "id": "slime-glow",
+        "node": "slime-glow",
+        "materialId": "glow",
+        "material": "glow",
+        "group": "static"
+      }
+    ],
+    "joints": [],
+    "delivery": {
+      "version": 1,
+      "mode": "editable",
+      "identity": "node-per-part",
+      "movingGroups": "separate"
+    }
+  },
+  "id": "slime",
+  "version": "2.0.0",
+  "title": "Slime creature",
+  "description": "A jelly slime sculpted as one closed body, with a puddled base, drips, expressive eyes and mouth, and an optional crown or rock crust.",
+  "controls": [
+    {
+      "key": "height",
+      "label": "Height",
+      "kind": "range",
+      "group": "shape",
+      "min": 0.3,
+      "max": 1.4,
+      "step": 0.01,
+      "default": 0.7,
+      "hint": "Ground to tip.",
+      "affects": [
+        "geometry"
+      ],
+      "targets": [
+        "body"
+      ],
+      "unit": "m",
+      "inputUnit": "m",
+      "displayUnit": "m"
+    },
+    {
+      "key": "width",
+      "label": "Width",
+      "kind": "range",
+      "group": "shape",
+      "min": 0.6,
+      "max": 1.6,
+      "step": 0.01,
+      "default": 0.9,
+      "hint": "Body diameter as a multiple of height.",
+      "affects": [
+        "geometry"
+      ],
+      "targets": [
+        "body"
+      ],
+      "unit": "ratio",
+      "inputUnit": "dimensionless",
+      "displayUnit": "ratio"
+    },
+    {
+      "key": "form",
+      "label": "Form",
+      "kind": "choice",
+      "group": "construction",
+      "default": "drop",
+      "options": [
+        {
+          "value": "drop",
+          "label": "Dew drop"
+        },
+        {
+          "value": "dome",
+          "label": "Dome"
+        },
+        {
+          "value": "lumpy",
+          "label": "Lumpy"
+        }
+      ],
+      "hint": "Pointed drop with a curled tip, a wide jelly dome, or a lumpy multi-lobed blob.",
+      "affects": [
+        "geometry"
+      ],
+      "targets": [
+        "body"
+      ],
+      "unit": "none",
+      "inputUnit": "none",
+      "displayUnit": "none"
+    },
+    {
+      "key": "mood",
+      "label": "Mood",
+      "kind": "choice",
+      "group": "construction",
+      "default": "happy",
+      "options": [
+        {
+          "value": "happy",
+          "label": "Happy"
+        },
+        {
+          "value": "sleepy",
+          "label": "Sleepy"
+        },
+        {
+          "value": "angry",
+          "label": "Angry"
+        }
+      ],
+      "hint": "Eyes and mouth.",
+      "affects": [
+        "geometry"
+      ],
+      "targets": [
+        "eye",
+        "pupil"
+      ],
+      "unit": "none",
+      "inputUnit": "none",
+      "displayUnit": "none"
+    },
+    {
+      "key": "eyeSize",
+      "label": "Eye size",
+      "kind": "range",
+      "group": "shape",
+      "min": 0.08,
+      "max": 0.2,
+      "step": 0.005,
+      "default": 0.13,
+      "hint": "Eye radius as a fraction of height.",
+      "affects": [
+        "geometry"
+      ],
+      "targets": [
+        "eye",
+        "pupil"
+      ],
+      "unit": "ratio",
+      "inputUnit": "dimensionless",
+      "displayUnit": "ratio"
+    },
+    {
+      "key": "crown",
+      "label": "Crown",
+      "kind": "toggle",
+      "group": "construction",
+      "default": false,
+      "hint": "A little gold crown on top.",
+      "affects": [
+        "topology"
+      ],
+      "targets": [
+        "accent",
+        "glow"
+      ],
+      "unit": "none",
+      "inputUnit": "none",
+      "displayUnit": "none"
+    },
+    {
+      "key": "crust",
+      "label": "Rock crust",
+      "kind": "toggle",
+      "group": "construction",
+      "default": false,
+      "hint": "Cooled rock plates with glowing cracks.",
+      "affects": [
+        "geometry"
+      ],
+      "targets": [
+        "accent",
+        "glow"
+      ],
+      "unit": "none",
+      "inputUnit": "none",
+      "displayUnit": "none"
+    },
+    {
+      "key": "seed",
+      "label": "Variation seed",
+      "kind": "integer",
+      "group": "construction",
+      "min": 0,
+      "max": 65535,
+      "step": 1,
+      "default": 7,
+      "hint": "Repeatable lobes, drips and plates.",
+      "affects": [
+        "geometry"
+      ],
+      "targets": [
+        "body"
+      ],
+      "unit": "seed",
+      "inputUnit": "integer",
+      "displayUnit": "seed"
+    },
+    {
+      "key": "colorway",
+      "label": "Palette",
+      "kind": "choice",
+      "group": "colors",
+      "default": "lime",
+      "options": [
+        {
+          "value": "lime",
+          "label": "Lime"
+        },
+        {
+          "value": "azure",
+          "label": "Azure"
+        },
+        {
+          "value": "magma",
+          "label": "Magma"
+        }
+      ],
+      "hint": "Slime colors.",
+      "affects": [
+        "material"
+      ],
+      "targets": [
+        "body",
+        "shine",
+        "eye",
+        "pupil",
+        "accent",
+        "glow"
+      ],
+      "unit": "none",
+      "inputUnit": "none",
+      "displayUnit": "none"
+    },
+    {
+      "key": "color.body",
+      "label": "Body",
+      "kind": "color",
+      "group": "colors",
+      "default": "#6fcf4f",
+      "role": "body",
+      "hint": "Jelly body and drips.",
+      "affects": [
+        "material"
+      ],
+      "targets": [
+        "body"
+      ],
+      "unit": "color",
+      "inputUnit": "color",
+      "displayUnit": "color"
+    },
+    {
+      "key": "color.shine",
+      "label": "Shine",
+      "kind": "color",
+      "group": "colors",
+      "default": "#c9f5a8",
+      "role": "shine",
+      "hint": "Highlights and bubbles.",
+      "affects": [
+        "material"
+      ],
+      "targets": [
+        "shine"
+      ],
+      "unit": "color",
+      "inputUnit": "color",
+      "displayUnit": "color"
+    },
+    {
+      "key": "color.eye",
+      "label": "Eye",
+      "kind": "color",
+      "group": "colors",
+      "default": "#fbfbf6",
+      "role": "eye",
+      "hint": "Eye whites.",
+      "affects": [
+        "material"
+      ],
+      "targets": [
+        "eye"
+      ],
+      "unit": "color",
+      "inputUnit": "color",
+      "displayUnit": "color"
+    },
+    {
+      "key": "color.pupil",
+      "label": "Pupil",
+      "kind": "color",
+      "group": "colors",
+      "default": "#1f2a24",
+      "role": "pupil",
+      "hint": "Pupils, brows and mouth.",
+      "affects": [
+        "material"
+      ],
+      "targets": [
+        "pupil"
+      ],
+      "unit": "color",
+      "inputUnit": "color",
+      "displayUnit": "color"
+    },
+    {
+      "key": "color.accent",
+      "label": "Accent",
+      "kind": "color",
+      "group": "colors",
+      "default": "#3d8a3a",
+      "role": "accent",
+      "hint": "Leaf sprout, crown or rock crust.",
+      "affects": [
+        "material"
+      ],
+      "targets": [
+        "accent"
+      ],
+      "unit": "color",
+      "inputUnit": "color",
+      "displayUnit": "color"
+    },
+    {
+      "key": "color.glow",
+      "label": "Glow",
+      "kind": "color",
+      "group": "colors",
+      "default": "#ff8fa3",
+      "role": "glow",
+      "hint": "Gems, cheeks and lava cracks.",
+      "affects": [
+        "material"
+      ],
+      "targets": [
+        "glow"
+      ],
+      "unit": "color",
+      "inputUnit": "color",
+      "displayUnit": "color"
+    }
+  ],
+  "defaults": {
+    "height": 0.7,
+    "width": 0.9,
+    "form": "drop",
+    "mood": "happy",
+    "eyeSize": 0.13,
+    "crown": false,
+    "crust": false,
+    "seed": 7,
+    "colorway": "lime",
+    "color.body": "#6fcf4f",
+    "color.shine": "#c9f5a8",
+    "color.eye": "#fbfbf6",
+    "color.pupil": "#1f2a24",
+    "color.accent": "#3d8a3a",
+    "color.glow": "#ff8fa3"
+  },
+  "presets": [
+    {
+      "id": "dew",
+      "name": "Dew slime",
+      "description": "Green happy dew drop with a curled tip and a leaf sprout.",
+      "parameters": {}
+    },
+    {
+      "id": "king",
+      "name": "King slime",
+      "description": "Wide sleepy blue dome wearing a gold crown.",
+      "parameters": {
+        "height": 0.95,
+        "width": 1.45,
+        "form": "dome",
+        "mood": "sleepy",
+        "eyeSize": 0.14,
+        "crown": true,
+        "colorway": "azure",
+        "seed": 11
+      }
+    },
+    {
+      "id": "magma",
+      "name": "Magma blob",
+      "description": "Lumpy angry lava blob under cooled rock plates with glowing cracks.",
+      "parameters": {
+        "height": 0.8,
+        "width": 1.05,
+        "form": "lumpy",
+        "mood": "angry",
+        "eyeSize": 0.11,
+        "crust": true,
+        "colorway": "magma",
+        "seed": 29
+      }
+    }
+  ],
+  "palettes": [
+    {
+      "id": "lime",
+      "label": "Lime",
+      "colors": [
+        "#6fcf4f",
+        "#c9f5a8"
+      ],
+      "parameters": {
+        "color.body": "#6fcf4f",
+        "color.shine": "#c9f5a8",
+        "color.eye": "#fbfbf6",
+        "color.pupil": "#1f2a24",
+        "color.accent": "#3d8a3a",
+        "color.glow": "#ff8fa3"
+      }
+    },
+    {
+      "id": "azure",
+      "label": "Azure",
+      "colors": [
+        "#3f8ee0",
+        "#bfe0ff"
+      ],
+      "parameters": {
+        "color.body": "#3f8ee0",
+        "color.shine": "#bfe0ff",
+        "color.eye": "#fbfbf6",
+        "color.pupil": "#1b2233",
+        "color.accent": "#f0c445",
+        "color.glow": "#e8344f"
+      }
+    },
+    {
+      "id": "magma",
+      "label": "Magma",
+      "colors": [
+        "#ff6a1a",
+        "#ffd06a"
+      ],
+      "parameters": {
+        "color.body": "#ff6a1a",
+        "color.shine": "#ffd06a",
+        "color.eye": "#fff3c4",
+        "color.pupil": "#2a1410",
+        "color.accent": "#3a302c",
+        "color.glow": "#ffb020"
+      }
+    }
+  ],
+  "constraints": [
+    "Eyes and mouth sit on the front (+Z) of one closed sculpted body."
+  ],
+  "dependencies": {
+    "three": "0.186.1"
+  },
+  "configuration": {
+    "kind": "default"
+  },
+  "source": {
+    "entry": "examples/recipes/slime/index.ts",
+    "exportName": "slimeRecipe",
+    "sha256": "766b12edbbdb5c47eedc3c7db995409befe1c91198b25c035972d5d75a54a66d",
+    "files": {
+      "examples/recipes/slime/index.ts": "f1e91b90c255c6e1fa33b96dc48351a53ede90f53f45b53926076da0e3807c6c",
+      "src/catalog/appearance.ts": "5b482d99e316a94919c0a4e09bd2dff145be47b245551a6b4a9c2ea85de5b6f5",
+      "src/catalog/build.ts": "14aadccd4bfd1739a95276360c45e78afbe1e68ff840b6b748f0909628851f5f",
+      "src/catalog/semantics.ts": "ac6da1ff7d612b626b54b2d9f86996da638052d0064dbc184f90aa10b1ee6517",
+      "src/catalog/types.ts": "57984d79ed766ed5b8ed648ef8113e5fdd30e4db7b75370a586e55d1e2f3bd0b",
+      "src/engine/geometry.ts": "8b7375d6bc43fb43a3123a9cd2c89efda406cb4a6632c320fec9584bd9ce399b",
+      "src/engine/parameters.ts": "54ecaf8c19361fb3ad8ceeae255f932e63e17023624e2c99d59347813d062a37",
+      "src/engine/sculpt/body.ts": "245357f19b2cfb4b10d14309e5fbde806b9232f3cbd3b200ae698389d0975c0e",
+      "src/engine/sculpt/decal.ts": "2f004843472b86ee11d444160ab21f70333019c06dec4f378d534210ed909bde",
+      "src/engine/sculpt/field.ts": "62b2a28619b8b7fa1b9e26208df36bda6719ab75dac331084eed8e6bd8378e93",
+      "src/engine/sculpt/nets.ts": "67be8b850cd6ddf2d1e9080dcf9d621bda839922e1130435467c128b36ee3653",
+      "src/engine/sculpt/reduce.ts": "1cac760677f88b3faf50823c3be6f7b77db1d1462fa6c819c1e223f42f3e6116",
+      "src/engine/sculpt/relax.ts": "f5e8d7c37a29020fe5bc205a85d3f8d652562760792015fa4c910aa0ffd532a8",
+      "src/engine/sculpt/remesh.ts": "aded1daa033799eef88e5c6287daa33bade0ed46f473f51bfa64889992d63f11",
+      "src/engine/sculpt/seams.ts": "822d339e4e2cfa5aeb784063f42c1d886826b0dc1867b6cbcb4dfed7bde2d85d",
+      "src/engine/sculpt/topology.ts": "760d55a317319baf020d489c949fb43496722d9cefc32469da6c16ddeda88653",
+      "src/recipes/types.ts": "cf3704bb5d069ad820890a5304ff41d1eba59d9793ce57551a9e617ccc89781e"
+    }
+  },
+  "licenses": {
+    "software": "Apache-2.0",
+    "content": "CC0-1.0",
+    "thirdParty": "Three ConvexGeometry/ConvexHull and BufferGeometryUtils MIT; see THIRD-PARTY.txt"
+  }
+}

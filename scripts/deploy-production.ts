@@ -1,7 +1,7 @@
-// One-command preflight deploy: build -> prepare -> register private app -> deploy -> smoke -> rollback on failure.
+// One-command production deploy: build -> prepare -> back up and apply pending migrations -> register private app -> deploy -> smoke -> rollback on failure.
 // Usage (from the product checkout, on the operator machine):
-//   node --import tsx scripts/deploy-preflight.ts            # full deploy to https://preflight.polyspoon.com
-//   node --import tsx scripts/deploy-preflight.ts --dry-run  # build + prepare + checks only, no remote writes
+//   node --import tsx scripts/deploy-production.ts            # full deploy to https://polyspoon.com and https://www.polyspoon.com
+//   node --import tsx scripts/deploy-production.ts --dry-run  # build + prepare + checks only, no remote writes
 // Private inputs live in ~/.polyspoon-deploy (bindings.json, supabase-service-key); never printed.
 import {mkdir,readFile,writeFile,lstat} from 'node:fs/promises';
 import {join,resolve,dirname} from 'node:path';
@@ -11,22 +11,16 @@ import {fileURLToPath,pathToFileURL} from 'node:url';
 import {verifyHostedRelease,productionConfiguration} from '../server/deployment.ts';
 import {deriveAndCheckPublicFiles} from './public-allowlist.ts';
 
-export const PREFLIGHT_HOST='preflight.polyspoon.com';
-type Config=ReturnType<typeof productionConfiguration>;
-export function preflightConfiguration(config:Config,host=PREFLIGHT_HOST):Config{
- return {...config,routes:[{pattern:host,custom_domain:true}],vars:{...config.vars,APP_ORIGIN:'https://'+host}};
-}
-export type SmokeCheck={path:string;status:number};
-export function smokePlan(references:string[]):SmokeCheck[]{
- return [{path:'/',status:200},{path:'/docs',status:200},...references.map(path=>({path,status:200})),{path:'/api/catalog',status:200}];
-}
-export async function runSmoke(origin:string,checks:SmokeCheck[],fetcher:typeof fetch=fetch){
- const failures:string[]=[];for(const check of checks){let status=0;try{status=(await fetcher(new URL(check.path,origin),{redirect:'manual',headers:{'cache-control':'no-cache'}})).status;}catch{status=-1;}if(status!==check.status)failures.push(`${check.path} expected ${check.status} got ${status}`);}return failures;
+import {smokePlan,runSmoke} from './deploy-preflight.ts';
+import {readdir} from 'node:fs/promises';
+/** Migration files that the remote d1_migrations table has not recorded yet, in file order. */
+export function pendingMigrations(files:string[],applied:string[]):string[]{
+ const done=new Set(applied);return files.filter(name=>/^\d{4}_.+\.sql$/.test(name)).sort().filter(name=>!done.has(name));
 }
 const stamp=()=>{const d=new Date(),p=(n:number)=>String(n).padStart(2,'0');return `${p(d.getMonth()+1)}${p(d.getDate())}${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`;};
 function run(cmd:string,args:string[],opts:{cwd:string;input?:string;capture?:boolean}){
- const r=spawnSync(cmd,args,{cwd:opts.cwd,input:opts.input,encoding:'utf8',stdio:[opts.input===undefined?'inherit':'pipe',opts.capture?'pipe':'inherit','inherit'],maxBuffer:64*1024*1024});
- if(r.status!==0)throw Error(`command_failed: ${cmd} ${args.filter(a=>!a.startsWith('/home')).slice(0,3).join(' ')}`);return r.stdout??'';
+ const r=spawnSync(cmd,args,{cwd:opts.cwd,input:opts.input,encoding:'utf8',stdio:[opts.input===undefined?'ignore':'pipe',opts.capture?'pipe':'inherit','inherit'],maxBuffer:64*1024*1024});
+ if(r.status!==0)throw Error(`command_failed (status ${r.status??r.signal??r.error?.message}): ${cmd.split("/").at(-1)} ${args.filter(a=>!a.startsWith("/home")).slice(0,3).join(" ")}`);return r.stdout??'';
 }
 async function main(){
  const dryRun=process.argv.includes('--dry-run'),root=resolve(dirname(fileURLToPath(import.meta.url)),'..'),server=join(root,'server'),secrets=join(homedir(),'.polyspoon-deploy'),id=stamp();
@@ -42,9 +36,13 @@ async function main(){
  const cfg=join(out,'wrangler.production.json');await writeFile(cfg,JSON.stringify(config,null,2)+'\n',{mode:0o600,flag:'wx'});
  console.log(`   release ${release.releaseHash.slice(0,12)}, ${allowlist.length} public files, ${references.length} HTML/CSS references all allowlisted`);
  if(dryRun){console.log('dry run: stopping before remote writes. Config: '+cfg);return;}
- console.log('3/7 apply catalog presentation migration');
- const migration = await readFile(join(root,'migrations/0019_catalog_presentation.sql'),'utf8');
- for (const statement of migration.split(';').map(part => part.trim()).filter(Boolean)) run(wrangler,['d1','execute','polyspoon-production','--remote','-c',cfg,'--command',statement,'-y'],{cwd:server});
+ console.log('3/7 apply pending database migrations');
+ const appliedRows=JSON.parse(run(wrangler,['d1','execute','polyspoon-production','--remote','--json','-c',cfg,'--command','SELECT name FROM d1_migrations'],{cwd:server,capture:true})) as {results:{name:string}[]}[];
+ const pending=pendingMigrations(await readdir(join(root,'migrations')),appliedRows[0]?.results.map(row=>row.name)??[]);
+ if(pending.length){const backups=join(secrets,'backups');await mkdir(backups,{recursive:true,mode:0o700});
+  run(wrangler,['d1','export','polyspoon-production','--remote','-c',cfg,'--output',join(backups,`polyspoon-production-${id}-predeploy.sql`)],{cwd:server});
+  console.log('   applying '+pending.join(', '));run(wrangler,['d1','migrations','apply','polyspoon-production','--remote','-c',cfg],{cwd:server,input:'y\n'});}
+ else console.log('   none pending');
  console.log('4/7 register private app release if new');
  const count=run(wrangler,['d1','execute','polyspoon-production','--remote','--json','-c',cfg,'--command',`SELECT COUNT(*) AS n FROM app_asset WHERE release_hash='${release.releaseHash}'`],{cwd:server,capture:true});
  const n=Number((JSON.parse(count) as {results:{n:number}[]}[])[0]?.results[0]?.n??0);
@@ -57,7 +55,7 @@ async function main(){
  console.log('6/7 wrangler deploy');run(wrangler,['deploy','-c',cfg],{cwd:server});
  console.log('7/7 smoke test '+origin);const checks=smokePlan(references);let failures:string[]=[];
  for(let attempt=0;attempt<6;attempt++){await new Promise(r=>setTimeout(r,attempt?10000:5000));failures=await runSmoke(origin,checks);if(!failures.length)break;}
- if(failures.length){console.error('SMOKE FAILED:\n  '+failures.join('\n  ')+'\nRolling back to '+previous);run(wrangler,['rollback',previous,'-c',cfg,'-y','--message','deploy-preflight smoke failure'],{cwd:server});process.exitCode=1;return;}
+ if(failures.length){console.error('SMOKE FAILED:\n  '+failures.join('\n  ')+'\nRolling back to '+previous);run(wrangler,['rollback',previous,'-c',cfg,'-y','--message','deploy-production smoke failure'],{cwd:server});process.exitCode=1;return;}
  console.log(`OK: ${checks.length} smoke checks passed on ${origin} (release ${release.releaseHash.slice(0,12)}). Previous version ${previous}.`);
 }
-if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href)main().catch(error=>{console.error(error instanceof Error?error.message:'deploy_preflight_failed');process.exitCode=1;});
+if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href)main().catch(error=>{console.error(error instanceof Error?error.message:'deploy_production_failed');process.exitCode=1;});

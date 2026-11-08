@@ -1,0 +1,686 @@
+{
+  "formatVersion": 1,
+  "semantics": {
+    "version": 1,
+    "identity": {
+      "family": "rock-cluster",
+      "recipeVersion": "1.2.0"
+    },
+    "coordinates": {
+      "lengthUnit": "m",
+      "up": "+Y",
+      "front": "+Z",
+      "origin": "ground-center",
+      "anchorSpace": "root"
+    },
+    "controls": [
+      {
+        "key": "count",
+        "label": "Rocks",
+        "kind": "integer",
+        "group": "construction",
+        "min": 1,
+        "max": 9,
+        "step": 1,
+        "default": 5,
+        "hint": "Main stones in the cluster.",
+        "affects": [
+          "topology"
+        ],
+        "targets": [
+          "rock",
+          "pebble"
+        ],
+        "unit": "count",
+        "inputUnit": "integer",
+        "displayUnit": "count"
+      },
+      {
+        "key": "size",
+        "label": "Largest rock",
+        "kind": "range",
+        "group": "shape",
+        "min": 0.3,
+        "max": 3,
+        "step": 0.05,
+        "default": 1.2,
+        "hint": "Height of the largest stone.",
+        "affects": [
+          "geometry"
+        ],
+        "targets": [
+          "rock",
+          "pebble"
+        ],
+        "unit": "m",
+        "inputUnit": "m",
+        "displayUnit": "m"
+      },
+      {
+        "key": "spread",
+        "label": "Spread",
+        "kind": "range",
+        "group": "shape",
+        "min": 0.6,
+        "max": 2,
+        "step": 0.05,
+        "default": 1.1,
+        "hint": "How far stones spread from the center, relative to size.",
+        "affects": [
+          "geometry"
+        ],
+        "targets": [
+          "rock",
+          "pebble"
+        ],
+        "unit": "ratio",
+        "inputUnit": "dimensionless",
+        "displayUnit": "ratio"
+      },
+      {
+        "key": "flatness",
+        "label": "Flatness",
+        "kind": "range",
+        "group": "shape",
+        "min": 0.3,
+        "max": 1.2,
+        "step": 0.05,
+        "default": 0.7,
+        "hint": "Height to width of each stone. Low values make slabs.",
+        "affects": [
+          "geometry"
+        ],
+        "targets": [
+          "rock",
+          "pebble"
+        ],
+        "unit": "ratio",
+        "inputUnit": "dimensionless",
+        "displayUnit": "ratio"
+      },
+      {
+        "key": "pebbles",
+        "label": "Pebbles",
+        "kind": "integer",
+        "group": "construction",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "default": 6,
+        "hint": "Small grounded stones around the cluster.",
+        "affects": [
+          "topology"
+        ],
+        "targets": [
+          "pebble"
+        ],
+        "unit": "count",
+        "inputUnit": "integer",
+        "displayUnit": "count"
+      },
+      {
+        "key": "seed",
+        "label": "Variation seed",
+        "kind": "integer",
+        "group": "construction",
+        "min": 0,
+        "max": 65535,
+        "step": 1,
+        "default": 101,
+        "hint": "Repeatable facets and layout.",
+        "affects": [
+          "geometry"
+        ],
+        "targets": [
+          "rock",
+          "pebble"
+        ],
+        "unit": "seed",
+        "inputUnit": "integer",
+        "displayUnit": "seed"
+      },
+      {
+        "key": "colorway",
+        "label": "Palette",
+        "kind": "choice",
+        "group": "colors",
+        "default": "granite",
+        "options": [
+          {
+            "value": "granite",
+            "label": "Granite"
+          },
+          {
+            "value": "sandstone",
+            "label": "Sandstone"
+          },
+          {
+            "value": "basalt",
+            "label": "Basalt"
+          },
+          {
+            "value": "mossy",
+            "label": "Mossy"
+          }
+        ],
+        "hint": "Stone and moss colors.",
+        "affects": [
+          "material"
+        ],
+        "targets": [
+          "stone",
+          "moss"
+        ],
+        "unit": "none",
+        "inputUnit": "none",
+        "displayUnit": "none"
+      },
+      {
+        "key": "color.stone",
+        "label": "Stone",
+        "kind": "color",
+        "group": "colors",
+        "default": "#8d8a85",
+        "role": "stone",
+        "hint": "Main stone color.",
+        "affects": [
+          "material"
+        ],
+        "targets": [
+          "stone"
+        ],
+        "unit": "color",
+        "inputUnit": "color",
+        "displayUnit": "color"
+      },
+      {
+        "key": "color.accent",
+        "label": "Moss",
+        "kind": "color",
+        "group": "colors",
+        "default": "#6f6b66",
+        "role": "moss",
+        "hint": "Moss and weathered caps.",
+        "affects": [
+          "material"
+        ],
+        "targets": [
+          "moss"
+        ],
+        "unit": "color",
+        "inputUnit": "color",
+        "displayUnit": "color"
+      }
+    ],
+    "anchors": {
+      "ground": [
+        0,
+        0,
+        0
+      ],
+      "top": [
+        0,
+        1.2000000476837158,
+        0
+      ]
+    },
+    "materials": [
+      {
+        "id": "moss"
+      },
+      {
+        "id": "stone"
+      }
+    ],
+    "parts": [
+      {
+        "id": "rock-0",
+        "node": "rock-0",
+        "materialId": "stone",
+        "material": "stone",
+        "group": "static"
+      },
+      {
+        "id": "rock-0-moss",
+        "node": "rock-0-moss",
+        "materialId": "moss",
+        "material": "moss",
+        "group": "static"
+      },
+      {
+        "id": "rock-1",
+        "node": "rock-1",
+        "materialId": "stone",
+        "material": "stone",
+        "group": "static"
+      },
+      {
+        "id": "rock-1-moss",
+        "node": "rock-1-moss",
+        "materialId": "moss",
+        "material": "moss",
+        "group": "static"
+      },
+      {
+        "id": "rock-2",
+        "node": "rock-2",
+        "materialId": "stone",
+        "material": "stone",
+        "group": "static"
+      },
+      {
+        "id": "rock-2-moss",
+        "node": "rock-2-moss",
+        "materialId": "moss",
+        "material": "moss",
+        "group": "static"
+      },
+      {
+        "id": "rock-3",
+        "node": "rock-3",
+        "materialId": "stone",
+        "material": "stone",
+        "group": "static"
+      },
+      {
+        "id": "rock-3-moss",
+        "node": "rock-3-moss",
+        "materialId": "moss",
+        "material": "moss",
+        "group": "static"
+      },
+      {
+        "id": "rock-4",
+        "node": "rock-4",
+        "materialId": "stone",
+        "material": "stone",
+        "group": "static"
+      },
+      {
+        "id": "rock-4-moss",
+        "node": "rock-4-moss",
+        "materialId": "moss",
+        "material": "moss",
+        "group": "static"
+      },
+      {
+        "id": "pebble-0",
+        "node": "pebble-0",
+        "materialId": "stone",
+        "material": "stone",
+        "group": "static"
+      },
+      {
+        "id": "pebble-1",
+        "node": "pebble-1",
+        "materialId": "stone",
+        "material": "stone",
+        "group": "static"
+      },
+      {
+        "id": "pebble-2",
+        "node": "pebble-2",
+        "materialId": "stone",
+        "material": "stone",
+        "group": "static"
+      },
+      {
+        "id": "pebble-3",
+        "node": "pebble-3",
+        "materialId": "stone",
+        "material": "stone",
+        "group": "static"
+      },
+      {
+        "id": "pebble-4",
+        "node": "pebble-4",
+        "materialId": "stone",
+        "material": "stone",
+        "group": "static"
+      },
+      {
+        "id": "pebble-5",
+        "node": "pebble-5",
+        "materialId": "stone",
+        "material": "stone",
+        "group": "static"
+      }
+    ],
+    "joints": [],
+    "delivery": {
+      "version": 1,
+      "mode": "editable",
+      "identity": "node-per-part",
+      "movingGroups": "separate"
+    }
+  },
+  "id": "rock-cluster",
+  "version": "1.2.0",
+  "title": "Rock cluster",
+  "description": "Faceted stones and pebbles with moss on the surface.",
+  "controls": [
+    {
+      "key": "count",
+      "label": "Rocks",
+      "kind": "integer",
+      "group": "construction",
+      "min": 1,
+      "max": 9,
+      "step": 1,
+      "default": 5,
+      "hint": "Main stones in the cluster.",
+      "affects": [
+        "topology"
+      ],
+      "targets": [
+        "rock",
+        "pebble"
+      ],
+      "unit": "count",
+      "inputUnit": "integer",
+      "displayUnit": "count"
+    },
+    {
+      "key": "size",
+      "label": "Largest rock",
+      "kind": "range",
+      "group": "shape",
+      "min": 0.3,
+      "max": 3,
+      "step": 0.05,
+      "default": 1.2,
+      "hint": "Height of the largest stone.",
+      "affects": [
+        "geometry"
+      ],
+      "targets": [
+        "rock",
+        "pebble"
+      ],
+      "unit": "m",
+      "inputUnit": "m",
+      "displayUnit": "m"
+    },
+    {
+      "key": "spread",
+      "label": "Spread",
+      "kind": "range",
+      "group": "shape",
+      "min": 0.6,
+      "max": 2,
+      "step": 0.05,
+      "default": 1.1,
+      "hint": "How far stones spread from the center, relative to size.",
+      "affects": [
+        "geometry"
+      ],
+      "targets": [
+        "rock",
+        "pebble"
+      ],
+      "unit": "ratio",
+      "inputUnit": "dimensionless",
+      "displayUnit": "ratio"
+    },
+    {
+      "key": "flatness",
+      "label": "Flatness",
+      "kind": "range",
+      "group": "shape",
+      "min": 0.3,
+      "max": 1.2,
+      "step": 0.05,
+      "default": 0.7,
+      "hint": "Height to width of each stone. Low values make slabs.",
+      "affects": [
+        "geometry"
+      ],
+      "targets": [
+        "rock",
+        "pebble"
+      ],
+      "unit": "ratio",
+      "inputUnit": "dimensionless",
+      "displayUnit": "ratio"
+    },
+    {
+      "key": "pebbles",
+      "label": "Pebbles",
+      "kind": "integer",
+      "group": "construction",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "default": 6,
+      "hint": "Small grounded stones around the cluster.",
+      "affects": [
+        "topology"
+      ],
+      "targets": [
+        "pebble"
+      ],
+      "unit": "count",
+      "inputUnit": "integer",
+      "displayUnit": "count"
+    },
+    {
+      "key": "seed",
+      "label": "Variation seed",
+      "kind": "integer",
+      "group": "construction",
+      "min": 0,
+      "max": 65535,
+      "step": 1,
+      "default": 101,
+      "hint": "Repeatable facets and layout.",
+      "affects": [
+        "geometry"
+      ],
+      "targets": [
+        "rock",
+        "pebble"
+      ],
+      "unit": "seed",
+      "inputUnit": "integer",
+      "displayUnit": "seed"
+    },
+    {
+      "key": "colorway",
+      "label": "Palette",
+      "kind": "choice",
+      "group": "colors",
+      "default": "granite",
+      "options": [
+        {
+          "value": "granite",
+          "label": "Granite"
+        },
+        {
+          "value": "sandstone",
+          "label": "Sandstone"
+        },
+        {
+          "value": "basalt",
+          "label": "Basalt"
+        },
+        {
+          "value": "mossy",
+          "label": "Mossy"
+        }
+      ],
+      "hint": "Stone and moss colors.",
+      "affects": [
+        "material"
+      ],
+      "targets": [
+        "stone",
+        "moss"
+      ],
+      "unit": "none",
+      "inputUnit": "none",
+      "displayUnit": "none"
+    },
+    {
+      "key": "color.stone",
+      "label": "Stone",
+      "kind": "color",
+      "group": "colors",
+      "default": "#8d8a85",
+      "role": "stone",
+      "hint": "Main stone color.",
+      "affects": [
+        "material"
+      ],
+      "targets": [
+        "stone"
+      ],
+      "unit": "color",
+      "inputUnit": "color",
+      "displayUnit": "color"
+    },
+    {
+      "key": "color.accent",
+      "label": "Moss",
+      "kind": "color",
+      "group": "colors",
+      "default": "#6f6b66",
+      "role": "moss",
+      "hint": "Moss and weathered caps.",
+      "affects": [
+        "material"
+      ],
+      "targets": [
+        "moss"
+      ],
+      "unit": "color",
+      "inputUnit": "color",
+      "displayUnit": "color"
+    }
+  ],
+  "defaults": {
+    "count": 5,
+    "size": 1.2,
+    "spread": 1.1,
+    "flatness": 0.7,
+    "pebbles": 6,
+    "seed": 101,
+    "colorway": "granite",
+    "color.stone": "#8d8a85",
+    "color.accent": "#6f6b66"
+  },
+  "presets": [
+    {
+      "id": "outcrop",
+      "name": "Outcrop",
+      "description": "Five granite stones with grounded pebbles.",
+      "parameters": {}
+    },
+    {
+      "id": "slabs",
+      "name": "Slab field",
+      "description": "Low sandstone slabs.",
+      "parameters": {
+        "count": 7,
+        "size": 0.6,
+        "flatness": 0.35,
+        "spread": 1.6,
+        "colorway": "sandstone",
+        "seed": 77
+      }
+    },
+    {
+      "id": "monolith",
+      "name": "Monolith",
+      "description": "One tall mossy stone with rubble at the base.",
+      "parameters": {
+        "count": 1,
+        "size": 2.8,
+        "flatness": 1.2,
+        "pebbles": 8,
+        "colorway": "mossy",
+        "seed": 9
+      }
+    }
+  ],
+  "palettes": [
+    {
+      "id": "granite",
+      "label": "Granite",
+      "colors": [
+        "#8d8a85",
+        "#6f6b66"
+      ],
+      "parameters": {
+        "color.stone": "#8d8a85",
+        "color.accent": "#6f6b66"
+      }
+    },
+    {
+      "id": "sandstone",
+      "label": "Sandstone",
+      "colors": [
+        "#c2a077",
+        "#a07f58"
+      ],
+      "parameters": {
+        "color.stone": "#c2a077",
+        "color.accent": "#a07f58"
+      }
+    },
+    {
+      "id": "basalt",
+      "label": "Basalt",
+      "colors": [
+        "#45474b",
+        "#5c5e62"
+      ],
+      "parameters": {
+        "color.stone": "#45474b",
+        "color.accent": "#5c5e62"
+      }
+    },
+    {
+      "id": "mossy",
+      "label": "Mossy",
+      "colors": [
+        "#7f8478",
+        "#5d7343"
+      ],
+      "parameters": {
+        "color.stone": "#7f8478",
+        "color.accent": "#5d7343"
+      }
+    }
+  ],
+  "constraints": [
+    "Each stone is a closed faceted solid on y = 0. Moss is a surface region, not a separate blob. Pebbles sit outside the main stones."
+  ],
+  "dependencies": {
+    "three": "0.186.1"
+  },
+  "configuration": {
+    "kind": "default"
+  },
+  "source": {
+    "entry": "examples/recipes/rock-cluster/index.ts",
+    "exportName": "rockClusterRecipe",
+    "sha256": "3c19d472d2a48a078a1fc42d6b340b84c057f85ae82592b7b9483d74af1292bb",
+    "files": {
+      "examples/recipes/rock-cluster/index.ts": "2c08e6450f6b0736d5d9157a81c6c0a8ac8af5a53e7f3217a362f04b26cef645",
+      "src/catalog/appearance.ts": "5b482d99e316a94919c0a4e09bd2dff145be47b245551a6b4a9c2ea85de5b6f5",
+      "src/catalog/build.ts": "14aadccd4bfd1739a95276360c45e78afbe1e68ff840b6b748f0909628851f5f",
+      "src/catalog/semantics.ts": "ac6da1ff7d612b626b54b2d9f86996da638052d0064dbc184f90aa10b1ee6517",
+      "src/catalog/types.ts": "57984d79ed766ed5b8ed648ef8113e5fdd30e4db7b75370a586e55d1e2f3bd0b",
+      "src/engine/convex-stone.ts": "50d0641fd34c999c428ec5d6bb047d22d729b31334f2fe0973fb448c668aa755",
+      "src/engine/geometry.ts": "8b7375d6bc43fb43a3123a9cd2c89efda406cb4a6632c320fec9584bd9ce399b",
+      "src/engine/parameters.ts": "54ecaf8c19361fb3ad8ceeae255f932e63e17023624e2c99d59347813d062a37",
+      "src/engine/sculpt/facet.ts": "51d42ef4146f43e6b2f3aef7cc490495ee589c1345d81bd4eb7867c7461bf16b",
+      "src/recipes/types.ts": "cf3704bb5d069ad820890a5304ff41d1eba59d9793ce57551a9e617ccc89781e"
+    }
+  },
+  "licenses": {
+    "software": "Apache-2.0",
+    "content": "CC0-1.0",
+    "thirdParty": "Three ConvexGeometry/ConvexHull and BufferGeometryUtils MIT; see THIRD-PARTY.txt"
+  }
+}

@@ -1,8 +1,8 @@
 You are helping me make editable 3D models with Polyspoon, an open-source toolkit of recipe-based models.
 
-1. Download https://polyspoon.com/agent-bundles/polyspoon-agent-3.zip and unzip it: unzip polyspoon-agent-3.zip -d polyspoon-agent-3
+1. Download https://polyspoon.com/agent-bundles/polyspoon-agent-4.zip and unzip it: unzip polyspoon-agent-4.zip -d polyspoon-agent-4
 2. Read SKILL.md, install.mjs, bootstrap.mjs and the NOTICE file before running anything.
-3. Install into this project: node polyspoon-agent-3/install.mjs --project . --app <codex|claude|cursor|copilot>
+3. Install into this project: node polyspoon-agent-4/install.mjs --project . --app <codex|claude|cursor|copilot>
 4. Bootstrap the local engine: node .polyspoon/bootstrap.mjs
 5. List families, controls, units and ranges: node .polyspoon/runtime.mjs catalog
    (model-controls.json in the bundle has the same data.)

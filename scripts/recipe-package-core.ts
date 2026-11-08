@@ -37,7 +37,7 @@ export function dependencyLock(name:string){
   for(const [id,version] of Object.entries(pinnedDependencies))include(id,version);
   return {name,version:'1.0.0',lockfileVersion:3,requires:true,packages};
 }
-export interface PackageInput { id:string; version:string; entry:string; exportName:string; dependencies:Record<string,string>; nodeVersion:string; licensing:LicenseDeclaration; deliveryRevision?:2|3 }
+export interface PackageInput { id:string; version:string; entry:string; exportName:string; dependencies:Record<string,string>; nodeVersion:string; licensing:LicenseDeclaration; deliveryRevision?:2|3|4 }
 export interface PackageManifest {
   formatVersion:1|2;
   deliveryRevision?:number;
@@ -79,7 +79,7 @@ export function sourceImports(path:string,text:string,deliveryRevision=3):string
       if(specifier.includes('\\')||specifier.includes('?')||specifier.includes('#'))throw new Error('Unsupported import path: '+specifier);
       return [safePackagePath(posix.normalize(posix.join(posix.dirname(path),specifier)))];
     }
-    if(external.has(specifier)||deliveryRevision===3&&specifier==='three/addons/utils/SkeletonUtils.js'||path==='runner.ts'&&['node:fs/promises','node:crypto','node:path'].includes(specifier))return [];
+    if(external.has(specifier)||deliveryRevision>=3&&specifier==='three/addons/utils/SkeletonUtils.js'||path==='runner.ts'&&['node:fs/promises','node:crypto','node:path'].includes(specifier))return [];
     throw new Error('Unapproved import '+specifier+' in '+path);
   });
 }
@@ -136,7 +136,7 @@ export function validatePackageFiles(files:PackageFiles):PackageManifest{
   safePackagePath(m.recipe.entry);
   if(!Object.hasOwn(files,m.recipe.entry)||m.configuration.path!=='config.json'||m.configuration.kind!=='default'||m.controls!=='controls.json')throw new Error('Invalid recipe entry or configuration');
   const legacy=m.formatVersion===1;
-  const rigged=m.deliveryRevision===3;
+  const rigged=(m.deliveryRevision??0)>=3;
   if(!rigged&&Object.keys(files).some(path=>path.startsWith('src/rigging/')))throw new Error('Revision 3 required for rigging sources');
   if(files['build.mjs']!==(legacy?legacyBuildEntry:rigged?riggedBuildEntry:buildEntry)||files['runner.ts']!==(legacy?legacyRunnerEntry(m.recipe.id):rigged?riggedRunnerEntry(m.recipe.id):runnerEntry(m.recipe.id)))throw new Error('Unsupported build/export entry');
   const required=['config.json','controls.json','build.mjs','runner.ts','package.json','package-lock.json','REBUILD.md','LICENSE','NOTICE','LICENSES/Apache-2.0.txt','LICENSES/CC0-1.0.txt','dependency-licenses.json'];

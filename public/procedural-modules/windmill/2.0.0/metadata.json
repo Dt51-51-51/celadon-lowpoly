@@ -1,0 +1,567 @@
+{
+  "formatVersion": 1,
+  "semantics": {
+    "version": 1,
+    "identity": {
+      "family": "windmill",
+      "recipeVersion": "2.0.0"
+    },
+    "coordinates": {
+      "lengthUnit": "m",
+      "up": "+Y",
+      "front": "+Z",
+      "origin": "ground-center",
+      "anchorSpace": "root"
+    },
+    "controls": [
+      {
+        "key": "form",
+        "label": "Mill type",
+        "kind": "choice",
+        "group": "construction",
+        "default": "post",
+        "options": [
+          {
+            "value": "post",
+            "label": "Post mill"
+          },
+          {
+            "value": "smock",
+            "label": "Smock mill"
+          },
+          {
+            "value": "tower",
+            "label": "Tower mill"
+          }
+        ],
+        "hint": "Timber post mill on a trestle, eight-sided smock, or round stone tower.",
+        "affects": [
+          "topology"
+        ],
+        "targets": [
+          "body"
+        ],
+        "unit": "none",
+        "inputUnit": "none",
+        "displayUnit": "none"
+      },
+      {
+        "key": "height",
+        "label": "Body height",
+        "kind": "range",
+        "group": "shape",
+        "min": 5,
+        "max": 14,
+        "step": 0.1,
+        "default": 8,
+        "hint": "Height to the top of the cap.",
+        "affects": [
+          "geometry"
+        ],
+        "targets": [
+          "body"
+        ],
+        "unit": "m",
+        "inputUnit": "m",
+        "displayUnit": "m"
+      },
+      {
+        "key": "sailLength",
+        "label": "Sail length",
+        "kind": "range",
+        "group": "shape",
+        "min": 0.35,
+        "max": 0.6,
+        "step": 0.01,
+        "default": 0.48,
+        "hint": "Sail length relative to height.",
+        "affects": [
+          "geometry"
+        ],
+        "targets": [
+          "sails"
+        ],
+        "unit": "ratio",
+        "inputUnit": "dimensionless",
+        "displayUnit": "ratio"
+      },
+      {
+        "key": "sailTurn",
+        "label": "Sail turn",
+        "kind": "range",
+        "group": "shape",
+        "min": 0,
+        "max": 0.25,
+        "step": 0.005,
+        "default": 0.055,
+        "hint": "Rotation of the sails.",
+        "affects": [
+          "geometry"
+        ],
+        "targets": [
+          "sails"
+        ],
+        "unit": "ratio",
+        "inputUnit": "dimensionless",
+        "displayUnit": "ratio"
+      },
+      {
+        "key": "cloth",
+        "label": "Sail cloth",
+        "kind": "toggle",
+        "group": "construction",
+        "default": true,
+        "hint": "Cloth spread on the lattice.",
+        "affects": [
+          "geometry"
+        ],
+        "targets": [
+          "sails"
+        ],
+        "unit": "none",
+        "inputUnit": "none",
+        "displayUnit": "none"
+      },
+      {
+        "key": "color.wall",
+        "label": "wall",
+        "kind": "color",
+        "group": "colors",
+        "default": "#8a6a4a",
+        "role": "wall",
+        "hint": "wall color",
+        "affects": [
+          "material"
+        ],
+        "targets": [
+          "wall"
+        ],
+        "unit": "color",
+        "inputUnit": "color",
+        "displayUnit": "color"
+      },
+      {
+        "key": "color.roof",
+        "label": "roof",
+        "kind": "color",
+        "group": "colors",
+        "default": "#4e4a48",
+        "role": "roof",
+        "hint": "roof color",
+        "affects": [
+          "material"
+        ],
+        "targets": [
+          "roof"
+        ],
+        "unit": "color",
+        "inputUnit": "color",
+        "displayUnit": "color"
+      },
+      {
+        "key": "color.wood",
+        "label": "wood",
+        "kind": "color",
+        "group": "colors",
+        "default": "#5a4330",
+        "role": "wood",
+        "hint": "wood color",
+        "affects": [
+          "material"
+        ],
+        "targets": [
+          "wood"
+        ],
+        "unit": "color",
+        "inputUnit": "color",
+        "displayUnit": "color"
+      },
+      {
+        "key": "color.cloth",
+        "label": "cloth",
+        "kind": "color",
+        "group": "colors",
+        "default": "#e6dcc4",
+        "role": "cloth",
+        "hint": "cloth color",
+        "affects": [
+          "material"
+        ],
+        "targets": [
+          "cloth"
+        ],
+        "unit": "color",
+        "inputUnit": "color",
+        "displayUnit": "color"
+      },
+      {
+        "key": "color.stone",
+        "label": "stone",
+        "kind": "color",
+        "group": "colors",
+        "default": "#9a948a",
+        "role": "stone",
+        "hint": "stone color",
+        "affects": [
+          "material"
+        ],
+        "targets": [
+          "stone"
+        ],
+        "unit": "color",
+        "inputUnit": "color",
+        "displayUnit": "color"
+      }
+    ],
+    "anchors": {
+      "ground": [
+        0,
+        0,
+        0
+      ],
+      "top": [
+        0,
+        10.16223430633545,
+        0
+      ]
+    },
+    "materials": [
+      {
+        "id": "cloth"
+      },
+      {
+        "id": "roof"
+      },
+      {
+        "id": "stone"
+      },
+      {
+        "id": "wall"
+      },
+      {
+        "id": "wood"
+      }
+    ],
+    "parts": [
+      {
+        "id": "wall",
+        "node": "wall",
+        "materialId": "wall",
+        "material": "wall",
+        "group": "static"
+      },
+      {
+        "id": "roof",
+        "node": "roof",
+        "materialId": "roof",
+        "material": "roof",
+        "group": "static"
+      },
+      {
+        "id": "wood",
+        "node": "wood",
+        "materialId": "wood",
+        "material": "wood",
+        "group": "static"
+      },
+      {
+        "id": "cloth",
+        "node": "cloth",
+        "materialId": "cloth",
+        "material": "cloth",
+        "group": "static"
+      },
+      {
+        "id": "stone",
+        "node": "stone",
+        "materialId": "stone",
+        "material": "stone",
+        "group": "static"
+      }
+    ],
+    "joints": [],
+    "delivery": {
+      "version": 1,
+      "mode": "editable",
+      "identity": "node-per-part",
+      "movingGroups": "separate"
+    }
+  },
+  "id": "windmill",
+  "version": "2.0.0",
+  "title": "Windmill",
+  "description": "A working windmill with lattice sails: a post mill on a trestle, an eight-sided smock mill or a round stone tower mill.",
+  "controls": [
+    {
+      "key": "form",
+      "label": "Mill type",
+      "kind": "choice",
+      "group": "construction",
+      "default": "post",
+      "options": [
+        {
+          "value": "post",
+          "label": "Post mill"
+        },
+        {
+          "value": "smock",
+          "label": "Smock mill"
+        },
+        {
+          "value": "tower",
+          "label": "Tower mill"
+        }
+      ],
+      "hint": "Timber post mill on a trestle, eight-sided smock, or round stone tower.",
+      "affects": [
+        "topology"
+      ],
+      "targets": [
+        "body"
+      ],
+      "unit": "none",
+      "inputUnit": "none",
+      "displayUnit": "none"
+    },
+    {
+      "key": "height",
+      "label": "Body height",
+      "kind": "range",
+      "group": "shape",
+      "min": 5,
+      "max": 14,
+      "step": 0.1,
+      "default": 8,
+      "hint": "Height to the top of the cap.",
+      "affects": [
+        "geometry"
+      ],
+      "targets": [
+        "body"
+      ],
+      "unit": "m",
+      "inputUnit": "m",
+      "displayUnit": "m"
+    },
+    {
+      "key": "sailLength",
+      "label": "Sail length",
+      "kind": "range",
+      "group": "shape",
+      "min": 0.35,
+      "max": 0.6,
+      "step": 0.01,
+      "default": 0.48,
+      "hint": "Sail length relative to height.",
+      "affects": [
+        "geometry"
+      ],
+      "targets": [
+        "sails"
+      ],
+      "unit": "ratio",
+      "inputUnit": "dimensionless",
+      "displayUnit": "ratio"
+    },
+    {
+      "key": "sailTurn",
+      "label": "Sail turn",
+      "kind": "range",
+      "group": "shape",
+      "min": 0,
+      "max": 0.25,
+      "step": 0.005,
+      "default": 0.055,
+      "hint": "Rotation of the sails.",
+      "affects": [
+        "geometry"
+      ],
+      "targets": [
+        "sails"
+      ],
+      "unit": "ratio",
+      "inputUnit": "dimensionless",
+      "displayUnit": "ratio"
+    },
+    {
+      "key": "cloth",
+      "label": "Sail cloth",
+      "kind": "toggle",
+      "group": "construction",
+      "default": true,
+      "hint": "Cloth spread on the lattice.",
+      "affects": [
+        "geometry"
+      ],
+      "targets": [
+        "sails"
+      ],
+      "unit": "none",
+      "inputUnit": "none",
+      "displayUnit": "none"
+    },
+    {
+      "key": "color.wall",
+      "label": "wall",
+      "kind": "color",
+      "group": "colors",
+      "default": "#8a6a4a",
+      "role": "wall",
+      "hint": "wall color",
+      "affects": [
+        "material"
+      ],
+      "targets": [
+        "wall"
+      ],
+      "unit": "color",
+      "inputUnit": "color",
+      "displayUnit": "color"
+    },
+    {
+      "key": "color.roof",
+      "label": "roof",
+      "kind": "color",
+      "group": "colors",
+      "default": "#4e4a48",
+      "role": "roof",
+      "hint": "roof color",
+      "affects": [
+        "material"
+      ],
+      "targets": [
+        "roof"
+      ],
+      "unit": "color",
+      "inputUnit": "color",
+      "displayUnit": "color"
+    },
+    {
+      "key": "color.wood",
+      "label": "wood",
+      "kind": "color",
+      "group": "colors",
+      "default": "#5a4330",
+      "role": "wood",
+      "hint": "wood color",
+      "affects": [
+        "material"
+      ],
+      "targets": [
+        "wood"
+      ],
+      "unit": "color",
+      "inputUnit": "color",
+      "displayUnit": "color"
+    },
+    {
+      "key": "color.cloth",
+      "label": "cloth",
+      "kind": "color",
+      "group": "colors",
+      "default": "#e6dcc4",
+      "role": "cloth",
+      "hint": "cloth color",
+      "affects": [
+        "material"
+      ],
+      "targets": [
+        "cloth"
+      ],
+      "unit": "color",
+      "inputUnit": "color",
+      "displayUnit": "color"
+    },
+    {
+      "key": "color.stone",
+      "label": "stone",
+      "kind": "color",
+      "group": "colors",
+      "default": "#9a948a",
+      "role": "stone",
+      "hint": "stone color",
+      "affects": [
+        "material"
+      ],
+      "targets": [
+        "stone"
+      ],
+      "unit": "color",
+      "inputUnit": "color",
+      "displayUnit": "color"
+    }
+  ],
+  "defaults": {
+    "form": "post",
+    "height": 8,
+    "sailLength": 0.48,
+    "sailTurn": 0.055,
+    "cloth": true,
+    "color.wall": "#8a6a4a",
+    "color.roof": "#4e4a48",
+    "color.wood": "#5a4330",
+    "color.cloth": "#e6dcc4",
+    "color.stone": "#9a948a"
+  },
+  "presets": [
+    {
+      "id": "post",
+      "name": "Post mill",
+      "description": "Timber buck on a trestle with a ladder and tail pole.",
+      "parameters": {}
+    },
+    {
+      "id": "smock",
+      "name": "Smock mill",
+      "description": "Eight-sided timber smock on a brick base with a stage.",
+      "parameters": {
+        "form": "smock",
+        "height": 9,
+        "color.wall": "#e8e2d2",
+        "color.roof": "#3e5a4a",
+        "sailTurn": 0.1
+      }
+    },
+    {
+      "id": "tower",
+      "name": "Tower mill",
+      "description": "Round stone tower with a conical cap.",
+      "parameters": {
+        "form": "tower",
+        "height": 10,
+        "color.roof": "#3f3a38",
+        "sailTurn": 0.03
+      }
+    }
+  ],
+  "palettes": [],
+  "constraints": [
+    "Sails clear the ground; every part is a closed box, beam or faceted loft."
+  ],
+  "dependencies": {
+    "three": "0.186.1"
+  },
+  "configuration": {
+    "kind": "default"
+  },
+  "source": {
+    "entry": "examples/recipes/windmill/index.ts",
+    "exportName": "windmillRecipe",
+    "sha256": "e410f31b7d6b43a03a02ba671955d5281956d090c612de16a1e9c4dcab22357a",
+    "files": {
+      "examples/recipes/windmill/index.ts": "d23646b7f96d9e79697432b213ff1ea3349d4ceb38dc79b50f58614e7b220125",
+      "src/catalog/appearance.ts": "5b482d99e316a94919c0a4e09bd2dff145be47b245551a6b4a9c2ea85de5b6f5",
+      "src/catalog/build.ts": "14aadccd4bfd1739a95276360c45e78afbe1e68ff840b6b748f0909628851f5f",
+      "src/catalog/semantics.ts": "ac6da1ff7d612b626b54b2d9f86996da638052d0064dbc184f90aa10b1ee6517",
+      "src/catalog/types.ts": "57984d79ed766ed5b8ed648ef8113e5fdd30e4db7b75370a586e55d1e2f3bd0b",
+      "src/engine/geometry.ts": "8b7375d6bc43fb43a3123a9cd2c89efda406cb4a6632c320fec9584bd9ce399b",
+      "src/engine/parameters.ts": "54ecaf8c19361fb3ad8ceeae255f932e63e17023624e2c99d59347813d062a37",
+      "src/recipes/types.ts": "cf3704bb5d069ad820890a5304ff41d1eba59d9793ce57551a9e617ccc89781e"
+    }
+  },
+  "licenses": {
+    "software": "Apache-2.0",
+    "content": "CC0-1.0",
+    "thirdParty": "Three ConvexGeometry/ConvexHull and BufferGeometryUtils MIT; see THIRD-PARTY.txt"
+  }
+}

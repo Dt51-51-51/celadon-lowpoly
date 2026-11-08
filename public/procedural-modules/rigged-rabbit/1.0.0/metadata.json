@@ -1,0 +1,639 @@
+{
+  "formatVersion": 1,
+  "semantics": {
+    "version": 1,
+    "identity": {
+      "family": "rigged-rabbit",
+      "recipeVersion": "1.0.0"
+    },
+    "coordinates": {
+      "lengthUnit": "m",
+      "up": "+Y",
+      "front": "+Z",
+      "origin": "ground-center",
+      "anchorSpace": "root"
+    },
+    "controls": [
+      {
+        "key": "bodyLength",
+        "label": "Body length",
+        "kind": "range",
+        "group": "shape",
+        "min": 0.26,
+        "max": 0.5,
+        "step": 0.005,
+        "default": 0.4,
+        "hint": "Body length",
+        "affects": [
+          "geometry"
+        ],
+        "targets": [
+          "body",
+          "skeleton"
+        ],
+        "unit": "m",
+        "inputUnit": "m",
+        "displayUnit": "m"
+      },
+      {
+        "key": "earRatio",
+        "label": "Ear length",
+        "kind": "range",
+        "group": "shape",
+        "min": 0.45,
+        "max": 1.05,
+        "step": 0.005,
+        "default": 0.62,
+        "hint": "Ear length",
+        "affects": [
+          "geometry"
+        ],
+        "targets": [
+          "body",
+          "skeleton"
+        ],
+        "unit": "ratio",
+        "inputUnit": "dimensionless",
+        "displayUnit": "ratio"
+      },
+      {
+        "key": "haunch",
+        "label": "Haunch size",
+        "kind": "range",
+        "group": "shape",
+        "min": 0.85,
+        "max": 1.25,
+        "step": 0.005,
+        "default": 1,
+        "hint": "Haunch size",
+        "affects": [
+          "geometry"
+        ],
+        "targets": [
+          "body",
+          "skeleton"
+        ],
+        "unit": "ratio",
+        "inputUnit": "dimensionless",
+        "displayUnit": "ratio"
+      },
+      {
+        "key": "legRatio",
+        "label": "Leg length",
+        "kind": "range",
+        "group": "shape",
+        "min": 0.8,
+        "max": 1.3,
+        "step": 0.005,
+        "default": 1,
+        "hint": "Leg length",
+        "affects": [
+          "geometry"
+        ],
+        "targets": [
+          "body",
+          "skeleton"
+        ],
+        "unit": "ratio",
+        "inputUnit": "dimensionless",
+        "displayUnit": "ratio"
+      },
+      {
+        "key": "headRatio",
+        "label": "Head size",
+        "kind": "range",
+        "group": "shape",
+        "min": 0.85,
+        "max": 1.2,
+        "step": 0.005,
+        "default": 1,
+        "hint": "Head size",
+        "affects": [
+          "geometry"
+        ],
+        "targets": [
+          "body",
+          "skeleton"
+        ],
+        "unit": "ratio",
+        "inputUnit": "dimensionless",
+        "displayUnit": "ratio"
+      },
+      {
+        "key": "earStyle",
+        "label": "Ears",
+        "kind": "choice",
+        "group": "construction",
+        "default": "upright",
+        "options": [
+          {
+            "value": "upright",
+            "label": "Upright"
+          },
+          {
+            "value": "lop",
+            "label": "Lop"
+          },
+          {
+            "value": "swept",
+            "label": "Swept"
+          }
+        ],
+        "hint": "Upright rabbit ears, lop ears hanging beside the head, or long hare ears swept back.",
+        "affects": [
+          "geometry"
+        ],
+        "targets": [
+          "body",
+          "skeleton"
+        ],
+        "unit": "none",
+        "inputUnit": "none",
+        "displayUnit": "none"
+      },
+      {
+        "key": "build",
+        "label": "Build",
+        "kind": "choice",
+        "group": "construction",
+        "default": "standard",
+        "options": [
+          {
+            "value": "standard",
+            "label": "Standard"
+          },
+          {
+            "value": "stocky",
+            "label": "Stocky"
+          },
+          {
+            "value": "lean",
+            "label": "Lean"
+          }
+        ],
+        "hint": "Body girth.",
+        "affects": [
+          "geometry"
+        ],
+        "targets": [
+          "body",
+          "skeleton"
+        ],
+        "unit": "none",
+        "inputUnit": "none",
+        "displayUnit": "none"
+      },
+      {
+        "key": "earTips",
+        "label": "Dark ear tips",
+        "kind": "toggle",
+        "group": "construction",
+        "default": false,
+        "hint": "Hare-style black ear tips.",
+        "affects": [
+          "geometry"
+        ],
+        "targets": [
+          "body"
+        ],
+        "unit": "none",
+        "inputUnit": "none",
+        "displayUnit": "none"
+      },
+      {
+        "key": "color.fur",
+        "label": "fur",
+        "kind": "color",
+        "group": "colors",
+        "default": "#998d7d",
+        "role": "fur",
+        "hint": "fur material",
+        "affects": [
+          "material"
+        ],
+        "targets": [
+          "fur"
+        ],
+        "unit": "color",
+        "inputUnit": "color",
+        "displayUnit": "color"
+      },
+      {
+        "key": "color.cream",
+        "label": "cream",
+        "kind": "color",
+        "group": "colors",
+        "default": "#e6e2da",
+        "role": "cream",
+        "hint": "cream material",
+        "affects": [
+          "material"
+        ],
+        "targets": [
+          "cream"
+        ],
+        "unit": "color",
+        "inputUnit": "color",
+        "displayUnit": "color"
+      },
+      {
+        "key": "color.dark",
+        "label": "dark",
+        "kind": "color",
+        "group": "colors",
+        "default": "#1d1714",
+        "role": "dark",
+        "hint": "dark material",
+        "affects": [
+          "material"
+        ],
+        "targets": [
+          "dark"
+        ],
+        "unit": "color",
+        "inputUnit": "color",
+        "displayUnit": "color"
+      }
+    ],
+    "anchors": {
+      "ground": [
+        0,
+        0,
+        0
+      ],
+      "head": [
+        0,
+        0.21202216537761787,
+        0.138
+      ]
+    },
+    "materials": [
+      {
+        "id": "fur"
+      }
+    ],
+    "parts": [
+      {
+        "id": "rabbit-coat",
+        "node": "rabbit-coat",
+        "materialId": "fur",
+        "material": "fur",
+        "group": "static"
+      }
+    ],
+    "joints": [],
+    "delivery": {
+      "version": 1,
+      "mode": "editable",
+      "identity": "node-per-part",
+      "movingGroups": "separate"
+    }
+  },
+  "id": "rigged-rabbit",
+  "version": "1.0.0",
+  "title": "Stylized rabbit",
+  "description": "Faceted wild rabbit with a short muzzle, cream belly, cotton tail and long ears.",
+  "controls": [
+    {
+      "key": "bodyLength",
+      "label": "Body length",
+      "kind": "range",
+      "group": "shape",
+      "min": 0.26,
+      "max": 0.5,
+      "step": 0.005,
+      "default": 0.4,
+      "hint": "Body length",
+      "affects": [
+        "geometry"
+      ],
+      "targets": [
+        "body",
+        "skeleton"
+      ],
+      "unit": "m",
+      "inputUnit": "m",
+      "displayUnit": "m"
+    },
+    {
+      "key": "earRatio",
+      "label": "Ear length",
+      "kind": "range",
+      "group": "shape",
+      "min": 0.45,
+      "max": 1.05,
+      "step": 0.005,
+      "default": 0.62,
+      "hint": "Ear length",
+      "affects": [
+        "geometry"
+      ],
+      "targets": [
+        "body",
+        "skeleton"
+      ],
+      "unit": "ratio",
+      "inputUnit": "dimensionless",
+      "displayUnit": "ratio"
+    },
+    {
+      "key": "haunch",
+      "label": "Haunch size",
+      "kind": "range",
+      "group": "shape",
+      "min": 0.85,
+      "max": 1.25,
+      "step": 0.005,
+      "default": 1,
+      "hint": "Haunch size",
+      "affects": [
+        "geometry"
+      ],
+      "targets": [
+        "body",
+        "skeleton"
+      ],
+      "unit": "ratio",
+      "inputUnit": "dimensionless",
+      "displayUnit": "ratio"
+    },
+    {
+      "key": "legRatio",
+      "label": "Leg length",
+      "kind": "range",
+      "group": "shape",
+      "min": 0.8,
+      "max": 1.3,
+      "step": 0.005,
+      "default": 1,
+      "hint": "Leg length",
+      "affects": [
+        "geometry"
+      ],
+      "targets": [
+        "body",
+        "skeleton"
+      ],
+      "unit": "ratio",
+      "inputUnit": "dimensionless",
+      "displayUnit": "ratio"
+    },
+    {
+      "key": "headRatio",
+      "label": "Head size",
+      "kind": "range",
+      "group": "shape",
+      "min": 0.85,
+      "max": 1.2,
+      "step": 0.005,
+      "default": 1,
+      "hint": "Head size",
+      "affects": [
+        "geometry"
+      ],
+      "targets": [
+        "body",
+        "skeleton"
+      ],
+      "unit": "ratio",
+      "inputUnit": "dimensionless",
+      "displayUnit": "ratio"
+    },
+    {
+      "key": "earStyle",
+      "label": "Ears",
+      "kind": "choice",
+      "group": "construction",
+      "default": "upright",
+      "options": [
+        {
+          "value": "upright",
+          "label": "Upright"
+        },
+        {
+          "value": "lop",
+          "label": "Lop"
+        },
+        {
+          "value": "swept",
+          "label": "Swept"
+        }
+      ],
+      "hint": "Upright rabbit ears, lop ears hanging beside the head, or long hare ears swept back.",
+      "affects": [
+        "geometry"
+      ],
+      "targets": [
+        "body",
+        "skeleton"
+      ],
+      "unit": "none",
+      "inputUnit": "none",
+      "displayUnit": "none"
+    },
+    {
+      "key": "build",
+      "label": "Build",
+      "kind": "choice",
+      "group": "construction",
+      "default": "standard",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "stocky",
+          "label": "Stocky"
+        },
+        {
+          "value": "lean",
+          "label": "Lean"
+        }
+      ],
+      "hint": "Body girth.",
+      "affects": [
+        "geometry"
+      ],
+      "targets": [
+        "body",
+        "skeleton"
+      ],
+      "unit": "none",
+      "inputUnit": "none",
+      "displayUnit": "none"
+    },
+    {
+      "key": "earTips",
+      "label": "Dark ear tips",
+      "kind": "toggle",
+      "group": "construction",
+      "default": false,
+      "hint": "Hare-style black ear tips.",
+      "affects": [
+        "geometry"
+      ],
+      "targets": [
+        "body"
+      ],
+      "unit": "none",
+      "inputUnit": "none",
+      "displayUnit": "none"
+    },
+    {
+      "key": "color.fur",
+      "label": "fur",
+      "kind": "color",
+      "group": "colors",
+      "default": "#998d7d",
+      "role": "fur",
+      "hint": "fur material",
+      "affects": [
+        "material"
+      ],
+      "targets": [
+        "fur"
+      ],
+      "unit": "color",
+      "inputUnit": "color",
+      "displayUnit": "color"
+    },
+    {
+      "key": "color.cream",
+      "label": "cream",
+      "kind": "color",
+      "group": "colors",
+      "default": "#e6e2da",
+      "role": "cream",
+      "hint": "cream material",
+      "affects": [
+        "material"
+      ],
+      "targets": [
+        "cream"
+      ],
+      "unit": "color",
+      "inputUnit": "color",
+      "displayUnit": "color"
+    },
+    {
+      "key": "color.dark",
+      "label": "dark",
+      "kind": "color",
+      "group": "colors",
+      "default": "#1d1714",
+      "role": "dark",
+      "hint": "dark material",
+      "affects": [
+        "material"
+      ],
+      "targets": [
+        "dark"
+      ],
+      "unit": "color",
+      "inputUnit": "color",
+      "displayUnit": "color"
+    }
+  ],
+  "defaults": {
+    "bodyLength": 0.4,
+    "earRatio": 0.62,
+    "haunch": 1,
+    "legRatio": 1,
+    "headRatio": 1,
+    "earStyle": "upright",
+    "build": "standard",
+    "earTips": false,
+    "color.fur": "#998d7d",
+    "color.cream": "#e6e2da",
+    "color.dark": "#1d1714"
+  },
+  "presets": [
+    {
+      "id": "cottontail",
+      "name": "Cottontail",
+      "description": "Brown wild rabbit with upright ears and a white cotton tail.",
+      "parameters": {}
+    },
+    {
+      "id": "lop",
+      "name": "Lop rabbit",
+      "description": "Stocky grey-and-white pet rabbit with lop ears hanging beside a big head.",
+      "parameters": {
+        "earStyle": "lop",
+        "build": "stocky",
+        "earRatio": 0.7,
+        "headRatio": 1.15,
+        "haunch": 1.15,
+        "legRatio": 0.85,
+        "bodyLength": 0.32,
+        "color.fur": "#8f8f93",
+        "color.cream": "#f4f2ee",
+        "color.dark": "#262426"
+      }
+    },
+    {
+      "id": "hare",
+      "name": "Hare",
+      "description": "Lean long-legged tawny hare with long swept ears and black tips.",
+      "parameters": {
+        "earStyle": "swept",
+        "build": "lean",
+        "earRatio": 1,
+        "legRatio": 1.28,
+        "haunch": 0.95,
+        "headRatio": 0.92,
+        "bodyLength": 0.46,
+        "earTips": true,
+        "color.fur": "#b98a52",
+        "color.cream": "#efe3cb",
+        "color.dark": "#221d1a"
+      }
+    }
+  ],
+  "palettes": [],
+  "constraints": [
+    "Flat-ground paw contact only",
+    "Shares the four-paw quadruped rig contract with the fox"
+  ],
+  "dependencies": {
+    "three": "0.186.1"
+  },
+  "configuration": {
+    "kind": "default"
+  },
+  "source": {
+    "entry": "examples/recipes/stylized-rabbit/index.ts",
+    "exportName": "rabbitRecipe",
+    "sha256": "e257ca809baf7cf207a26b994667d5a60e8d9c21ffa11421e51e13ace861c3a8",
+    "files": {
+      "examples/recipes/stylized-rabbit/index.ts": "a46991a7d0e9c72e864d58ea96da99e07bbb34779fa511a558bcae41c1bf5ad8",
+      "src/catalog/appearance.ts": "5b482d99e316a94919c0a4e09bd2dff145be47b245551a6b4a9c2ea85de5b6f5",
+      "src/catalog/build.ts": "14aadccd4bfd1739a95276360c45e78afbe1e68ff840b6b748f0909628851f5f",
+      "src/catalog/semantics.ts": "ac6da1ff7d612b626b54b2d9f86996da638052d0064dbc184f90aa10b1ee6517",
+      "src/catalog/types.ts": "57984d79ed766ed5b8ed648ef8113e5fdd30e4db7b75370a586e55d1e2f3bd0b",
+      "src/engine/construction-migration.ts": "81c32bff674d0049dccfc5ae488d56944e12aeed99c287a971e2b65ad357965c",
+      "src/engine/parameters.ts": "54ecaf8c19361fb3ad8ceeae255f932e63e17023624e2c99d59347813d062a37",
+      "src/engine/sculpt/body.ts": "245357f19b2cfb4b10d14309e5fbde806b9232f3cbd3b200ae698389d0975c0e",
+      "src/engine/sculpt/decal.ts": "2f004843472b86ee11d444160ab21f70333019c06dec4f378d534210ed909bde",
+      "src/engine/sculpt/field.ts": "62b2a28619b8b7fa1b9e26208df36bda6719ab75dac331084eed8e6bd8378e93",
+      "src/engine/sculpt/nets.ts": "67be8b850cd6ddf2d1e9080dcf9d621bda839922e1130435467c128b36ee3653",
+      "src/engine/sculpt/reduce.ts": "1cac760677f88b3faf50823c3be6f7b77db1d1462fa6c819c1e223f42f3e6116",
+      "src/engine/sculpt/relax.ts": "f5e8d7c37a29020fe5bc205a85d3f8d652562760792015fa4c910aa0ffd532a8",
+      "src/engine/sculpt/remesh.ts": "aded1daa033799eef88e5c6287daa33bade0ed46f473f51bfa64889992d63f11",
+      "src/engine/sculpt/seams.ts": "822d339e4e2cfa5aeb784063f42c1d886826b0dc1867b6cbcb4dfed7bde2d85d",
+      "src/engine/sculpt/topology.ts": "760d55a317319baf020d489c949fb43496722d9cefc32469da6c16ddeda88653",
+      "src/lantern/inspect.ts": "a395eaca317e22c27f25b424cf98d91c3b8fb9ea3156fe2ee09890b558ccfd49",
+      "src/recipes/types.ts": "cf3704bb5d069ad820890a5304ff41d1eba59d9793ce57551a9e617ccc89781e",
+      "src/rigging/fox-motion.ts": "a2a1a52b88f203e39c2fd81ae36e5246601ee7094794a318af6fe6b6da702ca8",
+      "src/rigging/ik.ts": "c830d8b30f49d7b351d5e6f495fe11252ba6b7f17230e2bfdf56f7e24ccc6ea6",
+      "src/rigging/types.ts": "dc2c7d8b2a84b31b4f6dcebd77613d5cd107ac9475852cdcecf041a813bba7a8",
+      "src/rigging/validation.ts": "99f63557df28525fbc05556266acb059d67bb3144689b2a41a7ce01c61adabb3"
+    }
+  },
+  "licenses": {
+    "software": "Apache-2.0",
+    "content": "CC0-1.0",
+    "thirdParty": "Three ConvexGeometry/ConvexHull and BufferGeometryUtils MIT; see THIRD-PARTY.txt"
+  }
+}

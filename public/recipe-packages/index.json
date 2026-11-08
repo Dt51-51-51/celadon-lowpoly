@@ -4,10 +4,10 @@
     {
       "id": "work-lantern",
       "version": "0.6.0",
-      "deliveryRevision": 3,
-      "url": "recipe-packages/work-lantern-0.6.0-source.3.zip",
-      "sha256": "7e22616c7562f2247348b23e1adbb3016fb71c43b110f5cf7b57063950ce2995",
-      "bytes": 596536,
+      "deliveryRevision": 4,
+      "url": "recipe-packages/work-lantern-0.6.0-source.4.zip",
+      "sha256": "e7e40f4a8e8d18c72009b1c44ccfde0eef4eb0a42d6ae329b33c2f1771bb50d2",
+      "bytes": 794783,
       "configuration": {
         "path": "config.json",
         "kind": "default"
@@ -24,10 +24,10 @@
     {
       "id": "cottage",
       "version": "0.6.0",
-      "deliveryRevision": 3,
-      "url": "recipe-packages/cottage-0.6.0-source.3.zip",
-      "sha256": "e48da6266245b661e343a1a320db3f3a76028d55f51dd1a64e59a33060e565ef",
-      "bytes": 599939,
+      "deliveryRevision": 4,
+      "url": "recipe-packages/cottage-0.6.0-source.4.zip",
+      "sha256": "f6a7ba0ef6117b53846b892e0415e27a4fbc1ead523fc1f5cb053975caa58112",
+      "bytes": 798186,
       "configuration": {
         "path": "config.json",
         "kind": "default"
@@ -44,10 +44,10 @@
     {
       "id": "tree",
       "version": "0.6.0",
-      "deliveryRevision": 3,
-      "url": "recipe-packages/tree-0.6.0-source.3.zip",
-      "sha256": "a9eb1449b2fdd82deae388eba955d569354d5dfa449b0268f8a5b3886da409c7",
-      "bytes": 595382,
+      "deliveryRevision": 4,
+      "url": "recipe-packages/tree-0.6.0-source.4.zip",
+      "sha256": "dc43eafa00fc8ee2e31d6f40f0e159b7a6a0d47248bebdd2d5c19977acf49d56",
+      "bytes": 793629,
       "configuration": {
         "path": "config.json",
         "kind": "default"
@@ -64,10 +64,10 @@
     {
       "id": "fence",
       "version": "0.6.0",
-      "deliveryRevision": 3,
-      "url": "recipe-packages/fence-0.6.0-source.3.zip",
-      "sha256": "0e3e668162d972daaeed8cc2698200d4e03f0080c603773dcca4022be0bfdb58",
-      "bytes": 595724,
+      "deliveryRevision": 4,
+      "url": "recipe-packages/fence-0.6.0-source.4.zip",
+      "sha256": "e74e5e5c8a99f064e2801241a9084607a978768ad31e751580ccab2fe8cfcfa8",
+      "bytes": 793971,
       "configuration": {
         "path": "config.json",
         "kind": "default"
@@ -84,10 +84,10 @@
     {
       "id": "crate",
       "version": "0.6.0",
-      "deliveryRevision": 3,
-      "url": "recipe-packages/crate-0.6.0-source.3.zip",
-      "sha256": "df9cfa033949d727ef7c45261479d870e9f31bf10a7c7c132656fb968370a525",
-      "bytes": 595162,
+      "deliveryRevision": 4,
+      "url": "recipe-packages/crate-0.6.0-source.4.zip",
+      "sha256": "8d248e7dc6bc75313afe1d9fccfa0391b5bd5b20f255c826b10b01694feee9c2",
+      "bytes": 793409,
       "configuration": {
         "path": "config.json",
         "kind": "default"
@@ -104,10 +104,10 @@
     {
       "id": "boulder",
       "version": "0.6.0",
-      "deliveryRevision": 3,
-      "url": "recipe-packages/boulder-0.6.0-source.3.zip",
-      "sha256": "59ba934c59854f1e33645e084f35bdb1f4fd2df80d25360983276a1d20fc64fe",
-      "bytes": 595156,
+      "deliveryRevision": 4,
+      "url": "recipe-packages/boulder-0.6.0-source.4.zip",
+      "sha256": "a8bf104fa53d3f7dcfec553208156aef599a5c0fb976821875b2808e2ee8a9cc",
+      "bytes": 793403,
       "configuration": {
         "path": "config.json",
         "kind": "default"
@@ -124,10 +124,10 @@
     {
       "id": "bench",
       "version": "1.1.0",
-      "deliveryRevision": 3,
-      "url": "recipe-packages/bench-1.1.0-source.3.zip",
-      "sha256": "09831a9f297372b663ef8705e1b0c63c0b9f8649b9b129cc244bec161aaad4bb",
-      "bytes": 591756,
+      "deliveryRevision": 4,
+      "url": "recipe-packages/bench-1.1.0-source.4.zip",
+      "sha256": "da63ef6e143b9c75d64efa2fb0d1ef61e1972a8fe4708c1dae21b1c0097610dd",
+      "bytes": 790003,
       "configuration": {
         "path": "config.json",
         "kind": "default"
@@ -144,10 +144,10 @@
     {
       "id": "planter",
       "version": "1.1.0",
-      "deliveryRevision": 3,
-      "url": "recipe-packages/planter-1.1.0-source.3.zip",
-      "sha256": "ed9142394735cc3b1e7936c2efc9891df387929919c211a43541e1d9571f47a2",
-      "bytes": 591291,
+      "deliveryRevision": 4,
+      "url": "recipe-packages/planter-1.1.0-source.4.zip",
+      "sha256": "f253233878545318ab9dd6f7b6a351b9d20c7199b0e8ee3bbc54eb90a6631599",
+      "bytes": 789538,
       "configuration": {
         "path": "config.json",
         "kind": "default"
@@ -164,10 +164,10 @@
     {
       "id": "treasure-chest",
       "version": "1.1.0",
-      "deliveryRevision": 3,
-      "url": "recipe-packages/treasure-chest-1.1.0-source.3.zip",
-      "sha256": "308eff8e3aa76d95d996f7ec56cf36974234cb155961dbc3ee524924470b4481",
-      "bytes": 592424,
+      "deliveryRevision": 4,
+      "url": "recipe-packages/treasure-chest-1.1.0-source.4.zip",
+      "sha256": "a88eb3eba1d501a1fdbf22cf8e960581d4ce7060e38a35a60108248fef8e1abd",
+      "bytes": 790671,
       "configuration": {
         "path": "config.json",
         "kind": "default"
@@ -184,10 +184,10 @@
     {
       "id": "wheelbarrow",
       "version": "1.1.0",
-      "deliveryRevision": 3,
-      "url": "recipe-packages/wheelbarrow-1.1.0-source.3.zip",
-      "sha256": "695d626b6009029e8a92433e933e1d0a49b2359a1770faa9b7f96cbb8f36af8d",
-      "bytes": 592491,
+      "deliveryRevision": 4,
+      "url": "recipe-packages/wheelbarrow-1.1.0-source.4.zip",
+      "sha256": "52d07ee36d4b51a076a5d3d9c1a778527cfce80b8c94b81c708fb4f5255d816a",
+      "bytes": 790738,
       "configuration": {
         "path": "config.json",
         "kind": "default"
@@ -204,10 +204,10 @@
     {
       "id": "stone-well",
       "version": "1.1.0",
-      "deliveryRevision": 3,
-      "url": "recipe-packages/stone-well-1.1.0-source.3.zip",
-      "sha256": "a0b198702e0df3ed921a93a1447a4c287bddc7ad723788abeed665d2842e5da9",
-      "bytes": 593139,
+      "deliveryRevision": 4,
+      "url": "recipe-packages/stone-well-1.1.0-source.4.zip",
+      "sha256": "5954f72b15dad97ed4a8e9a1e12773beb7f1a0edac03d925ba95bfd82abb1aeb",
+      "bytes": 791386,
       "configuration": {
         "path": "config.json",
         "kind": "default"
@@ -224,10 +224,110 @@
     {
       "id": "conifer",
       "version": "1.1.0",
-      "deliveryRevision": 3,
-      "url": "recipe-packages/conifer-1.1.0-source.3.zip",
-      "sha256": "c0d2b89f080a195dce2189187faa64e2355ac825bd3f2699ed1a7affdb868d5f",
-      "bytes": 591182,
+      "deliveryRevision": 4,
+      "url": "recipe-packages/conifer-1.1.0-source.4.zip",
+      "sha256": "d17c34e45d92a5d80070704099c9524e1433c1a6ae5d1ea68e51c4e0e61c0366",
+      "bytes": 789429,
+      "configuration": {
+        "path": "config.json",
+        "kind": "default"
+      },
+      "licenses": {
+        "software": "Apache-2.0",
+        "content": "CC0-1.0",
+        "contentPaths": [
+          "config.json"
+        ],
+        "thirdParty": "dependency-licenses.json"
+      }
+    },
+    {
+      "id": "rock-cluster",
+      "version": "1.2.0",
+      "deliveryRevision": 4,
+      "url": "recipe-packages/rock-cluster-1.2.0-source.4.zip",
+      "sha256": "0a6320b28e333dbc3cc548e03c29358bd047234e67fae4c3650c7c459605f26f",
+      "bytes": 789924,
+      "configuration": {
+        "path": "config.json",
+        "kind": "default"
+      },
+      "licenses": {
+        "software": "Apache-2.0",
+        "content": "CC0-1.0",
+        "contentPaths": [
+          "config.json"
+        ],
+        "thirdParty": "dependency-licenses.json"
+      }
+    },
+    {
+      "id": "hydrangea",
+      "version": "1.0.0",
+      "deliveryRevision": 4,
+      "url": "recipe-packages/hydrangea-1.0.0-source.4.zip",
+      "sha256": "a71d711170a0dcb3d2cb3c020f16a2c0aa4eb0a28bd003e6599b3050d7f04a27",
+      "bytes": 790025,
+      "configuration": {
+        "path": "config.json",
+        "kind": "default"
+      },
+      "licenses": {
+        "software": "Apache-2.0",
+        "content": "CC0-1.0",
+        "contentPaths": [
+          "config.json"
+        ],
+        "thirdParty": "dependency-licenses.json"
+      }
+    },
+    {
+      "id": "mushroom-cluster",
+      "version": "2.0.0",
+      "deliveryRevision": 4,
+      "url": "recipe-packages/mushroom-cluster-2.0.0-source.4.zip",
+      "sha256": "6424a5bf5feedb98b820dbdd38b523f5726e04a808066b1dc840bad663b641e0",
+      "bytes": 790835,
+      "configuration": {
+        "path": "config.json",
+        "kind": "default"
+      },
+      "licenses": {
+        "software": "Apache-2.0",
+        "content": "CC0-1.0",
+        "contentPaths": [
+          "config.json"
+        ],
+        "thirdParty": "dependency-licenses.json"
+      }
+    },
+    {
+      "id": "windmill",
+      "version": "2.0.0",
+      "deliveryRevision": 4,
+      "url": "recipe-packages/windmill-2.0.0-source.4.zip",
+      "sha256": "9b5853e1ef797629c2314abd27700901da58322e6e26e0bae3c882af2ea2497a",
+      "bytes": 789898,
+      "configuration": {
+        "path": "config.json",
+        "kind": "default"
+      },
+      "licenses": {
+        "software": "Apache-2.0",
+        "content": "CC0-1.0",
+        "contentPaths": [
+          "config.json"
+        ],
+        "thirdParty": "dependency-licenses.json"
+      }
+    },
+    {
+      "id": "slime",
+      "version": "2.0.0",
+      "deliveryRevision": 4,
+      "url": "recipe-packages/slime-2.0.0-source.4.zip",
+      "sha256": "d52625a80c2999fc006c723b55cac2e3d9fb92f8ce195ae85453faabf6f12bdc",
+      "bytes": 791996,
       "configuration": {
         "path": "config.json",
         "kind": "default"
@@ -244,10 +344,10 @@
     {
       "id": "stylized-humanoid",
       "version": "1.0.0",
-      "deliveryRevision": 3,
-      "url": "recipe-packages/stylized-humanoid-1.0.0-source.3.zip",
-      "sha256": "e9f4db1c0cc2af29eb31edc4d0b187796f4851f78f6749e6d26051322d2cbb95",
-      "bytes": 591935,
+      "deliveryRevision": 4,
+      "url": "recipe-packages/stylized-humanoid-1.0.0-source.4.zip",
+      "sha256": "8ba2cc2afde5960ba2263c6519590edddb4c9319582ee4d595ef1e9084c3281c",
+      "bytes": 792623,
       "configuration": {
         "path": "config.json",
         "kind": "default"
@@ -264,10 +364,30 @@
     {
       "id": "stylized-fox",
       "version": "1.1.0",
-      "deliveryRevision": 3,
-      "url": "recipe-packages/stylized-fox-1.1.0-source.3.zip",
-      "sha256": "b4c7d25848a3f1d171d9e05f9ad7cdd7ab4fe34ff8fcc2f837feca797c10a391",
-      "bytes": 591959,
+      "deliveryRevision": 4,
+      "url": "recipe-packages/stylized-fox-1.1.0-source.4.zip",
+      "sha256": "39715b9029e02b50f516540167d7d0b93b0b70d13805cbb2c39b942134052ad6",
+      "bytes": 790206,
+      "configuration": {
+        "path": "config.json",
+        "kind": "default"
+      },
+      "licenses": {
+        "software": "Apache-2.0",
+        "content": "CC0-1.0",
+        "contentPaths": [
+          "config.json"
+        ],
+        "thirdParty": "dependency-licenses.json"
+      }
+    },
+    {
+      "id": "rigged-rabbit",
+      "version": "1.0.0",
+      "deliveryRevision": 4,
+      "url": "recipe-packages/rigged-rabbit-1.0.0-source.4.zip",
+      "sha256": "8acd340bc974710dffff82f7f8db046a40d587d61fae0d69099628d81ddfc2a0",
+      "bytes": 790565,
       "configuration": {
         "path": "config.json",
         "kind": "default"

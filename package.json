@@ -22,7 +22,8 @@
     "recipe:review": "tsx scripts/recipe-review.ts",
     "controls:manifest": "tsx scripts/model-controls.ts",
     "forge:review": "vite --config vite.forge-review.ts",
-    "deploy:preflight": "node --import tsx scripts/deploy-preflight.ts"
+    "deploy:preflight": "node --import tsx scripts/deploy-preflight.ts",
+    "deploy:production": "node --import tsx scripts/deploy-production.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/server": "2.3.0",

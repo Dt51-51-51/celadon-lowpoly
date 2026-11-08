@@ -2656,6 +2656,632 @@
     }
    ]
   },
+  "hydrangea": {
+   "title": "Hydrangea",
+   "version": "1.0.0",
+   "description": "Faceted flowering bush with leaf mounds, round flower heads and a soil base.",
+   "defaults": {
+    "width": 1.3,
+    "height": 1.1,
+    "mounds": 6,
+    "flowers": 16,
+    "seed": 21,
+    "colorway": "blue",
+    "color.foliage": "#4f8a4a",
+    "color.shade": "#33643a",
+    "color.accent": "#7f9be6",
+    "color.ground": "#5a4532"
+   },
+   "presets": [
+    {
+     "id": "blue",
+     "name": "Blue hydrangea",
+     "description": "Round green bush with blue flower heads.",
+     "parameters": {}
+    },
+    {
+     "id": "pink",
+     "name": "Pink hydrangea",
+     "description": "Wide pink bush with many heads.",
+     "parameters": {
+      "colorway": "pink",
+      "width": 1.6,
+      "height": 1.05,
+      "mounds": 7,
+      "flowers": 22,
+      "seed": 5
+     }
+    },
+    {
+     "id": "white",
+     "name": "White hydrangea",
+     "description": "Tall white bush.",
+     "parameters": {
+      "colorway": "white",
+      "width": 1.25,
+      "height": 1.2,
+      "mounds": 6,
+      "flowers": 14,
+      "seed": 88
+     }
+    }
+   ],
+   "palettes": [
+    {
+     "id": "blue",
+     "label": "Blue",
+     "colors": [
+      "#4f8a4a",
+      "#7f9be6"
+     ]
+    },
+    {
+     "id": "pink",
+     "label": "Pink",
+     "colors": [
+      "#4f8a4a",
+      "#e58fb4"
+     ]
+    },
+    {
+     "id": "white",
+     "label": "White",
+     "colors": [
+      "#4a8246",
+      "#eeeadb"
+     ]
+    }
+   ],
+   "controls": [
+    {
+     "key": "width",
+     "label": "Width",
+     "kind": "range",
+     "group": "shape",
+     "min": 0.6,
+     "max": 2.4,
+     "step": 0.05,
+     "default": 1.3,
+     "hint": "Spread of the bush.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "leaves",
+      "flowers"
+     ],
+     "unit": "m",
+     "inputUnit": "m",
+     "displayUnit": "m"
+    },
+    {
+     "key": "height",
+     "label": "Height",
+     "kind": "range",
+     "group": "shape",
+     "min": 0.5,
+     "max": 2,
+     "step": 0.05,
+     "default": 1.1,
+     "hint": "Height of the bush.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "leaves",
+      "flowers"
+     ],
+     "unit": "m",
+     "inputUnit": "m",
+     "displayUnit": "m"
+    },
+    {
+     "key": "mounds",
+     "label": "Leaf mounds",
+     "kind": "integer",
+     "group": "construction",
+     "min": 3,
+     "max": 9,
+     "step": 1,
+     "default": 6,
+     "hint": "Overlapping leaf masses.",
+     "affects": [
+      "topology"
+     ],
+     "targets": [
+      "leaves"
+     ],
+     "unit": "count",
+     "inputUnit": "integer",
+     "displayUnit": "count"
+    },
+    {
+     "key": "flowers",
+     "label": "Flower heads",
+     "kind": "integer",
+     "group": "construction",
+     "min": 0,
+     "max": 30,
+     "step": 1,
+     "default": 16,
+     "hint": "Round flower clusters on the outside.",
+     "affects": [
+      "topology"
+     ],
+     "targets": [
+      "flowers"
+     ],
+     "unit": "count",
+     "inputUnit": "integer",
+     "displayUnit": "count"
+    },
+    {
+     "key": "seed",
+     "label": "Variation seed",
+     "kind": "integer",
+     "group": "construction",
+     "min": 0,
+     "max": 65535,
+     "step": 1,
+     "default": 21,
+     "hint": "Repeatable layout and facets.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "leaves",
+      "flowers"
+     ],
+     "unit": "seed",
+     "inputUnit": "integer",
+     "displayUnit": "seed"
+    },
+    {
+     "key": "colorway",
+     "label": "Palette",
+     "kind": "choice",
+     "group": "colors",
+     "default": "blue",
+     "options": [
+      {
+       "value": "blue",
+       "label": "Blue"
+      },
+      {
+       "value": "pink",
+       "label": "Pink"
+      },
+      {
+       "value": "white",
+       "label": "White"
+      }
+     ],
+     "hint": "Flower and leaf colors.",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "leaves",
+      "flowers"
+     ],
+     "unit": "none",
+     "inputUnit": "none",
+     "displayUnit": "none"
+    },
+    {
+     "key": "color.foliage",
+     "label": "Leaves",
+     "kind": "color",
+     "group": "colors",
+     "default": "#4f8a4a",
+     "role": "leaves",
+     "hint": "Upper leaf color.",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "leaves"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    },
+    {
+     "key": "color.shade",
+     "label": "Shaded leaves",
+     "kind": "color",
+     "group": "colors",
+     "default": "#33643a",
+     "role": "shade",
+     "hint": "Lower leaf color.",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "shade"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    },
+    {
+     "key": "color.accent",
+     "label": "Flowers",
+     "kind": "color",
+     "group": "colors",
+     "default": "#7f9be6",
+     "role": "flowers",
+     "hint": "Flower head color.",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "flowers"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    },
+    {
+     "key": "color.ground",
+     "label": "Soil",
+     "kind": "color",
+     "group": "colors",
+     "default": "#5a4532",
+     "role": "ground",
+     "hint": "Soil mound color.",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "ground"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    }
+   ]
+  },
+  "mushroom-cluster": {
+   "title": "Mushroom cluster",
+   "version": "2.0.0",
+   "description": "A clump of faceted mushrooms on a moss mound, with dome, bun or cone caps.",
+   "defaults": {
+    "count": 5,
+    "height": 0.35,
+    "capStyle": "dome",
+    "capWidth": 0.75,
+    "spots": true,
+    "lean": 0.15,
+    "seed": 7,
+    "colorway": "toadstool",
+    "color.cap": "#c8352b",
+    "color.spots": "#f4efe2",
+    "color.stem": "#ece4d0",
+    "color.ground": "#4d6b3a"
+   },
+   "presets": [
+    {
+     "id": "toadstool",
+     "name": "Toadstools",
+     "description": "Red spotted toadstools on a moss mound.",
+     "parameters": {}
+    },
+    {
+     "id": "porcini",
+     "name": "Porcini",
+     "description": "Fat-stemmed porcini with brown bun caps.",
+     "parameters": {
+      "colorway": "porcini",
+      "capStyle": "flat",
+      "spots": false,
+      "count": 4,
+      "capWidth": 0.95,
+      "lean": 0.08,
+      "seed": 12
+     }
+    },
+    {
+     "id": "glow",
+     "name": "Giant glowcap",
+     "description": "Tall blue glowcaps with glowing spots.",
+     "parameters": {
+      "colorway": "glow",
+      "capStyle": "cone",
+      "height": 1.9,
+      "count": 5,
+      "capWidth": 0.6,
+      "lean": 0.22,
+      "seed": 31
+     }
+    }
+   ],
+   "palettes": [
+    {
+     "id": "toadstool",
+     "label": "Toadstool",
+     "colors": [
+      "#c8352b",
+      "#ece4d0"
+     ]
+    },
+    {
+     "id": "porcini",
+     "label": "Porcini",
+     "colors": [
+      "#7a4a2a",
+      "#e2d3b0"
+     ]
+    },
+    {
+     "id": "glow",
+     "label": "Glow",
+     "colors": [
+      "#2f6fb3",
+      "#cfe3ea"
+     ]
+    }
+   ],
+   "controls": [
+    {
+     "key": "count",
+     "label": "Mushrooms",
+     "kind": "integer",
+     "group": "construction",
+     "min": 1,
+     "max": 9,
+     "step": 1,
+     "default": 5,
+     "hint": "Mushrooms in the clump.",
+     "affects": [
+      "topology"
+     ],
+     "targets": [
+      "cap",
+      "stem"
+     ],
+     "unit": "count",
+     "inputUnit": "integer",
+     "displayUnit": "count"
+    },
+    {
+     "key": "height",
+     "label": "Tallest",
+     "kind": "range",
+     "group": "shape",
+     "min": 0.1,
+     "max": 2.5,
+     "step": 0.05,
+     "default": 0.35,
+     "hint": "Height of the tallest mushroom.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "cap",
+      "stem"
+     ],
+     "unit": "m",
+     "inputUnit": "m",
+     "displayUnit": "m"
+    },
+    {
+     "key": "capStyle",
+     "label": "Caps",
+     "kind": "choice",
+     "group": "construction",
+     "default": "dome",
+     "options": [
+      {
+       "value": "dome",
+       "label": "Dome"
+      },
+      {
+       "value": "flat",
+       "label": "Bun"
+      },
+      {
+       "value": "cone",
+       "label": "Cone"
+      }
+     ],
+     "hint": "Cap shape.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "cap"
+     ],
+     "unit": "none",
+     "inputUnit": "none",
+     "displayUnit": "none"
+    },
+    {
+     "key": "capWidth",
+     "label": "Cap width",
+     "kind": "range",
+     "group": "shape",
+     "min": 0.4,
+     "max": 1.2,
+     "step": 0.05,
+     "default": 0.75,
+     "hint": "Cap width relative to height.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "cap"
+     ],
+     "unit": "ratio",
+     "inputUnit": "dimensionless",
+     "displayUnit": "ratio"
+    },
+    {
+     "key": "spots",
+     "label": "Spots",
+     "kind": "toggle",
+     "group": "construction",
+     "default": true,
+     "hint": "Raised spots on the caps.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "spots"
+     ],
+     "unit": "none",
+     "inputUnit": "none",
+     "displayUnit": "none"
+    },
+    {
+     "key": "lean",
+     "label": "Lean",
+     "kind": "range",
+     "group": "shape",
+     "min": 0,
+     "max": 0.4,
+     "step": 0.01,
+     "default": 0.15,
+     "hint": "How far the outer mushrooms lean out.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "stem"
+     ],
+     "unit": "ratio",
+     "inputUnit": "dimensionless",
+     "displayUnit": "ratio"
+    },
+    {
+     "key": "seed",
+     "label": "Variation seed",
+     "kind": "integer",
+     "group": "construction",
+     "min": 0,
+     "max": 65535,
+     "step": 1,
+     "default": 7,
+     "hint": "Repeatable layout.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "cap",
+      "stem"
+     ],
+     "unit": "seed",
+     "inputUnit": "integer",
+     "displayUnit": "seed"
+    },
+    {
+     "key": "colorway",
+     "label": "Palette",
+     "kind": "choice",
+     "group": "colors",
+     "default": "toadstool",
+     "options": [
+      {
+       "value": "toadstool",
+       "label": "Toadstool"
+      },
+      {
+       "value": "porcini",
+       "label": "Porcini"
+      },
+      {
+       "value": "glow",
+       "label": "Glow"
+      }
+     ],
+     "hint": "Mushroom colors.",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "cap",
+      "spots",
+      "stem",
+      "ground"
+     ],
+     "unit": "none",
+     "inputUnit": "none",
+     "displayUnit": "none"
+    },
+    {
+     "key": "color.cap",
+     "label": "Cap",
+     "kind": "color",
+     "group": "colors",
+     "default": "#c8352b",
+     "role": "cap",
+     "hint": "Cap color.",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "cap"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    },
+    {
+     "key": "color.spots",
+     "label": "Spots",
+     "kind": "color",
+     "group": "colors",
+     "default": "#f4efe2",
+     "role": "spots",
+     "hint": "Spot color.",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "spots"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    },
+    {
+     "key": "color.stem",
+     "label": "Stem",
+     "kind": "color",
+     "group": "colors",
+     "default": "#ece4d0",
+     "role": "stem",
+     "hint": "Stem and gill color.",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "stem"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    },
+    {
+     "key": "color.ground",
+     "label": "Moss",
+     "kind": "color",
+     "group": "colors",
+     "default": "#4d6b3a",
+     "role": "ground",
+     "hint": "Moss mound color.",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "ground"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    }
+   ]
+  },
   "planter": {
    "title": "Slatted planter box",
    "version": "1.1.0",
@@ -2902,6 +3528,1005 @@
      "targets": [
       "post",
       "foot"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    }
+   ]
+  },
+  "rigged-rabbit": {
+   "title": "Stylized rabbit",
+   "version": "1.0.0",
+   "description": "Faceted wild rabbit with a short muzzle, cream belly, cotton tail and long ears.",
+   "defaults": {
+    "bodyLength": 0.4,
+    "earRatio": 0.62,
+    "haunch": 1,
+    "legRatio": 1,
+    "headRatio": 1,
+    "earStyle": "upright",
+    "build": "standard",
+    "earTips": false,
+    "color.fur": "#998d7d",
+    "color.cream": "#e6e2da",
+    "color.dark": "#1d1714"
+   },
+   "presets": [
+    {
+     "id": "cottontail",
+     "name": "Cottontail",
+     "description": "Brown wild rabbit with upright ears and a white cotton tail.",
+     "parameters": {}
+    },
+    {
+     "id": "lop",
+     "name": "Lop rabbit",
+     "description": "Stocky grey-and-white pet rabbit with lop ears hanging beside a big head.",
+     "parameters": {
+      "earStyle": "lop",
+      "build": "stocky",
+      "earRatio": 0.7,
+      "headRatio": 1.15,
+      "haunch": 1.15,
+      "legRatio": 0.85,
+      "bodyLength": 0.32,
+      "color.fur": "#8f8f93",
+      "color.cream": "#f4f2ee",
+      "color.dark": "#262426"
+     }
+    },
+    {
+     "id": "hare",
+     "name": "Hare",
+     "description": "Lean long-legged tawny hare with long swept ears and black tips.",
+     "parameters": {
+      "earStyle": "swept",
+      "build": "lean",
+      "earRatio": 1,
+      "legRatio": 1.28,
+      "haunch": 0.95,
+      "headRatio": 0.92,
+      "bodyLength": 0.46,
+      "earTips": true,
+      "color.fur": "#b98a52",
+      "color.cream": "#efe3cb",
+      "color.dark": "#221d1a"
+     }
+    }
+   ],
+   "palettes": [],
+   "controls": [
+    {
+     "key": "bodyLength",
+     "label": "Body length",
+     "kind": "range",
+     "group": "shape",
+     "min": 0.26,
+     "max": 0.5,
+     "step": 0.005,
+     "default": 0.4,
+     "hint": "Body length",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "body",
+      "skeleton"
+     ],
+     "unit": "m",
+     "inputUnit": "m",
+     "displayUnit": "m"
+    },
+    {
+     "key": "earRatio",
+     "label": "Ear length",
+     "kind": "range",
+     "group": "shape",
+     "min": 0.45,
+     "max": 1.05,
+     "step": 0.005,
+     "default": 0.62,
+     "hint": "Ear length",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "body",
+      "skeleton"
+     ],
+     "unit": "ratio",
+     "inputUnit": "dimensionless",
+     "displayUnit": "ratio"
+    },
+    {
+     "key": "haunch",
+     "label": "Haunch size",
+     "kind": "range",
+     "group": "shape",
+     "min": 0.85,
+     "max": 1.25,
+     "step": 0.005,
+     "default": 1,
+     "hint": "Haunch size",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "body",
+      "skeleton"
+     ],
+     "unit": "ratio",
+     "inputUnit": "dimensionless",
+     "displayUnit": "ratio"
+    },
+    {
+     "key": "legRatio",
+     "label": "Leg length",
+     "kind": "range",
+     "group": "shape",
+     "min": 0.8,
+     "max": 1.3,
+     "step": 0.005,
+     "default": 1,
+     "hint": "Leg length",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "body",
+      "skeleton"
+     ],
+     "unit": "ratio",
+     "inputUnit": "dimensionless",
+     "displayUnit": "ratio"
+    },
+    {
+     "key": "headRatio",
+     "label": "Head size",
+     "kind": "range",
+     "group": "shape",
+     "min": 0.85,
+     "max": 1.2,
+     "step": 0.005,
+     "default": 1,
+     "hint": "Head size",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "body",
+      "skeleton"
+     ],
+     "unit": "ratio",
+     "inputUnit": "dimensionless",
+     "displayUnit": "ratio"
+    },
+    {
+     "key": "earStyle",
+     "label": "Ears",
+     "kind": "choice",
+     "group": "construction",
+     "default": "upright",
+     "options": [
+      {
+       "value": "upright",
+       "label": "Upright"
+      },
+      {
+       "value": "lop",
+       "label": "Lop"
+      },
+      {
+       "value": "swept",
+       "label": "Swept"
+      }
+     ],
+     "hint": "Upright rabbit ears, lop ears hanging beside the head, or long hare ears swept back.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "body",
+      "skeleton"
+     ],
+     "unit": "none",
+     "inputUnit": "none",
+     "displayUnit": "none"
+    },
+    {
+     "key": "build",
+     "label": "Build",
+     "kind": "choice",
+     "group": "construction",
+     "default": "standard",
+     "options": [
+      {
+       "value": "standard",
+       "label": "Standard"
+      },
+      {
+       "value": "stocky",
+       "label": "Stocky"
+      },
+      {
+       "value": "lean",
+       "label": "Lean"
+      }
+     ],
+     "hint": "Body girth.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "body",
+      "skeleton"
+     ],
+     "unit": "none",
+     "inputUnit": "none",
+     "displayUnit": "none"
+    },
+    {
+     "key": "earTips",
+     "label": "Dark ear tips",
+     "kind": "toggle",
+     "group": "construction",
+     "default": false,
+     "hint": "Hare-style black ear tips.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "body"
+     ],
+     "unit": "none",
+     "inputUnit": "none",
+     "displayUnit": "none"
+    },
+    {
+     "key": "color.fur",
+     "label": "fur",
+     "kind": "color",
+     "group": "colors",
+     "default": "#998d7d",
+     "role": "fur",
+     "hint": "fur material",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "fur"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    },
+    {
+     "key": "color.cream",
+     "label": "cream",
+     "kind": "color",
+     "group": "colors",
+     "default": "#e6e2da",
+     "role": "cream",
+     "hint": "cream material",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "cream"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    },
+    {
+     "key": "color.dark",
+     "label": "dark",
+     "kind": "color",
+     "group": "colors",
+     "default": "#1d1714",
+     "role": "dark",
+     "hint": "dark material",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "dark"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    }
+   ]
+  },
+  "rock-cluster": {
+   "title": "Rock cluster",
+   "version": "1.2.0",
+   "description": "Faceted stones and pebbles with moss on the surface.",
+   "defaults": {
+    "count": 5,
+    "size": 1.2,
+    "spread": 1.1,
+    "flatness": 0.7,
+    "pebbles": 6,
+    "seed": 101,
+    "colorway": "granite",
+    "color.stone": "#8d8a85",
+    "color.accent": "#6f6b66"
+   },
+   "presets": [
+    {
+     "id": "outcrop",
+     "name": "Outcrop",
+     "description": "Five granite stones with grounded pebbles.",
+     "parameters": {}
+    },
+    {
+     "id": "slabs",
+     "name": "Slab field",
+     "description": "Low sandstone slabs.",
+     "parameters": {
+      "count": 7,
+      "size": 0.6,
+      "flatness": 0.35,
+      "spread": 1.6,
+      "colorway": "sandstone",
+      "seed": 77
+     }
+    },
+    {
+     "id": "monolith",
+     "name": "Monolith",
+     "description": "One tall mossy stone with rubble at the base.",
+     "parameters": {
+      "count": 1,
+      "size": 2.8,
+      "flatness": 1.2,
+      "pebbles": 8,
+      "colorway": "mossy",
+      "seed": 9
+     }
+    }
+   ],
+   "palettes": [
+    {
+     "id": "granite",
+     "label": "Granite",
+     "colors": [
+      "#8d8a85",
+      "#6f6b66"
+     ]
+    },
+    {
+     "id": "sandstone",
+     "label": "Sandstone",
+     "colors": [
+      "#c2a077",
+      "#a07f58"
+     ]
+    },
+    {
+     "id": "basalt",
+     "label": "Basalt",
+     "colors": [
+      "#45474b",
+      "#5c5e62"
+     ]
+    },
+    {
+     "id": "mossy",
+     "label": "Mossy",
+     "colors": [
+      "#7f8478",
+      "#5d7343"
+     ]
+    }
+   ],
+   "controls": [
+    {
+     "key": "count",
+     "label": "Rocks",
+     "kind": "integer",
+     "group": "construction",
+     "min": 1,
+     "max": 9,
+     "step": 1,
+     "default": 5,
+     "hint": "Main stones in the cluster.",
+     "affects": [
+      "topology"
+     ],
+     "targets": [
+      "rock",
+      "pebble"
+     ],
+     "unit": "count",
+     "inputUnit": "integer",
+     "displayUnit": "count"
+    },
+    {
+     "key": "size",
+     "label": "Largest rock",
+     "kind": "range",
+     "group": "shape",
+     "min": 0.3,
+     "max": 3,
+     "step": 0.05,
+     "default": 1.2,
+     "hint": "Height of the largest stone.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "rock",
+      "pebble"
+     ],
+     "unit": "m",
+     "inputUnit": "m",
+     "displayUnit": "m"
+    },
+    {
+     "key": "spread",
+     "label": "Spread",
+     "kind": "range",
+     "group": "shape",
+     "min": 0.6,
+     "max": 2,
+     "step": 0.05,
+     "default": 1.1,
+     "hint": "How far stones spread from the center, relative to size.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "rock",
+      "pebble"
+     ],
+     "unit": "ratio",
+     "inputUnit": "dimensionless",
+     "displayUnit": "ratio"
+    },
+    {
+     "key": "flatness",
+     "label": "Flatness",
+     "kind": "range",
+     "group": "shape",
+     "min": 0.3,
+     "max": 1.2,
+     "step": 0.05,
+     "default": 0.7,
+     "hint": "Height to width of each stone. Low values make slabs.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "rock",
+      "pebble"
+     ],
+     "unit": "ratio",
+     "inputUnit": "dimensionless",
+     "displayUnit": "ratio"
+    },
+    {
+     "key": "pebbles",
+     "label": "Pebbles",
+     "kind": "integer",
+     "group": "construction",
+     "min": 0,
+     "max": 12,
+     "step": 1,
+     "default": 6,
+     "hint": "Small grounded stones around the cluster.",
+     "affects": [
+      "topology"
+     ],
+     "targets": [
+      "pebble"
+     ],
+     "unit": "count",
+     "inputUnit": "integer",
+     "displayUnit": "count"
+    },
+    {
+     "key": "seed",
+     "label": "Variation seed",
+     "kind": "integer",
+     "group": "construction",
+     "min": 0,
+     "max": 65535,
+     "step": 1,
+     "default": 101,
+     "hint": "Repeatable facets and layout.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "rock",
+      "pebble"
+     ],
+     "unit": "seed",
+     "inputUnit": "integer",
+     "displayUnit": "seed"
+    },
+    {
+     "key": "colorway",
+     "label": "Palette",
+     "kind": "choice",
+     "group": "colors",
+     "default": "granite",
+     "options": [
+      {
+       "value": "granite",
+       "label": "Granite"
+      },
+      {
+       "value": "sandstone",
+       "label": "Sandstone"
+      },
+      {
+       "value": "basalt",
+       "label": "Basalt"
+      },
+      {
+       "value": "mossy",
+       "label": "Mossy"
+      }
+     ],
+     "hint": "Stone and moss colors.",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "stone",
+      "moss"
+     ],
+     "unit": "none",
+     "inputUnit": "none",
+     "displayUnit": "none"
+    },
+    {
+     "key": "color.stone",
+     "label": "Stone",
+     "kind": "color",
+     "group": "colors",
+     "default": "#8d8a85",
+     "role": "stone",
+     "hint": "Main stone color.",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "stone"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    },
+    {
+     "key": "color.accent",
+     "label": "Moss",
+     "kind": "color",
+     "group": "colors",
+     "default": "#6f6b66",
+     "role": "moss",
+     "hint": "Moss and weathered caps.",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "moss"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    }
+   ]
+  },
+  "slime": {
+   "title": "Slime creature",
+   "version": "2.0.0",
+   "description": "A jelly slime sculpted as one closed body, with a puddled base, drips, expressive eyes and mouth, and an optional crown or rock crust.",
+   "defaults": {
+    "height": 0.7,
+    "width": 0.9,
+    "form": "drop",
+    "mood": "happy",
+    "eyeSize": 0.13,
+    "crown": false,
+    "crust": false,
+    "seed": 7,
+    "colorway": "lime",
+    "color.body": "#6fcf4f",
+    "color.shine": "#c9f5a8",
+    "color.eye": "#fbfbf6",
+    "color.pupil": "#1f2a24",
+    "color.accent": "#3d8a3a",
+    "color.glow": "#ff8fa3"
+   },
+   "presets": [
+    {
+     "id": "dew",
+     "name": "Dew slime",
+     "description": "Green happy dew drop with a curled tip and a leaf sprout.",
+     "parameters": {}
+    },
+    {
+     "id": "king",
+     "name": "King slime",
+     "description": "Wide sleepy blue dome wearing a gold crown.",
+     "parameters": {
+      "height": 0.95,
+      "width": 1.45,
+      "form": "dome",
+      "mood": "sleepy",
+      "eyeSize": 0.14,
+      "crown": true,
+      "colorway": "azure",
+      "seed": 11
+     }
+    },
+    {
+     "id": "magma",
+     "name": "Magma blob",
+     "description": "Lumpy angry lava blob under cooled rock plates with glowing cracks.",
+     "parameters": {
+      "height": 0.8,
+      "width": 1.05,
+      "form": "lumpy",
+      "mood": "angry",
+      "eyeSize": 0.11,
+      "crust": true,
+      "colorway": "magma",
+      "seed": 29
+     }
+    }
+   ],
+   "palettes": [
+    {
+     "id": "lime",
+     "label": "Lime",
+     "colors": [
+      "#6fcf4f",
+      "#c9f5a8"
+     ]
+    },
+    {
+     "id": "azure",
+     "label": "Azure",
+     "colors": [
+      "#3f8ee0",
+      "#bfe0ff"
+     ]
+    },
+    {
+     "id": "magma",
+     "label": "Magma",
+     "colors": [
+      "#ff6a1a",
+      "#ffd06a"
+     ]
+    }
+   ],
+   "controls": [
+    {
+     "key": "height",
+     "label": "Height",
+     "kind": "range",
+     "group": "shape",
+     "min": 0.3,
+     "max": 1.4,
+     "step": 0.01,
+     "default": 0.7,
+     "hint": "Ground to tip.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "body"
+     ],
+     "unit": "m",
+     "inputUnit": "m",
+     "displayUnit": "m"
+    },
+    {
+     "key": "width",
+     "label": "Width",
+     "kind": "range",
+     "group": "shape",
+     "min": 0.6,
+     "max": 1.6,
+     "step": 0.01,
+     "default": 0.9,
+     "hint": "Body diameter as a multiple of height.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "body"
+     ],
+     "unit": "ratio",
+     "inputUnit": "dimensionless",
+     "displayUnit": "ratio"
+    },
+    {
+     "key": "form",
+     "label": "Form",
+     "kind": "choice",
+     "group": "construction",
+     "default": "drop",
+     "options": [
+      {
+       "value": "drop",
+       "label": "Dew drop"
+      },
+      {
+       "value": "dome",
+       "label": "Dome"
+      },
+      {
+       "value": "lumpy",
+       "label": "Lumpy"
+      }
+     ],
+     "hint": "Pointed drop with a curled tip, a wide jelly dome, or a lumpy multi-lobed blob.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "body"
+     ],
+     "unit": "none",
+     "inputUnit": "none",
+     "displayUnit": "none"
+    },
+    {
+     "key": "mood",
+     "label": "Mood",
+     "kind": "choice",
+     "group": "construction",
+     "default": "happy",
+     "options": [
+      {
+       "value": "happy",
+       "label": "Happy"
+      },
+      {
+       "value": "sleepy",
+       "label": "Sleepy"
+      },
+      {
+       "value": "angry",
+       "label": "Angry"
+      }
+     ],
+     "hint": "Eyes and mouth.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "eye",
+      "pupil"
+     ],
+     "unit": "none",
+     "inputUnit": "none",
+     "displayUnit": "none"
+    },
+    {
+     "key": "eyeSize",
+     "label": "Eye size",
+     "kind": "range",
+     "group": "shape",
+     "min": 0.08,
+     "max": 0.2,
+     "step": 0.005,
+     "default": 0.13,
+     "hint": "Eye radius as a fraction of height.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "eye",
+      "pupil"
+     ],
+     "unit": "ratio",
+     "inputUnit": "dimensionless",
+     "displayUnit": "ratio"
+    },
+    {
+     "key": "crown",
+     "label": "Crown",
+     "kind": "toggle",
+     "group": "construction",
+     "default": false,
+     "hint": "A little gold crown on top.",
+     "affects": [
+      "topology"
+     ],
+     "targets": [
+      "accent",
+      "glow"
+     ],
+     "unit": "none",
+     "inputUnit": "none",
+     "displayUnit": "none"
+    },
+    {
+     "key": "crust",
+     "label": "Rock crust",
+     "kind": "toggle",
+     "group": "construction",
+     "default": false,
+     "hint": "Cooled rock plates with glowing cracks.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "accent",
+      "glow"
+     ],
+     "unit": "none",
+     "inputUnit": "none",
+     "displayUnit": "none"
+    },
+    {
+     "key": "seed",
+     "label": "Variation seed",
+     "kind": "integer",
+     "group": "construction",
+     "min": 0,
+     "max": 65535,
+     "step": 1,
+     "default": 7,
+     "hint": "Repeatable lobes, drips and plates.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "body"
+     ],
+     "unit": "seed",
+     "inputUnit": "integer",
+     "displayUnit": "seed"
+    },
+    {
+     "key": "colorway",
+     "label": "Palette",
+     "kind": "choice",
+     "group": "colors",
+     "default": "lime",
+     "options": [
+      {
+       "value": "lime",
+       "label": "Lime"
+      },
+      {
+       "value": "azure",
+       "label": "Azure"
+      },
+      {
+       "value": "magma",
+       "label": "Magma"
+      }
+     ],
+     "hint": "Slime colors.",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "body",
+      "shine",
+      "eye",
+      "pupil",
+      "accent",
+      "glow"
+     ],
+     "unit": "none",
+     "inputUnit": "none",
+     "displayUnit": "none"
+    },
+    {
+     "key": "color.body",
+     "label": "Body",
+     "kind": "color",
+     "group": "colors",
+     "default": "#6fcf4f",
+     "role": "body",
+     "hint": "Jelly body and drips.",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "body"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    },
+    {
+     "key": "color.shine",
+     "label": "Shine",
+     "kind": "color",
+     "group": "colors",
+     "default": "#c9f5a8",
+     "role": "shine",
+     "hint": "Highlights and bubbles.",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "shine"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    },
+    {
+     "key": "color.eye",
+     "label": "Eye",
+     "kind": "color",
+     "group": "colors",
+     "default": "#fbfbf6",
+     "role": "eye",
+     "hint": "Eye whites.",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "eye"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    },
+    {
+     "key": "color.pupil",
+     "label": "Pupil",
+     "kind": "color",
+     "group": "colors",
+     "default": "#1f2a24",
+     "role": "pupil",
+     "hint": "Pupils, brows and mouth.",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "pupil"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    },
+    {
+     "key": "color.accent",
+     "label": "Accent",
+     "kind": "color",
+     "group": "colors",
+     "default": "#3d8a3a",
+     "role": "accent",
+     "hint": "Leaf sprout, crown or rock crust.",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "accent"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    },
+    {
+     "key": "color.glow",
+     "label": "Glow",
+     "kind": "color",
+     "group": "colors",
+     "default": "#ff8fa3",
+     "role": "glow",
+     "hint": "Gems, cheeks and lava cracks.",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "glow"
      ],
      "unit": "color",
      "inputUnit": "color",
@@ -3261,8 +4886,31 @@
     {
      "id": "default",
      "name": "Russet fox",
-     "description": "Faceted russet coat with cream underside and dark paws.",
+     "description": "Russet coat with cream underside, dark socks and ear tips.",
      "parameters": {}
+    },
+    {
+     "id": "silver",
+     "name": "Silver fox",
+     "description": "Charcoal-grey coat with a white tail tip.",
+     "parameters": {
+      "color.fur": "#5d5a5c",
+      "color.cream": "#e9e7e3",
+      "color.dark": "#1f1d1e"
+     }
+    },
+    {
+     "id": "arctic",
+     "name": "Arctic fox",
+     "description": "White winter coat with small ears and a full tail.",
+     "parameters": {
+      "color.fur": "#ecebe6",
+      "color.cream": "#ffffff",
+      "color.dark": "#a49d96",
+      "earRatio": 0.38,
+      "muzzleRatio": 0.38,
+      "tailFullness": 0.18
+     }
     }
    ],
    "palettes": [],
@@ -3494,26 +5142,63 @@
   "stylized-humanoid": {
    "title": "Stylized adventurer",
    "version": "1.0.0",
-   "description": "Original clothed humanoid with proportional anatomy and weighted joints.",
+   "description": "Low-poly clothed humanoid built from faceted rings, with clothing edges on ring lines and weighted joints.",
    "defaults": {
     "height": 1.7,
-    "headRatio": 0.18,
+    "headRatio": 0.21,
     "shoulderRatio": 0.27,
-    "hipRatio": 0.2,
-    "legRatio": 0.48,
-    "armRatio": 0.36,
-    "limbRatio": 0.045,
-    "color.skin": "#c49375",
-    "color.tunic": "#657764",
-    "color.boots": "#473c36",
-    "color.hair": "#3b302b"
+    "hipRatio": 0.21,
+    "legRatio": 0.43,
+    "armRatio": 0.34,
+    "limbRatio": 0.046,
+    "build": "standard",
+    "sleeves": "long",
+    "hairStyle": "short",
+    "beard": false,
+    "color.skin": "#c99a78",
+    "color.tunic": "#5f7d5a",
+    "color.trousers": "#6b5642",
+    "color.boots": "#3f332c",
+    "color.belt": "#4a3626",
+    "color.hair": "#4a3427"
    },
    "presets": [
     {
      "id": "default",
      "name": "Adventurer",
-     "description": "Neutral clothed adventurer.",
+     "description": "Green tunic, brown trousers and boots, short hair.",
      "parameters": {}
+    },
+    {
+     "id": "brawler",
+     "name": "Brawler",
+     "description": "Broad, sleeveless fighter with a beard.",
+     "parameters": {
+      "build": "broad",
+      "sleeves": "none",
+      "beard": true,
+      "shoulderRatio": 0.31,
+      "height": 1.82,
+      "color.tunic": "#8a3e2e",
+      "color.trousers": "#3d3a36",
+      "color.skin": "#b5835f",
+      "color.hair": "#2a211c"
+     }
+    },
+    {
+     "id": "monk",
+     "name": "Monk",
+     "description": "Slim monk in a saffron robe with a shaved head.",
+     "parameters": {
+      "build": "slim",
+      "hairStyle": "bald",
+      "sleeves": "short",
+      "color.tunic": "#d08a2e",
+      "color.trousers": "#7a4a2a",
+      "color.belt": "#6b2f1c",
+      "color.boots": "#5a4430",
+      "color.skin": "#d0a07c"
+     }
     }
    ],
    "palettes": [],
@@ -3545,9 +5230,9 @@
      "kind": "range",
      "group": "shape",
      "min": 0.14,
-     "max": 0.22,
+     "max": 0.26,
      "step": 0.005,
-     "default": 0.18,
+     "default": 0.21,
      "hint": "Head proportion",
      "affects": [
       "geometry"
@@ -3566,7 +5251,7 @@
      "kind": "range",
      "group": "shape",
      "min": 0.22,
-     "max": 0.32,
+     "max": 0.34,
      "step": 0.005,
      "default": 0.27,
      "hint": "Shoulder width",
@@ -3587,9 +5272,9 @@
      "kind": "range",
      "group": "shape",
      "min": 0.16,
-     "max": 0.24,
+     "max": 0.26,
      "step": 0.005,
-     "default": 0.2,
+     "default": 0.21,
      "hint": "Hip width",
      "affects": [
       "geometry"
@@ -3607,10 +5292,10 @@
      "label": "Leg length",
      "kind": "range",
      "group": "shape",
-     "min": 0.43,
+     "min": 0.38,
      "max": 0.53,
      "step": 0.005,
-     "default": 0.48,
+     "default": 0.43,
      "hint": "Leg length",
      "affects": [
       "geometry"
@@ -3628,10 +5313,10 @@
      "label": "Arm length",
      "kind": "range",
      "group": "shape",
-     "min": 0.32,
+     "min": 0.3,
      "max": 0.4,
      "step": 0.005,
-     "default": 0.36,
+     "default": 0.34,
      "hint": "Arm length",
      "affects": [
       "geometry"
@@ -3652,7 +5337,7 @@
      "min": 0.035,
      "max": 0.065,
      "step": 0.005,
-     "default": 0.045,
+     "default": 0.046,
      "hint": "Limb radius",
      "affects": [
       "geometry"
@@ -3666,13 +5351,123 @@
      "displayUnit": "ratio"
     },
     {
+     "key": "build",
+     "label": "Build",
+     "kind": "choice",
+     "group": "construction",
+     "default": "standard",
+     "options": [
+      {
+       "value": "standard",
+       "label": "Standard"
+      },
+      {
+       "value": "broad",
+       "label": "Broad"
+      },
+      {
+       "value": "slim",
+       "label": "Slim"
+      }
+     ],
+     "hint": "Torso and limb girth.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "body"
+     ],
+     "unit": "none",
+     "inputUnit": "none",
+     "displayUnit": "none"
+    },
+    {
+     "key": "sleeves",
+     "label": "Sleeves",
+     "kind": "choice",
+     "group": "construction",
+     "default": "long",
+     "options": [
+      {
+       "value": "long",
+       "label": "Long"
+      },
+      {
+       "value": "short",
+       "label": "Short"
+      },
+      {
+       "value": "none",
+       "label": "None"
+      }
+     ],
+     "hint": "How far the shirt covers the arms.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "body"
+     ],
+     "unit": "none",
+     "inputUnit": "none",
+     "displayUnit": "none"
+    },
+    {
+     "key": "hairStyle",
+     "label": "Hair",
+     "kind": "choice",
+     "group": "construction",
+     "default": "short",
+     "options": [
+      {
+       "value": "short",
+       "label": "Short"
+      },
+      {
+       "value": "bald",
+       "label": "Bald"
+      },
+      {
+       "value": "topknot",
+       "label": "Top knot"
+      }
+     ],
+     "hint": "Hair on the head.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "body"
+     ],
+     "unit": "none",
+     "inputUnit": "none",
+     "displayUnit": "none"
+    },
+    {
+     "key": "beard",
+     "label": "Beard",
+     "kind": "toggle",
+     "group": "construction",
+     "default": false,
+     "hint": "Beard over the jaw.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "body"
+     ],
+     "unit": "none",
+     "inputUnit": "none",
+     "displayUnit": "none"
+    },
+    {
      "key": "color.skin",
      "label": "skin",
      "kind": "color",
      "group": "colors",
-     "default": "#c49375",
+     "default": "#c99a78",
      "role": "skin",
-     "hint": "skin material",
+     "hint": "skin color",
      "affects": [
       "material"
      ],
@@ -3688,9 +5483,9 @@
      "label": "tunic",
      "kind": "color",
      "group": "colors",
-     "default": "#657764",
+     "default": "#5f7d5a",
      "role": "tunic",
-     "hint": "tunic material",
+     "hint": "tunic color",
      "affects": [
       "material"
      ],
@@ -3702,13 +5497,31 @@
      "displayUnit": "color"
     },
     {
+     "key": "color.trousers",
+     "label": "trousers",
+     "kind": "color",
+     "group": "colors",
+     "default": "#6b5642",
+     "role": "trousers",
+     "hint": "trousers color",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "trousers"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    },
+    {
      "key": "color.boots",
      "label": "boots",
      "kind": "color",
      "group": "colors",
-     "default": "#473c36",
+     "default": "#3f332c",
      "role": "boots",
-     "hint": "boots material",
+     "hint": "boots color",
      "affects": [
       "material"
      ],
@@ -3720,13 +5533,31 @@
      "displayUnit": "color"
     },
     {
+     "key": "color.belt",
+     "label": "belt",
+     "kind": "color",
+     "group": "colors",
+     "default": "#4a3626",
+     "role": "belt",
+     "hint": "belt color",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "belt"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    },
+    {
      "key": "color.hair",
      "label": "hair",
      "kind": "color",
      "group": "colors",
-     "default": "#3b302b",
+     "default": "#4a3427",
      "role": "hair",
-     "hint": "hair material",
+     "hint": "hair color",
      "affects": [
       "material"
      ],
@@ -4810,6 +6641,255 @@
      ],
      "targets": [
       "iron"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    }
+   ]
+  },
+  "windmill": {
+   "title": "Windmill",
+   "version": "2.0.0",
+   "description": "A working windmill with lattice sails: a post mill on a trestle, an eight-sided smock mill or a round stone tower mill.",
+   "defaults": {
+    "form": "post",
+    "height": 8,
+    "sailLength": 0.48,
+    "sailTurn": 0.055,
+    "cloth": true,
+    "color.wall": "#8a6a4a",
+    "color.roof": "#4e4a48",
+    "color.wood": "#5a4330",
+    "color.cloth": "#e6dcc4",
+    "color.stone": "#9a948a"
+   },
+   "presets": [
+    {
+     "id": "post",
+     "name": "Post mill",
+     "description": "Timber buck on a trestle with a ladder and tail pole.",
+     "parameters": {}
+    },
+    {
+     "id": "smock",
+     "name": "Smock mill",
+     "description": "Eight-sided timber smock on a brick base with a stage.",
+     "parameters": {
+      "form": "smock",
+      "height": 9,
+      "color.wall": "#e8e2d2",
+      "color.roof": "#3e5a4a",
+      "sailTurn": 0.1
+     }
+    },
+    {
+     "id": "tower",
+     "name": "Tower mill",
+     "description": "Round stone tower with a conical cap.",
+     "parameters": {
+      "form": "tower",
+      "height": 10,
+      "color.roof": "#3f3a38",
+      "sailTurn": 0.03
+     }
+    }
+   ],
+   "palettes": [],
+   "controls": [
+    {
+     "key": "form",
+     "label": "Mill type",
+     "kind": "choice",
+     "group": "construction",
+     "default": "post",
+     "options": [
+      {
+       "value": "post",
+       "label": "Post mill"
+      },
+      {
+       "value": "smock",
+       "label": "Smock mill"
+      },
+      {
+       "value": "tower",
+       "label": "Tower mill"
+      }
+     ],
+     "hint": "Timber post mill on a trestle, eight-sided smock, or round stone tower.",
+     "affects": [
+      "topology"
+     ],
+     "targets": [
+      "body"
+     ],
+     "unit": "none",
+     "inputUnit": "none",
+     "displayUnit": "none"
+    },
+    {
+     "key": "height",
+     "label": "Body height",
+     "kind": "range",
+     "group": "shape",
+     "min": 5,
+     "max": 14,
+     "step": 0.1,
+     "default": 8,
+     "hint": "Height to the top of the cap.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "body"
+     ],
+     "unit": "m",
+     "inputUnit": "m",
+     "displayUnit": "m"
+    },
+    {
+     "key": "sailLength",
+     "label": "Sail length",
+     "kind": "range",
+     "group": "shape",
+     "min": 0.35,
+     "max": 0.6,
+     "step": 0.01,
+     "default": 0.48,
+     "hint": "Sail length relative to height.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "sails"
+     ],
+     "unit": "ratio",
+     "inputUnit": "dimensionless",
+     "displayUnit": "ratio"
+    },
+    {
+     "key": "sailTurn",
+     "label": "Sail turn",
+     "kind": "range",
+     "group": "shape",
+     "min": 0,
+     "max": 0.25,
+     "step": 0.005,
+     "default": 0.055,
+     "hint": "Rotation of the sails.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "sails"
+     ],
+     "unit": "ratio",
+     "inputUnit": "dimensionless",
+     "displayUnit": "ratio"
+    },
+    {
+     "key": "cloth",
+     "label": "Sail cloth",
+     "kind": "toggle",
+     "group": "construction",
+     "default": true,
+     "hint": "Cloth spread on the lattice.",
+     "affects": [
+      "geometry"
+     ],
+     "targets": [
+      "sails"
+     ],
+     "unit": "none",
+     "inputUnit": "none",
+     "displayUnit": "none"
+    },
+    {
+     "key": "color.wall",
+     "label": "wall",
+     "kind": "color",
+     "group": "colors",
+     "default": "#8a6a4a",
+     "role": "wall",
+     "hint": "wall color",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "wall"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    },
+    {
+     "key": "color.roof",
+     "label": "roof",
+     "kind": "color",
+     "group": "colors",
+     "default": "#4e4a48",
+     "role": "roof",
+     "hint": "roof color",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "roof"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    },
+    {
+     "key": "color.wood",
+     "label": "wood",
+     "kind": "color",
+     "group": "colors",
+     "default": "#5a4330",
+     "role": "wood",
+     "hint": "wood color",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "wood"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    },
+    {
+     "key": "color.cloth",
+     "label": "cloth",
+     "kind": "color",
+     "group": "colors",
+     "default": "#e6dcc4",
+     "role": "cloth",
+     "hint": "cloth color",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "cloth"
+     ],
+     "unit": "color",
+     "inputUnit": "color",
+     "displayUnit": "color"
+    },
+    {
+     "key": "color.stone",
+     "label": "stone",
+     "kind": "color",
+     "group": "colors",
+     "default": "#9a948a",
+     "role": "stone",
+     "hint": "stone color",
+     "affects": [
+      "material"
+     ],
+     "targets": [
+      "stone"
      ],
      "unit": "color",
      "inputUnit": "color",

@@ -14,14 +14,14 @@ import { designInput } from '../src/catalog/appearance.ts';
 import { geometrySnapshot } from '../src/lantern/inspect.ts';
 import { exportAsset } from '../src/catalog/export.ts';
 
-test('revision 3 cottage source package preserves validated migration and canonical export bytes',{timeout:120000},async()=>{
+test('current revision cottage source package preserves validated migration and canonical export bytes',{timeout:120000},async()=>{
   const evidence=resolve('evidence/revision14/packages');await mkdir(evidence,{recursive:true});
   const requested=process.env.SOURCE_DELIVERY_REPLAY_ROOT;
   const output=requested?resolve(requested):await mkdtemp(join(evidence,'cottage-replay-'));
   assert.ok(output.startsWith(evidence+'/'));if(requested)await mkdir(output,{recursive:false});
   const index=await buildSourcePackages(join(output,'candidate'),['cottage']),entry=index.packages[0]!;
   const archive=await readFile(join(output,'candidate',entry.url.split('/').at(-1)!)),directory=join(output,'extracted');
-  assert.equal(index.packages.length,1);assert.equal(entry.deliveryRevision,3);await extractPackage(archive,directory);
+  assert.equal(index.packages.length,1);assert.equal(entry.deliveryRevision,4);await extractPackage(archive,directory);
   const installation=spawnSync('npm',['ci','--ignore-scripts','--no-audit','--no-fund'],{cwd:directory,encoding:'utf8',timeout:60000});
   await writeFile(join(output,'installation.log'),installation.stdout+installation.stderr);
   await writeFile(join(output,'installation.json'),JSON.stringify({command:['npm','ci','--ignore-scripts','--no-audit','--no-fund'],status:installation.status,stdout:installation.stdout,stderr:installation.stderr,error:installation.error?.message??null},null,2)+'\n');

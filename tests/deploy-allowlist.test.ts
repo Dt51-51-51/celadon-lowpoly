@@ -36,3 +36,8 @@ test('preflight config only swaps host; smoke plan and runner',async()=>{
  const fake=(async(url:URL)=>new Response(null,{status:url.pathname==='/public-assets/a.js'?404:200})) as unknown as typeof fetch;
  assert.deepEqual(await runSmoke('https://h',plan,fake),['/public-assets/a.js expected 200 got 404']);
 });
+test('production deploy applies only migrations the database has not recorded',async()=>{
+ const {pendingMigrations}=await import('../scripts/deploy-production.ts');
+ assert.deepEqual(pendingMigrations(['0021_model_stats.sql','README.md','0019_catalog_presentation.sql','0020_catalog_model_types.sql'],['0019_catalog_presentation.sql','0020_catalog_model_types.sql']),['0021_model_stats.sql']);
+ assert.deepEqual(pendingMigrations(['0019_catalog_presentation.sql'],['0019_catalog_presentation.sql']),[]);
+});

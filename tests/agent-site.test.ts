@@ -5,8 +5,8 @@ import {chromium} from 'playwright-core';
 import {agentBundleUrl,agentSetupText} from '../src/site/docs.ts';
 
 test('distribution uses an explicit configurable base without inventing a live host',()=>{
- assert.equal(agentBundleUrl('http://127.0.0.1:8765/preview/'),'http://127.0.0.1:8765/preview/agent-bundles/polyspoon-agent-3.zip');
- assert.ok(agentSetupText('codex','https://example.test/toolkit/').includes('https://example.test/toolkit/agent-bundles/polyspoon-agent-3.zip'));
+ assert.equal(agentBundleUrl('http://127.0.0.1:8765/preview/'),'http://127.0.0.1:8765/preview/agent-bundles/polyspoon-agent-4.zip');
+ assert.ok(agentSetupText('codex','https://example.test/toolkit/').includes('https://example.test/toolkit/agent-bundles/polyspoon-agent-4.zip'));
  assert.throws(()=>agentBundleUrl('file:///tmp/'));
 });
 
@@ -19,7 +19,7 @@ test('docs serve one archive and app-specific copyable setup on the actual local
   const origin=new URL(page.url()).origin;
   for(const app of ['codex','claude','cursor','copilot']){
    await page.locator('#agent-app').selectOption(app);
-   const text=await page.locator('#agent-setup-text').inputValue();assert.ok(text.includes('--app '+app));assert.ok(text.includes(origin+'/agent-bundles/polyspoon-agent-3.zip'));assert.ok(text.includes('bootstrap.mjs'));
+   const text=await page.locator('#agent-setup-text').inputValue();assert.ok(text.includes('--app '+app));assert.ok(text.includes(origin+'/agent-bundles/polyspoon-agent-4.zip'));assert.ok(text.includes('bootstrap.mjs'));
   }
   await page.context().grantPermissions(['clipboard-read','clipboard-write'],{origin});await page.getByRole('button',{name:'Copy setup request'}).click();assert.equal(await page.evaluate(()=>navigator.clipboard.readText()),await page.locator('#agent-setup-text').inputValue());
   await page.evaluate(()=>{navigator.clipboard.writeText=async()=>{throw new Error('Simulated clipboard permission failure');};});await page.getByRole('button',{name:'Copy setup request',exact:true}).click();assert.ok((await page.getByRole('status').filter({hasText:'Select and copy'}).textContent())?.includes('Select and copy'));

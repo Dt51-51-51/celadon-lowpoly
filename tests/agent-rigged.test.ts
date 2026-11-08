@@ -14,7 +14,7 @@ import { validateBytes } from 'gltf-validator';
 import { descriptor } from '../src/catalog/index.ts';
 import { assertSameBytes } from './same-bytes.ts';
 
-test('agent 3 fresh install bootstraps fourteen recipes and exports edited animated rigs',{timeout:180000},async()=>{
+test('agent 3 fresh install bootstraps every recipe and exports edited animated rigs',{timeout:180000},async()=>{
  const base=resolve('evidence/rigged-catalog');await mkdir(base,{recursive:true});const output=await mkdtemp(join(base,'agent3-'));
  const oldBytes=await readFile('public/agent-bundles/polyspoon-agent-2.zip'),packages=join(output,'source');await buildSourcePackages(packages,['bench'],3);
  const directory=join(output,'bundle'),archive=join(output,'polyspoon-agent-3.zip');
@@ -22,7 +22,7 @@ test('agent 3 fresh install bootstraps fourteen recipes and exports edited anima
  const project=join(output,'project');await mkdir(project);await installBundle({bundle:directory,project,app:'codex'});
  const run=(file:string,args:string[])=>{const p=spawnSync(process.execPath,[join(project,'.polyspoon',file),...args],{cwd:project,encoding:'utf8',timeout:120000});assert.equal(p.status,0,p.stdout+p.stderr);return p;};
  const bootstrap=run('bootstrap.mjs',[]);await writeFile(join(output,'bootstrap.log'),bootstrap.stdout+bootstrap.stderr);
- const catalog=JSON.parse(run('runtime.mjs',['catalog']).stdout);assert.equal(catalog.length,14);const rows=[];
+ const catalog=JSON.parse(run('runtime.mjs',['catalog']).stdout);assert.equal(catalog.length,20);const rows=[];
  for(const family of ['stylized-humanoid','stylized-fox']){
   const parameters=family==='stylized-humanoid'?{height:1.9}:{bodyLength:.6},first=join(project,family),edited=join(project,family+'-edited');
   run('runtime.mjs',['build','--family',family,'--parameters',JSON.stringify(parameters),'--out',first]);

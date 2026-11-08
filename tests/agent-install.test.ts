@@ -45,7 +45,7 @@ test('installed bundle bootstraps and builds an actual changed-width bench throu
  invoke('bootstrap.mjs',[]);await writeFile(join(project,'.polyspoon/toolkit/my-edits.txt'),'preserve editable toolkit');await installBundle({bundle,project,app:'codex'});invoke('bootstrap.mjs',[]);assert.equal(await readFile(join(project,'.polyspoon/toolkit/my-edits.txt'),'utf8'),'preserve editable toolkit');
  const statePath=join(project,'.polyspoon/agent-install.json'),state=JSON.parse(await readFile(statePath,'utf8'));await writeFile(statePath,JSON.stringify({...state,toolkit:{...state.toolkit,sha256:'0'.repeat(64)}}));
  const mismatched=spawnSync(process.execPath,[join(project,'.polyspoon/runtime.mjs'),'catalog'],{cwd:project,encoding:'utf8'});assert.notEqual(mismatched.status,0,'mismatched engine/archive must not run');await writeFile(statePath,JSON.stringify(state));
- const catalog=JSON.parse(invoke('runtime.mjs',['catalog']).stdout);assert.equal(catalog.length,14);
+ const catalog=JSON.parse(invoke('runtime.mjs',['catalog']).stdout);assert.equal(catalog.length,20);
  invoke('runtime.mjs',['build','--family','bench','--parameters','{"width":2.2,"backrest":false}','--out','exports/request-01']);
  const config=JSON.parse(await readFile(join(project,'exports/request-01/asset.design.json'),'utf8'));
  assert.equal(config.applied.width,2.2);assert.equal(config.applied.backrest,false);

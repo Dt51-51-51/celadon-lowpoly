@@ -32,11 +32,11 @@ async function dependencyNotices(){
   });
   return {files,inventory:{installed:inventory,platformPackages,bundledDependencyCode:false}};
 }
-export async function buildSourcePackages(output=join(root,'public/recipe-packages'),families?:readonly string[],deliveryRevision:2|3=currentDeliveryRevision){
+export async function buildSourcePackages(output=join(root,'public/recipe-packages'),families?:readonly string[],deliveryRevision:2|3|4=currentDeliveryRevision){
   const target=resolve(output);
   if(families&&target===resolve(root,'public/recipe-packages'))throw new Error('Family selection requires an explicit candidate output');
-  if(![2,3].includes(deliveryRevision))throw new Error('Unsupported source delivery revision');
-  const sources=await collectSources(root,['src/catalog/index.ts',deliveryRevision===3?'src/catalog/delivery.ts':'src/catalog/export.ts','src/lantern/inspect.ts','scripts/node-platform.ts']);
+  if(![2,3,4].includes(deliveryRevision))throw new Error('Unsupported source delivery revision');
+  const sources=await collectSources(root,['src/catalog/index.ts',deliveryRevision>=3?'src/catalog/delivery.ts':'src/catalog/export.ts','src/lantern/inspect.ts','scripts/node-platform.ts']);
   if(deliveryRevision===2&&Object.keys(sources).some(path=>path.startsWith('src/rigging/')))throw new Error('Revision 3 required for current catalog source; generate explicit candidates');
   const declarations=JSON.parse(await readFile(join(root,'docs/contributing/source-packages.json'),'utf8'));
   if(declarations.formatVersion!==1||!declarations.recipes||typeof declarations.recipes!=='object')throw new Error('Invalid declaration metadata');
@@ -57,7 +57,7 @@ export async function buildSourcePackages(output=join(root,'public/recipe-packag
       ...sources,...entrySources,...licenses,...notices.files,
       'config.json':JSON.stringify(d.save({}),null,2)+'\n',
       'controls.json':JSON.stringify(d.controls,null,2)+'\n',
-      'build.mjs':deliveryRevision===3?riggedBuildEntry:buildEntry,'runner.ts':deliveryRevision===3?riggedRunnerEntry(id):runnerEntry(id),'REBUILD.md':(deliveryRevision===3?riggedRebuildInstructions:rebuildInstructions).replace('is designated original starter content under CC0-1.0','has the author-declared content license '+licensing.contentLicense),
+      'build.mjs':deliveryRevision>=3?riggedBuildEntry:buildEntry,'runner.ts':deliveryRevision>=3?riggedRunnerEntry(id):runnerEntry(id),'REBUILD.md':(deliveryRevision>=3?riggedRebuildInstructions:rebuildInstructions).replace('is designated original starter content under CC0-1.0','has the author-declared content license '+licensing.contentLicense),
       'dependency-licenses.json':JSON.stringify(notices.inventory,null,2)+'\n',
       'package.json':JSON.stringify({name,version:'1.0.0',private:true,type:'module',license:'Apache-2.0',engines:{node:'>=22.22.1'},scripts:{rebuild:'node build.mjs'},dependencies:pinnedDependencies},null,2)+'\n',
       'package-lock.json':JSON.stringify(dependencyLock(name),null,2)+'\n',

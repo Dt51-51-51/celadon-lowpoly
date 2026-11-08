@@ -614,6 +614,261 @@
       }
     },
     {
+      "id": "rock-cluster",
+      "version": "1.2.0",
+      "url": "procedural-modules/rock-cluster/1.2.0/asset.mjs",
+      "sha256": "9be61ee5bd7349fb736153b4dfb58917ab3a1d46fa28fed6e9f87efb87542c67",
+      "bytes": 49177,
+      "dependencies": {
+        "three": "0.186.1"
+      },
+      "configuration": {
+        "kind": "default"
+      },
+      "files": {
+        "asset.mjs": {
+          "sha256": "9be61ee5bd7349fb736153b4dfb58917ab3a1d46fa28fed6e9f87efb87542c67",
+          "bytes": 49177
+        },
+        "asset.d.mts": {
+          "sha256": "5d516d889907b87cd949b5cdb30edaa12eccf289cac868ad139793ffb5171247",
+          "bytes": 10659
+        },
+        "metadata.json": {
+          "sha256": "3f33ed9511313643a296f237f98a902b6b45318eaf39454038ac811f4c1a02e6",
+          "bytes": 15488
+        },
+        "README.md": {
+          "sha256": "bd36bcd47d04eb1465a42645bbd2df8cfcc0b71d1867446fd17951de34301419",
+          "bytes": 4352
+        },
+        "semantic-contract.md": {
+          "sha256": "520bb72d85433df842d8bc69c23e31bf44b52fc7ffb0dab704af7eb532f779dc",
+          "bytes": 5837
+        },
+        "LICENSE": {
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "bytes": 11358
+        },
+        "NOTICE": {
+          "sha256": "158811d49b6f88ae086d0dd76214e13be20a99a6b589add8711536fa52b76122",
+          "bytes": 615
+        },
+        "THIRD-PARTY.txt": {
+          "sha256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc",
+          "bytes": 1081
+        },
+        "example.html": {
+          "sha256": "c936291d6ad02fcdf745a8f033251e4b3ae843d8d03cd72b95484e09099da995",
+          "bytes": 523
+        }
+      }
+    },
+    {
+      "id": "hydrangea",
+      "version": "1.0.0",
+      "url": "procedural-modules/hydrangea/1.0.0/asset.mjs",
+      "sha256": "7b302947105b8210e07e266b82c4437d58b827b12d0fc2b0329d5dbb457aebdd",
+      "bytes": 47831,
+      "dependencies": {
+        "three": "0.186.1"
+      },
+      "configuration": {
+        "kind": "default"
+      },
+      "files": {
+        "asset.mjs": {
+          "sha256": "7b302947105b8210e07e266b82c4437d58b827b12d0fc2b0329d5dbb457aebdd",
+          "bytes": 47831
+        },
+        "asset.d.mts": {
+          "sha256": "6c36c5d74bbbe5995f1bd95e33cd1e0aadb0c5e8eec33dde6046dc8a76d86a7d",
+          "bytes": 11589
+        },
+        "metadata.json": {
+          "sha256": "df9b0f88d7c41fcb7ca131dafda760262780cf1e8ddd50458cbdbfa5b9c7e86f",
+          "bytes": 17003
+        },
+        "README.md": {
+          "sha256": "bd36bcd47d04eb1465a42645bbd2df8cfcc0b71d1867446fd17951de34301419",
+          "bytes": 4352
+        },
+        "semantic-contract.md": {
+          "sha256": "520bb72d85433df842d8bc69c23e31bf44b52fc7ffb0dab704af7eb532f779dc",
+          "bytes": 5837
+        },
+        "LICENSE": {
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "bytes": 11358
+        },
+        "NOTICE": {
+          "sha256": "158811d49b6f88ae086d0dd76214e13be20a99a6b589add8711536fa52b76122",
+          "bytes": 615
+        },
+        "THIRD-PARTY.txt": {
+          "sha256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc",
+          "bytes": 1081
+        },
+        "example.html": {
+          "sha256": "f752c6ade73e8e70965ec879b4daa89d675bbda4150ba4b86f787ef05bea2ec5",
+          "bytes": 520
+        }
+      }
+    },
+    {
+      "id": "mushroom-cluster",
+      "version": "2.0.0",
+      "url": "procedural-modules/mushroom-cluster/2.0.0/asset.mjs",
+      "sha256": "1ef9f657bc7ee6ca9a5c207e5cc84cfe787131692e3050ed6ce5370afa90d00a",
+      "bytes": 43367,
+      "dependencies": {
+        "three": "0.186.1"
+      },
+      "configuration": {
+        "kind": "default"
+      },
+      "files": {
+        "asset.mjs": {
+          "sha256": "1ef9f657bc7ee6ca9a5c207e5cc84cfe787131692e3050ed6ce5370afa90d00a",
+          "bytes": 43367
+        },
+        "asset.d.mts": {
+          "sha256": "e4c0f641d0c2a4363f41c15b8d13332a70103351139177a2c429a09c1a84b9c3",
+          "bytes": 10819
+        },
+        "metadata.json": {
+          "sha256": "56a2c81556ed10853666fe341a9cb086995232b24a39add08da729890ceeb82e",
+          "bytes": 15973
+        },
+        "README.md": {
+          "sha256": "bd36bcd47d04eb1465a42645bbd2df8cfcc0b71d1867446fd17951de34301419",
+          "bytes": 4352
+        },
+        "semantic-contract.md": {
+          "sha256": "520bb72d85433df842d8bc69c23e31bf44b52fc7ffb0dab704af7eb532f779dc",
+          "bytes": 5837
+        },
+        "LICENSE": {
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "bytes": 11358
+        },
+        "NOTICE": {
+          "sha256": "158811d49b6f88ae086d0dd76214e13be20a99a6b589add8711536fa52b76122",
+          "bytes": 615
+        },
+        "THIRD-PARTY.txt": {
+          "sha256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc",
+          "bytes": 1081
+        },
+        "example.html": {
+          "sha256": "15b292b20847c62f61cf73a2e8daae95221fbdd6d7b6a125166256204f2def32",
+          "bytes": 527
+        }
+      }
+    },
+    {
+      "id": "windmill",
+      "version": "2.0.0",
+      "url": "procedural-modules/windmill/2.0.0/asset.mjs",
+      "sha256": "c0610edffd04c0e3d7643c47030cf9bd16fe049ff4145a30bf247e5bea846354",
+      "bytes": 42358,
+      "dependencies": {
+        "three": "0.186.1"
+      },
+      "configuration": {
+        "kind": "default"
+      },
+      "files": {
+        "asset.mjs": {
+          "sha256": "c0610edffd04c0e3d7643c47030cf9bd16fe049ff4145a30bf247e5bea846354",
+          "bytes": 42358
+        },
+        "asset.d.mts": {
+          "sha256": "66ce67b7237bc27c11d213bb208cae58d82a3ad060199606b43031f1df682a70",
+          "bytes": 9063
+        },
+        "metadata.json": {
+          "sha256": "193c024f96739d59eb0dd6c55db5846cd921890892873fad43b61ffed3adaf7f",
+          "bytes": 12779
+        },
+        "README.md": {
+          "sha256": "bd36bcd47d04eb1465a42645bbd2df8cfcc0b71d1867446fd17951de34301419",
+          "bytes": 4352
+        },
+        "semantic-contract.md": {
+          "sha256": "520bb72d85433df842d8bc69c23e31bf44b52fc7ffb0dab704af7eb532f779dc",
+          "bytes": 5837
+        },
+        "LICENSE": {
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "bytes": 11358
+        },
+        "NOTICE": {
+          "sha256": "158811d49b6f88ae086d0dd76214e13be20a99a6b589add8711536fa52b76122",
+          "bytes": 615
+        },
+        "THIRD-PARTY.txt": {
+          "sha256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc",
+          "bytes": 1081
+        },
+        "example.html": {
+          "sha256": "282231c9cc2d381c31335f6dba67e045740eb7903190712d156c2fe6dd92bb4a",
+          "bytes": 519
+        }
+      }
+    },
+    {
+      "id": "slime",
+      "version": "2.0.0",
+      "url": "procedural-modules/slime/2.0.0/asset.mjs",
+      "sha256": "0f53f4c416265f05f1032928e6d30e3b86fc19ec8f023171a2da70a3e7067ef9",
+      "bytes": 92308,
+      "dependencies": {
+        "three": "0.186.1"
+      },
+      "configuration": {
+        "kind": "default"
+      },
+      "files": {
+        "asset.mjs": {
+          "sha256": "0f53f4c416265f05f1032928e6d30e3b86fc19ec8f023171a2da70a3e7067ef9",
+          "bytes": 92308
+        },
+        "asset.d.mts": {
+          "sha256": "c3f4e909d41c3f7361d27b241c44ee2bbdb5edd63a6e869085bbd59516d21f3c",
+          "bytes": 13606
+        },
+        "metadata.json": {
+          "sha256": "0523068bc0111f3e9b8ac3885f1d7ce9041c2d8f6b9f44c5cb8f53ff934c237d",
+          "bytes": 19828
+        },
+        "README.md": {
+          "sha256": "bd36bcd47d04eb1465a42645bbd2df8cfcc0b71d1867446fd17951de34301419",
+          "bytes": 4352
+        },
+        "semantic-contract.md": {
+          "sha256": "520bb72d85433df842d8bc69c23e31bf44b52fc7ffb0dab704af7eb532f779dc",
+          "bytes": 5837
+        },
+        "LICENSE": {
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "bytes": 11358
+        },
+        "NOTICE": {
+          "sha256": "158811d49b6f88ae086d0dd76214e13be20a99a6b589add8711536fa52b76122",
+          "bytes": 615
+        },
+        "THIRD-PARTY.txt": {
+          "sha256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc",
+          "bytes": 1081
+        },
+        "example.html": {
+          "sha256": "87f46dfc865b6a3e078c16490f867aceb82e8ecf36bda1c6c66a02fe5fb56492",
+          "bytes": 525
+        }
+      }
+    },
+    {
       "id": "stylized-humanoid",
       "version": "1.0.0",
       "url": "procedural-modules/stylized-humanoid/1.0.0/asset.mjs",
@@ -712,6 +967,57 @@
         "example.html": {
           "sha256": "e25c57975094b7b40ffd31a18e3225ca25ab440f511b43cdaf1cc349597a754b",
           "bytes": 523
+        }
+      }
+    },
+    {
+      "id": "rigged-rabbit",
+      "version": "1.0.0",
+      "url": "procedural-modules/rigged-rabbit/1.0.0/asset.mjs",
+      "sha256": "96bf270457876877c5fd05c4422471a9ea5ace84bda7dc5ce42f264c68f6472c",
+      "bytes": 99812,
+      "dependencies": {
+        "three": "0.186.1"
+      },
+      "configuration": {
+        "kind": "default"
+      },
+      "files": {
+        "asset.mjs": {
+          "sha256": "96bf270457876877c5fd05c4422471a9ea5ace84bda7dc5ce42f264c68f6472c",
+          "bytes": 99812
+        },
+        "asset.d.mts": {
+          "sha256": "4f862a32dda5225df17172f44afaa3dfac2683b15ff0cd0850d0ecf71e1f8124",
+          "bytes": 11167
+        },
+        "metadata.json": {
+          "sha256": "865ef5ad4b85dd44f053c491fb56e4d51c32b9c9f8498c250eb48bf660c6c9d2",
+          "bytes": 15556
+        },
+        "README.md": {
+          "sha256": "bd36bcd47d04eb1465a42645bbd2df8cfcc0b71d1867446fd17951de34301419",
+          "bytes": 4352
+        },
+        "semantic-contract.md": {
+          "sha256": "520bb72d85433df842d8bc69c23e31bf44b52fc7ffb0dab704af7eb532f779dc",
+          "bytes": 5837
+        },
+        "LICENSE": {
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "bytes": 11358
+        },
+        "NOTICE": {
+          "sha256": "158811d49b6f88ae086d0dd76214e13be20a99a6b589add8711536fa52b76122",
+          "bytes": 615
+        },
+        "THIRD-PARTY.txt": {
+          "sha256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc",
+          "bytes": 1081
+        },
+        "example.html": {
+          "sha256": "a09ddf60e5ecad7a8c99d126bdf84bcc1f822e8ea00cb39e23cb8bea82472a3f",
+          "bytes": 526
         }
       }
     }
