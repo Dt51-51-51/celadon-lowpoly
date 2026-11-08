@@ -51,14 +51,12 @@ export async function mountHero(host: HTMLElement, {reducedMotion}: {reducedMoti
   orbit.enablePan = false;
   orbit.autoRotateSpeed = 0.8;
   let current: BuiltAsset | null = null;
-  const build = (next: Record<string, unknown>, reset = false) => {
-    const built = recipe.createAsset(next);
+  const place = (built: BuiltAsset, reset: boolean) => {
     ownMaterials(built);
     built.traverse(object => { if ((object as THREE.Mesh).isMesh) object.castShadow = true; });
     if (current) { pivot.remove(current); current.dispose(); }
     current = built;
     pivot.add(built);
-    draft = next;
     const box = new THREE.Box3().setFromObject(built);
     ground.position.y = box.min.y;
     const framed = frameToView(camera, orbit, built, reset, 0.62);
@@ -67,9 +65,17 @@ export async function mountHero(host: HTMLElement, {reducedMotion}: {reducedMoti
     const span = framed.radius * 2.5;
     Object.assign(key.shadow.camera, {left: -span, right: span, top: span, bottom: -span, far: framed.radius * 20});
     key.shadow.camera.updateProjectionMatrix();
+  };
+  const build = (next: Record<string, unknown>, reset = false) => {
+    place(recipe.createAsset(next), reset);
+    draft = next;
+    caption.textContent = 'Fruit stall';
     sync();
   };
 
+  const caption = document.createElement('div');
+  caption.className = 'hero-caption';
+  caption.setAttribute('aria-live', 'polite');
   const rail = document.createElement('div');
   rail.className = 'hero-rail';
   const typeGroup = document.createElement('div');
@@ -128,7 +134,7 @@ export async function mountHero(host: HTMLElement, {reducedMotion}: {reducedMoti
   }
 
   host.append(canvas, rail);
-  host.append(cursor);
+  host.append(cursor, caption);
   const resize = () => {
     const w = Math.max(200, host.clientWidth), h = Math.max(200, host.clientHeight);
     renderer.setSize(w, h, false);
@@ -141,7 +147,69 @@ export async function mountHero(host: HTMLElement, {reducedMotion}: {reducedMoti
   resize();
   build(draft, true);
 
-  let visible = true, running = true, demo = true, step = 0, timer = 0, resumeTimer = 0;
+  let visible = true, running = true, demo = true, step = 0, timer = 0, resumeTimer = 0, sinceTour = 0, touring = false, tour = 0, motion = 0;
+  const wait = (ms: number) => new Promise<void>(done => window.setTimeout(done, ms));
+  const easeOut = (t: number) => 1 - (1 - t) ** 3;
+  const backOut = (t: number) => { const c = 1.9; return 1 + (c + 1) * (t - 1) ** 3 + c * (t - 1) ** 2; };
+  const pieces = (root: THREE.Object3D) => {
+    const list: {node: THREE.Object3D; position: THREE.Vector3; scale: THREE.Vector3; y: number}[] = [];
+    root.traverse(node => { if ((node as THREE.Mesh).isMesh) list.push({node, position: node.position.clone(), scale: node.scale.clone(), y: new THREE.Box3().setFromObject(node).getCenter(new THREE.Vector3()).y}); });
+    return list.sort((a, b) => a.y - b.y);
+  };
+  const animate = (root: THREE.Object3D, entering: boolean) => new Promise<void>(done => {
+    if (reducedMotion) { done(); return; }
+    const list = pieces(root), box = new THREE.Box3().setFromObject(root), rise = Math.max(0.2, box.max.y - box.min.y) * (entering ? 0.45 : 0.25);
+    const duration = entering ? 620 : 360, stagger = Math.min(entering ? 110 : 40, (entering ? 900 : 260) / Math.max(1, list.length)), total = duration + stagger * list.length, start = performance.now(), id = ++motion;
+    const finish = () => { for (const piece of list) { piece.node.scale.copy(piece.scale); piece.node.position.copy(piece.position); } pivot.rotation.y = 0; pivot.scale.set(1, 1, 1); done(); };
+    const tick = (now: number) => {
+      if (id !== motion || !running) { finish(); return; }
+      const order = entering ? list : [...list].reverse();
+      order.forEach((piece, rank) => {
+        const t = Math.min(1, Math.max(0, (now - start - rank * stagger) / duration)), k = entering ? backOut(t) : 1 - easeOut(t), lift = entering ? 1 - easeOut(t) : easeOut(t);
+        piece.node.scale.copy(piece.scale).multiplyScalar(Math.max(0.001, k));
+        piece.node.position.copy(piece.position);
+        piece.node.position.y += lift * rise;
+      });
+      const whole = Math.min(1, (now - start) / total);
+      pivot.rotation.y = entering ? -0.8 * (1 - easeOut(whole)) : 0.6 * easeOut(whole);
+      const squash = entering ? 1 + 0.06 * Math.sin(whole * Math.PI * 2) * (1 - whole) : 1;
+      pivot.scale.set(1 / Math.sqrt(squash), squash, 1 / Math.sqrt(squash));
+      if (now - start >= total) { if (entering) finish(); else done(); return; }
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  });
+  const showcase = ['hot-air-balloon', 'sailboat', 'cottage', 'palm-tree', 'crystal-cluster'];
+  const loadShowcase = async (family: string) => {
+    const loader = loaderFor(family);
+    if (!loader) return null;
+    const module = await loader(), meta = module.metadata, preset = meta.presets[0];
+    return {asset: module.createAsset({...meta.defaults, ...preset?.parameters}), title: preset?.name ?? meta.title};
+  };
+  const runTour = async () => {
+    touring = true;
+    rail.classList.add('hero-rail-away');
+    cursor.classList.add('hidden');
+    for (let k = 0; k < 3 && demo && running; k++) {
+      const family = showcase[tour++ % showcase.length]!;
+      let item: Awaited<ReturnType<typeof loadShowcase>> = null;
+      try { item = await loadShowcase(family); } catch { item = null; }
+      if (!item) continue;
+      if (!demo || !running) { item.asset.dispose(); break; }
+      if (current) await animate(current, false);
+      place(item.asset, true);
+      caption.textContent = item.title;
+      await animate(item.asset, true);
+      await wait(3400);
+    }
+    touring = false;
+    if (!running) return;
+    if (current) await animate(current, false);
+    build(draft, true);
+    if (current) void animate(current, true);
+    rail.classList.remove('hero-rail-away');
+    if (demo) { cursor.classList.remove('hidden'); timer = window.setTimeout(next, 1400); }
+  };
   const visibility = new IntersectionObserver(entries => { visible = entries.some(entry => entry.isIntersecting); });
   visibility.observe(host);
   const loop = () => {
@@ -182,7 +250,8 @@ export async function mountHero(host: HTMLElement, {reducedMotion}: {reducedMoti
     cursor.style.transform = 'translate(' + (x - 4) + 'px,' + (a.top - b.top + a.height / 2 - 2) + 'px)';
   };
   const next = () => {
-    if (!demo || !running) return;
+    if (!demo || !running || touring) return;
+    if (++sinceTour > 3) { sinceTour = 0; void runTour(); return; }
     const current = steps[step % steps.length]!;
     step++;
     point(current.target());
@@ -201,10 +270,11 @@ export async function mountHero(host: HTMLElement, {reducedMotion}: {reducedMoti
     demo = false;
     window.clearTimeout(timer);
     cursor.classList.add('hidden');
+    motion++;
   };
   const later = () => {
     window.clearTimeout(resumeTimer);
-    resumeTimer = window.setTimeout(() => { if (demo) return; demo = true; cursor.classList.remove('hidden'); next(); }, RESUME_MS);
+    resumeTimer = window.setTimeout(() => { if (demo || touring) return; demo = true; cursor.classList.remove('hidden'); next(); }, RESUME_MS);
   };
   host.addEventListener('pointerenter', stop);
   host.addEventListener('pointerdown', stop);

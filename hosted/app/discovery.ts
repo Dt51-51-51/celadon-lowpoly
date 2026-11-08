@@ -1,14 +1,14 @@
 import {el,input,field,link} from '../shared/dom.ts';
 
-export interface CatalogFilters {query:string;type:string;style:string;offset:string;sort?:string}
+export interface CatalogFilters {query:string;type:string;style:string;offset:string;sort?:string;limit?:string}
 
 export function readCatalogFilters(params:URLSearchParams):CatalogFilters {
- return {query:params.get('q')??'',type:params.get('type')??'',style:params.get('style')??'',offset:params.get('offset')??'0',sort:params.get('sort')==='top'?'top':''};
+ return {query:params.get('q')??'',type:params.get('type')??'',style:params.get('style')??'',offset:params.get('offset')??'0',...(params.get('sort')==='top'?{sort:'top'}:{}),...(['48','96'].includes(params.get('limit')??'')?{limit:params.get('limit')!}:{})};
 }
 
 export function catalogSearch(filters:CatalogFilters):string {
  const params=new URLSearchParams();
- for(const [key,value] of [['q',filters.query],['type',filters.type],['style',filters.style],['sort',filters.sort??''],['offset',filters.offset==='0'?'':filters.offset]])if(value)params.set(key!,value);
+ for(const [key,value] of [['q',filters.query],['type',filters.type],['style',filters.style],['sort',filters.sort??''],['limit',filters.limit??''],['offset',filters.offset==='0'?'':filters.offset]])if(value)params.set(key!,value);
  const search=params.toString();return search?'?'+search:'';
 }
 
@@ -19,6 +19,6 @@ export function catalogFilterForm(filters:CatalogFilters,facets:{types:Array<[st
   for(const [id,text] of choices){const option=el('option','',text);option.value=id;select.append(option);}
   select.value=value;select.addEventListener('change',()=>form.requestSubmit());return field(label,select);
  }
- form.append(field('Search models',query),submit,chooser('type','Type','All types',filters.type,facets.types),chooser('style','Style','All styles',filters.style,facets.styles),chooser('sort','Sort by','Newest',filters.sort??'',[['top','Top rated']]),link('Clear filters','/catalog','button-secondary'));
+ form.append(field('Search models',query),submit,chooser('type','Type','All types',filters.type,facets.types),chooser('style','Style','All styles',filters.style,facets.styles),chooser('sort','Sort by','Newest',filters.sort??'',[['top','Top rated']]),chooser('limit','Models per page','24 per page',filters.limit??'',[['48','48 per page'],['96','96 per page']]),link('Clear filters','/catalog','button-secondary'));
  return form;
 }
