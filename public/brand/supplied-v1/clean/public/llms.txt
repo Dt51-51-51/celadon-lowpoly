@@ -1,0 +1,33 @@
+# Celadon Lowpoly
+
+> Celadon Lowpoly is an open-source (Apache-2.0) toolkit of editable, recipe-based 3D models. A recipe is a small TypeScript program with typed controls (knobs) that rebuilds the model when a value changes.
+
+## Toolkit (public, no account)
+
+- [Agent toolkit bundle](https://github.com/Dt51-51/celadon-lowpoly/raw/main/public/agent-bundles/celadon-agent-3.zip): skill, local engine, bench recipe source, `model-controls.json` (controls of every built-in family) and `formats.mjs` (OBJ/FBX/USDZ writer).
+- [Setup and docs](https://github.com/Dt51-51/celadon-lowpoly/tree/main/docs)
+- [Agent prompt](https://github.com/Dt51-51/celadon-lowpoly/raw/main/public/prompt.txt): paste this into a coding agent to install and use the toolkit.
+
+Commands, run from the project root after `unzip celadon-agent-3.zip -d celadon-agent-3`:
+
+```sh
+node celadon-agent-3/install.mjs --project . --app codex   # or claude, cursor, copilot
+node .polyspoon/bootstrap.mjs
+node .polyspoon/runtime.mjs catalog
+node .polyspoon/runtime.mjs build --family bench --parameters '{"width":2.2}' --out exports/bench-01 --formats all
+```
+
+## Output files
+
+- `asset.glb`: glTF 2.0 binary, meters, +Y up. Keeps rigs and animation clips for rigged families.
+- `asset.obj.zip`: OBJ + MTL, meters, +Y up, base-colour materials.
+- `asset.fbx`: binary FBX 7.4, UnitScaleFactor 100 (1 unit = 1 m), +Y up.
+- `asset.usdz`: USDZ (USDA layer, metersPerUnit 1, upAxis Y, UsdPreviewSurface materials).
+- `asset.controls.json`: every control with key, label, kind, unit, min, max, step, default, options and the applied value, plus presets, palettes, materials and real-world bounds.
+- `asset.design.json`: the saved design; rebuild with `--config asset.design.json`.
+
+OBJ, FBX and USDZ are static meshes converted from the GLB. Change a model by editing controls and rebuilding, not by editing the mesh.
+
+## Hosted catalog
+
+This repository ships the local toolkit only; no hosted catalog is deployed. Run the toolkit locally with your coding agent.

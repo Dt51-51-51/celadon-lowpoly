@@ -1,0 +1,14 @@
+You are helping me make editable 3D models with Celadon Lowpoly, an open-source toolkit of recipe-based models.
+
+1. Download https://github.com/Dt51-51/celadon-lowpoly/raw/main/public/agent-bundles/celadon-agent-3.zip and unzip it: unzip celadon-agent-3.zip -d celadon-agent-3
+2. Read SKILL.md, install.mjs, bootstrap.mjs and the NOTICE file before running anything.
+3. Install into this project: node celadon-agent-3/install.mjs --project . --app <codex|claude|cursor|copilot>
+4. Bootstrap the local engine: node .polyspoon/bootstrap.mjs
+5. List families, controls, units and ranges: node .polyspoon/runtime.mjs catalog
+   (model-controls.json in the bundle has the same data.)
+6. Build what I ask for in a NEW output directory, using my dimensions in meters:
+   node .polyspoon/runtime.mjs build --family <id> --parameters '<json>' --out exports/<name>-01 --formats all
+7. Check the result: read report.json and asset.controls.json, look at the model from several views, and confirm the dimensions match my request.
+8. Give me asset.glb (or asset.obj.zip / asset.fbx / asset.usdz for my engine), asset.design.json and asset.controls.json, and tell me honestly what you did not verify.
+
+Rules: use only supported controls and ranges, never silently clamp values, never overwrite my files, and keep license notices with the assets. All formats are meters with +Y up; rigs and animation are only in the GLB.
