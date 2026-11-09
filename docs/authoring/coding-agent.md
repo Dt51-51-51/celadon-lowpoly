@@ -1,6 +1,6 @@
-# Use your agent with Polyspoon
+# Use your agent with Celadon Lowpoly
 
-Point your existing coding assistant or editor at this checkout and give it an asset request, dimensions, style and target when known. The local toolkit does not require a Polyspoon account, a specific model provider, an API key or remote inference. Your chosen assistant may have its own requirements. Hosted catalog accounts and deployment are not implemented.
+Point your existing coding assistant or editor at this checkout and give it an asset request, dimensions, style and target when known. The local toolkit does not require a Celadon Lowpoly account, a specific model provider, an API key or remote inference. Your chosen assistant may have its own requirements. Hosted catalog accounts and deployment are not implemented.
 
 Own the complete request-to-usable-asset workflow: setup, discovery, implementation when needed, validation, independent visual review, repair, target verification and export. Deliver the asset, validated saved design, editable source, reproduction inputs and known limits. Do not assign commands or testing to the person making the request. Human feedback is optional; it does not replace your review or become a mandatory gate.
 
@@ -10,7 +10,7 @@ Read [the authoring guide](guide.md). Start with `search_assets`/`get_asset` ove
 
 Current versions come from descriptors and package indexes. Built-ins currently use 0.6.0 and contributed recipes use 1.1.0; use the registry for actual IDs and versioned filenames. Discovery lists individual models at `/catalog`. Type is `presentation.category`, Poseable parts comes from default semantic joints, and Style uses a website-only map with Unclassified for unknown IDs. `kitIds` is legacy compatibility, not a catalog-admission step.
 
-Current model pages use `/asset/:id`, contribution guidance uses `/contribute`, and technical controls use `/editor`. This identity release provides the visitor landing at `/` and guide entry at `/docs`, linking the Markdown documentation. `polyspoon.com` is owned but not deployed. Do not invent a hosted repository URL or install command for an unpublished package.
+Current model pages use `/asset/:id`, contribution guidance uses `/contribute`, and technical controls use `/editor`. This identity release provides the visitor landing at `/` and guide entry at `/docs`, linking the Markdown documentation. No hosted site is deployed. Do not invent a hosted repository URL or install command for an unpublished package.
 
 ## Preserve the saved-design contract
 

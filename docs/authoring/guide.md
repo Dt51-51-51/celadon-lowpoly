@@ -1,4 +1,4 @@
-# Author a Polyspoon recipe
+# Author a Celadon Lowpoly recipe
 
 Point your own agent at this checkout and say “I want X asset,” with dimensions, style and target when known. The agent selects and customizes an existing recipe first. It authors new construction when the catalog cannot meet the request. The agent owns setup, implementation, validation, renders, visual review, repairs, packaging and target checks, then delivers the asset, saved design and editable source. Human testing and feedback are optional.
 
@@ -26,7 +26,7 @@ try {
 }
 ```
 
-Save the validated design for rendering, export and package rebuilds. If parameters already meet the request, no new family is needed. Local use needs no Polyspoon account. Hosted accounts and submission processing are future work; `polyspoon.com` is not deployed.
+Save the validated design for rendering, export and package rebuilds. If parameters already meet the request, no new family is needed. Local use needs no Celadon Lowpoly account. Hosted accounts and submission processing are future work; No hosted site is deployed.
 
 The current `/catalog` discovers individual models. Type comes from `recipe.presentation.category`; Poseable parts comes from semantic joints on the default build. Style is website-only metadata in `src/site/discovery.ts`; unknown IDs get Unclassified. `kitIds` remains legacy compatibility, not catalog organization. Current asset pages use `/asset/:id`; contribution guidance uses `/contribute`, and the technical editor uses `/editor`. This identity release provides the visitor landing at `/` and guide entry at `/docs`. The Markdown guides remain the source documentation. The model inspector provides Shape, Construction, Materials and Parts tabs beside the desktop preview and in a bounded controls area below the narrow preview. Parts supports named-part colors and filtered preview visibility.
 

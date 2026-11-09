@@ -35,14 +35,14 @@ function thumb(family:string,preset:string){
 }
 export function mountSite(bridge:EditorBridge){
  const technical=new URLSearchParams(location.search).has('diagnostic')||location.pathname==='/editor';
- if(technical){const refresh=()=>{document.title=descriptor(bridge.configuration().family).title+' · Polyspoon | polyspoon.com';};refresh();return {refresh,openGroup:(_group:string)=>{}};}
+ if(technical){const refresh=()=>{document.title=descriptor(bridge.configuration().family).title+' · Celadon Lowpoly';};refresh();return {refresh,openGroup:(_group:string)=>{}};}
  document.body.classList.add('website');
  const shapeTab=document.querySelector<HTMLButtonElement>('button[data-group="shape"]')!;
  const buildTab=document.querySelector<HTMLButtonElement>('button[data-group="construction"]')!;
  shapeTab.textContent='Proportions';buildTab.textContent='Construction';
  const app=document.getElementById('app')!;
  const header=el('header','site-header');
- const brand=el('a','site-brand');brand.append(brandArtwork());brand.href='/';brand.setAttribute('aria-label','Polyspoon home');
+ const brand=el('a','site-brand');brand.append(brandArtwork());brand.href='/';brand.setAttribute('aria-label','Celadon Lowpoly home');
  const navigation=el('nav','site-navigation');
  for(const [title,path] of [['Models','/catalog'],['Docs','/docs'],['Contribute','/contribute']]){
   const link=el('a','',title);link.href=path!;navigation.append(link);
@@ -138,7 +138,7 @@ export function mountSite(bridge:EditorBridge){
   if(!matching.length)partList.append(el('p','','No parts match this name. Clear the filter to see all parts.'));
  }
  function renderDetail(id:string){
-  const d=descriptor(id);document.title=d.title+' · Polyspoon | polyspoon.com';title.textContent=d.title;description.textContent=modelDescription(id);version.textContent='v'+d.version;
+  const d=descriptor(id);document.title=d.title+' · Celadon Lowpoly';title.textContent=d.title;description.textContent=modelDescription(id);version.textContent='v'+d.version;
   presets.replaceChildren();
   for(const p of d.presets){
    const button=el('button','preset-card');button.dataset.preset=p.id;button.append(thumb(id,p.id),el('strong','',p.name),el('span','',p.description));
@@ -156,7 +156,7 @@ export function mountSite(bridge:EditorBridge){
   workspace.route(!valid);document.body.classList.toggle('site-catalog',!catalogPage.hidden);
   renderCards();
   if(valid){bridge.select(id);routeFamily=id;renderDetail(id);}
-  else{routeFamily='';document.title=(home?'Editable 3D models':docs?'Documentation':contributing?'Contribute':'Models')+' · Polyspoon | polyspoon.com';}
+  else{routeFamily='';document.title=(home?'Editable 3D models':docs?'Documentation':contributing?'Contribute':'Models')+' · Celadon Lowpoly';}
   for(const link of navigation.querySelectorAll('a')){
    const current=link.pathname==='/catalog'?!catalogPage.hidden:link.pathname===path;
    if(current)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');
@@ -167,7 +167,7 @@ export function mountSite(bridge:EditorBridge){
   if(routing||app.hidden)return;
   const config=bridge.configuration();
   if(routeFamily!==config.family){routeFamily=config.family;window.history.replaceState({},'', '/asset/'+config.family+discoverySearch(state));renderDetail(config.family);}
-  const d=descriptor(config.family);document.title=d.title+' · Polyspoon | polyspoon.com';
+  const d=descriptor(config.family);document.title=d.title+' · Celadon Lowpoly';
   for(const button of presets.querySelectorAll('button')){const preset=d.presets.find(p=>p.id===button.dataset.preset)!;button.setAttribute('aria-pressed',String(JSON.stringify(d.save(preset.parameters).applied)===JSON.stringify(config.applied)));}
   usage.refresh();workspace.refresh(d.title,modelDescription(d.id));
   renderParts();

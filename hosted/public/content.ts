@@ -6,24 +6,23 @@ export const hero={
  eyebrow:'Open source · Built by its community',
  title:'Free 3D models anyone can',
  words:['reshape','recolor','improve','remix'],
- lead:'The open-source alternative to Polyfork. Every model is a recipe: a small open-source program with named controls. Turn its knobs here, in your engine or with your coding agent. Browse and download without an account.',
+ lead:'Open source. Every model is a recipe: a small open-source program with named controls. Turn its knobs here, in your engine or with your coding agent. Browse and download without an account.',
 };
 
 export const repository={
- home:'https://github.com/DITlieD/polyspoon',
- contributing:'https://github.com/DITlieD/polyspoon/blob/main/CONTRIBUTING.md',
- engine:'https://github.com/DITlieD/polyspoon/tree/main/src/engine',
- api:'https://api.github.com/repos/DITlieD/polyspoon',
+ home:'https://github.com/Dt51-51/celadon-lowpoly',
+ contributing:'https://github.com/Dt51-51/celadon-lowpoly/blob/main/CONTRIBUTING.md',
+ engine:'https://github.com/Dt51-51/celadon-lowpoly/tree/main/src/engine',
+ api:'https://api.github.com/repos/Dt51-51/celadon-lowpoly',
 };
 
 export const rabbitCompare={
  image:'/brand/rabbit-engine-compare.png',
- alt:'Polyfork forest rabbit beside the Polyspoon rabbit.',
- eyebrow:'Engine work',
- title:'The engine keeps getting better.',
- lead:'The rabbit is now one closed mesh. Body, legs, ears and tail share a single surface.',
- note:'Ears, eyes and tail still need work. One pull request to the engine improves every model that uses it.',
- labels:['Polyfork','Polyspoon'],
+ alt:'Rabbit sculpt comparison, three-quarter and side.',
+ eyebrow:'In progress',
+ title:'I am improving the engine.',
+ lead:'The rabbit is how the generator is checked. The sculpt engine builds it as one closed mesh: body, legs, ears and tail share one surface.',
+ note:'The shape is closer. The ears, eyes, mouth and tail still need work. If you can make the generator better, please help. One pull request improves every model that uses it.',
 };
 
 export const engineLoop:Step[]=[
@@ -35,7 +34,7 @@ export const engineLoop:Step[]=[
 
 export const pillars:Step[]=[
  {title:'Recipes, not frozen meshes',body:'Each model is code with named controls for size, construction, parts and colours. Change a value and the model rebuilds. The default design reproduces the published model exactly.'},
- {title:'Made for your own agent',body:'One open-source bundle gives Codex, Claude Code, Cursor or any coding agent the engine and the skill. It builds, checks and exports locally. No Polyspoon account, API key or paid service needed.'},
+ {title:'Made for your own agent',body:'One open-source bundle gives Codex, Claude Code, Cursor or any coding agent the engine and the skill. It builds, checks and exports locally. No Celadon Lowpoly account, API key or paid service needed.'},
  {title:'Community-made, human-reviewed',body:'Anyone can sign up and contribute. An independent human reviewer checks every model before it is published. Published models keep their source, licence and review record.'},
 ];
 
@@ -63,7 +62,7 @@ export const moderation:Step[]=[
 
 export const comparison:Array<[string,string,string]>=[
  ['Generator source','Open, Apache-2.0','Closed'],
- ['Who adds models','Anyone, human-reviewed','The Polyfork team'],
+ ['Who adds models','Anyone, human-reviewed','The original team'],
  ['Editable controls','Every recipe model','Remixable assets'],
  ['Export formats','GLB, OBJ + MTL, FBX and USDZ','GLB, FBX, USDZ and OBJ'],
  ['Machine-readable model files','Controls JSON, llms.txt and prompt.txt','JSON, llms.txt and prompt.txt'],
@@ -72,24 +71,24 @@ export const comparison:Array<[string,string,string]>=[
 ];
 
 export const emailSourceLinks:Array<[string,string]>=[
- ['server/mail.ts','https://github.com/DITlieD/polyspoon/blob/main/server/mail.ts'],
- ['server/auth.ts','https://github.com/DITlieD/polyspoon/blob/main/server/auth.ts'],
+ ['server/mail.ts','https://github.com/Dt51-51/celadon-lowpoly/blob/main/server/mail.ts'],
+ ['server/auth.ts','https://github.com/Dt51-51/celadon-lowpoly/blob/main/server/auth.ts'],
 ];
 export const emailUseParagraphs=[
  'Browsing the catalog and downloading a published GLB do not need an account or an email.',
  'An email is required only for an account. An account is required to upload or submit a model. Votes, follows, favourites, reports, review, moderation, and the account page stay signed in.',
- 'Sign-in sends one email: a single-use link, subject "Sign in to Polyspoon", that expires in five minutes. The same link creates the account the first time. There is no password.',
+ 'Sign-in sends one email: a single-use link, subject "Sign in to Celadon Lowpoly", that expires in five minutes. The same link creates the account the first time. There is no password.',
  'The address is stored on the account so the next link goes to the same person, and so an admin can find that account in member search if it is misused. Other members do not see the address. You see it on your account page. Admins see it in member administration.',
  'That sign-in link is the only mail the code sends. There is no newsletter and no marketing. Resend delivers that one message, so Resend sees the address and the link for delivery. The link token is stored hashed, and login mail is rate limited. A spare address is fine.',
 ];
 export const faq:Faq[]=[
- {question:'What is Polyspoon?',answer:'An open-source toolkit and community catalog of editable, recipe-based 3D models. A recipe is a small program with typed controls that rebuilds the model when you change it.'},
- {question:'How is it different from Polyfork?',answer:'Polyfork is a closed catalog made by one team. Polyspoon is open source, anyone can contribute recipes, every published model is human-reviewed, and you always get the editable recipe, not only a mesh.'},
+ {question:'What is Celadon Lowpoly?',answer:'An open-source toolkit and community catalog of editable, recipe-based 3D models. A recipe is a small program with typed controls that rebuilds the model when you change it.'},
+ {question:'How is it different from other catalogs?',answer:'Celadon Lowpoly is open source, anyone can contribute recipes, every published model is human-reviewed, and you always get the editable recipe, not only a mesh.'},
  {question:'Do I need an account?',answer:'Not for the local toolkit, and not to browse or download published models. Sign in with a free email link to vote, follow, save a favourite, report a model, or submit your own.'},
  {question:'What is my email used for?',answer:emailUseParagraphs.join(' '),links:emailSourceLinks},
  {question:'Which engines are supported?',answer:'Every model downloads as GLB, OBJ + MTL, FBX (binary 7.4) or USDZ, so Unity, Godot, Unreal, Blender, three.js and Apple Quick Look can all open it. All formats use meters with +Y up. Two characters, a humanoid and a fox, keep their skeletons and walk and idle clips in the GLB.'},
- {question:'Can my agent read a model’s controls?',answer:'Yes. Each model comes with a controls JSON file listing every knob with its range, default, unit and current value, plus materials and real-world size. The toolkit writes the same file for local builds, and polyspoon.com/llms.txt and /prompt.txt explain the project to agents.'},
+ {question:'Can my agent read a model’s controls?',answer:'Yes. Each model comes with a controls JSON file listing every knob with its range, default, unit and current value, plus materials and real-world size. The toolkit writes the same file for local builds, and the llms.txt and prompt.txt files in the repository explain the project to agents.'},
  {question:'How do I become a moderator?',answer:'Contribute good models and help with reports. Administrators invite trusted contributors to review or moderate. Roles cannot be requested through signup or votes.'},
  {question:'Is it free?',answer:'Yes. The toolkit and source are Apache-2.0, and membership is free. Each model shows its own licence and notices; keep them with your project.'},
- {question:'Where is the source code?',answer:'The toolkit archive contains the full engine and recipe sources. The entire project is open source and hosted on GitHub at https://github.com/DITlieD/polyspoon.'},
+ {question:'Where is the source code?',answer:'The toolkit archive contains the full engine and recipe sources. The entire project is open source and hosted on GitHub at https://github.com/Dt51-51/celadon-lowpoly.'},
 ];

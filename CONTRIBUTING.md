@@ -1,4 +1,4 @@
-# Contributing to Polyspoon
+# Contributing to Celadon Lowpoly
 
 There are two ways to make a model, with different rules.
 
@@ -13,7 +13,7 @@ New recipes are executable code, so they also need maintainer code review before
 Every recipe builds on the shared generator in [src/engine](src/engine). A better roof, timber joint or stone shape improves every model that uses it. To change it:
 
 ```sh
-git clone https://github.com/DITlieD/polyspoon.git && cd polyspoon
+git clone https://github.com/Dt51-51/celadon-lowpoly.git && cd celadon-lowpoly
 npm ci --ignore-scripts --no-audit --no-fund
 npx playwright-core install chromium      # once, for renders
 npm run dev                               # live preview at http://127.0.0.1:4173

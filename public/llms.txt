@@ -1,17 +1,17 @@
-# Polyspoon
+# Celadon Lowpoly
 
-> Polyspoon is an open-source (Apache-2.0) alternative to Polyfork: a toolkit and a human-reviewed community catalog of editable, recipe-based 3D models. A recipe is a small TypeScript program with typed controls (knobs) that rebuilds the model when a value changes.
+> Celadon Lowpoly is an open-source (Apache-2.0) toolkit of editable, recipe-based 3D models. A recipe is a small TypeScript program with typed controls (knobs) that rebuilds the model when a value changes.
 
 ## Toolkit (public, no account)
 
-- [Agent toolkit bundle](https://polyspoon.com/agent-bundles/polyspoon-agent-4.zip): skill, local engine, bench recipe source, `model-controls.json` (controls of every built-in family) and `formats.mjs` (OBJ/FBX/USDZ writer).
-- [Setup and docs](https://polyspoon.com/docs)
-- [Agent prompt](https://polyspoon.com/prompt.txt): paste this into a coding agent to install and use the toolkit.
+- [Agent toolkit bundle](https://github.com/Dt51-51/celadon-lowpoly/raw/main/public/agent-bundles/polyspoon-agent-3.zip): skill, local engine, bench recipe source, `model-controls.json` (controls of every built-in family) and `formats.mjs` (OBJ/FBX/USDZ writer).
+- [Setup and docs](https://github.com/Dt51-51/celadon-lowpoly/tree/main/docs)
+- [Agent prompt](https://github.com/Dt51-51/celadon-lowpoly/raw/main/public/prompt.txt): paste this into a coding agent to install and use the toolkit.
 
-Commands, run from the project root after `unzip polyspoon-agent-4.zip -d polyspoon-agent-4`:
+Commands, run from the project root after `unzip polyspoon-agent-3.zip -d polyspoon-agent-3`:
 
 ```sh
-node polyspoon-agent-4/install.mjs --project . --app codex   # or claude, cursor, copilot
+node polyspoon-agent-3/install.mjs --project . --app codex   # or claude, cursor, copilot
 node .polyspoon/bootstrap.mjs
 node .polyspoon/runtime.mjs catalog
 node .polyspoon/runtime.mjs build --family bench --parameters '{"width":2.2}' --out exports/bench-01 --formats all
@@ -28,6 +28,6 @@ node .polyspoon/runtime.mjs build --family bench --parameters '{"width":2.2}' --
 
 OBJ, FBX and USDZ are static meshes converted from the GLB. Change a model by editing controls and rebuilding, not by editing the mesh.
 
-## Hosted catalog (open to read)
+## Hosted catalog
 
-Published models at https://polyspoon.com/catalog can be browsed and downloaded without an account. Sign in with a free email link to vote, follow, save a favourite, report a model, or submit one. Every published model is reviewed by an independent human; nobody reviews their own work.
+This repository ships the local toolkit only; no hosted catalog is deployed. Run the toolkit locally with your coding agent.

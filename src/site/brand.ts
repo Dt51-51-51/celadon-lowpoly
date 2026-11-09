@@ -6,5 +6,5 @@ export const brandAssets={
 export type BrandVariant=keyof typeof brandAssets;
 export function brandArtwork(variant:BrandVariant='lockup'){
  const frame=document.createElement('span');frame.className='brand-art brand-'+variant;
- const image=document.createElement('img');image.src=brandAssets[variant];image.alt=variant==='logo'?'':'Polyspoon';image.decoding='async';frame.append(image);return frame;
+ frame.textContent='Celadon Lowpoly';return frame;
 }
