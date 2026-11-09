@@ -1,4 +1,4 @@
-# Polyspoon identity and visitor entry
+# identity and visitor entry
 
 Inputs: current catalog, supported saved-design and export paths, local authoring/agent guides, existing reviewed model geometry, and original code-native spoon assets. The reference informs spacious composition, legible cutlery identity and blue actions. No vendor marks, geometry or imagery are copied.
 
