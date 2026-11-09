@@ -6,7 +6,7 @@ import {hero,pillars,howItWorks,contribute,moderation,comparison,faq,repository}
 const all=JSON.stringify({hero,pillars,howItWorks,contribute,moderation,comparison,faq});
 
 test('public landing explains the project, the open-source alternative, contribution, review and moderation',()=>{
- assert.match(hero.lead,/open-source alternative to Polyfork/);
+ assert.match(hero.lead,/Every model is a recipe/);
  for(const engine of ['Unity','Godot','Blender','three.js'])assert.ok(all.includes(engine),engine);
  assert.equal(howItWorks.length,4);
  assert.ok(contribute.some(step=>/every model/i.test(step.body)&&/human/i.test(step.body)),'every model human review');
@@ -22,6 +22,6 @@ test('public landing explains the project, the open-source alternative, contribu
 test('public landing copy stays free of private catalog imports and unverifiable live claims',async()=>{
  const sources=await readFile('hosted/public/content.ts','utf8')+await readFile('hosted/public/main.ts','utf8');
  assert.doesNotMatch(sources,/from '\.\.\/\.\.\/src\/(catalog|recipes|families|studio)/);
- assert.ok(Object.values(repository).every(url=>url.startsWith('https://')&&url.includes('DITlieD/polyspoon')));
- assert.ok(sources.includes("'/agent-bundles/polyspoon-agent-4.zip'"));
+ assert.ok(Object.values(repository).every(url=>url.startsWith('https://')&&url.includes('Dt51-51/celadon-lowpoly')));
+ assert.ok(sources.includes("'/agent-bundles/celadon-agent-3.zip'"));
 });

@@ -7,8 +7,8 @@ import {controlsManifestText,controlsManifestPath} from '../scripts/model-contro
 import {controlsDocument} from '../src/formats/controls.ts';
 
 test('llms.txt and prompt.txt describe the toolkit and every export format without exposing models',async()=>{
- for(const name of ['llms.txt','prompt.txt']){const text=await readFile('public/'+name,'utf8');for(const word of ['polyspoon-agent-4.zip','--formats all','meters'])assert.ok(text.includes(word),name+' '+word);assert.doesNotMatch(text,/\/api\/catalog/);}
- const llms=await readFile('public/llms.txt','utf8');assert.match(llms,/^# Polyspoon\n\n> /);for(const f of ['asset.obj.zip','asset.fbx','asset.usdz','asset.controls.json'])assert.ok(llms.includes(f),f);
+ for(const name of ['llms.txt','prompt.txt']){const text=await readFile('public/'+name,'utf8');for(const word of ['celadon-agent-3.zip','--formats all','meters'])assert.ok(text.includes(word),name+' '+word);assert.doesNotMatch(text,/\/api\/catalog/);}
+ const llms=await readFile('public/llms.txt','utf8');assert.match(llms,/^# Celadon Lowpoly\n\n> /);for(const f of ['asset.obj.zip','asset.fbx','asset.usdz','asset.controls.json'])assert.ok(llms.includes(f),f);
  const build=await readFile('hosted/build.ts','utf8');assert.ok(build.includes("'llms.txt','prompt.txt'"));
 });
 

@@ -1,17 +1,17 @@
-# Install the agent bundle
+# Install the Celadon Lowpoly agent bundle
 
 On the local site's `/docs` page, select your agent app and copy the setup request. Add your model request before sending it. Your agent downloads one archive, inspects it, installs the project skill and bootstraps the local toolkit. Select setup text is available for manual copying. The optional Markdown guides are references, not three required downloads.
 
-The single archive is `agent-bundles/polyspoon-agent-3.zip`, relative to the site's base URL. With a local Vite server, use that server's actual origin. `VITE_POLYSPOON_ORIGIN` can set an explicit HTTP(S) distribution base, including a path prefix. The copyable request and download link use the same base. Hosted routes are future deployment paths; no hosted installer or protected catalog is claimed to be live.
+The single archive is `agent-bundles/celadon-agent-3.zip`, relative to the site's base URL. With a local Vite server, use that server's actual origin. `VITE_POLYSPOON_ORIGIN` can set an explicit HTTP(S) distribution base, including a path prefix. The copyable request and download link use the same base. Hosted routes are future deployment paths; no hosted installer or protected catalog is claimed to be live.
 
 ## One archive, project installation
 
-Use Node.js 22.22.1 and npm 10 or later. Extract the archive into a fresh `polyspoon-agent-setup` directory. Review `install.mjs`, `bootstrap.mjs`, `runtime.mjs`, `support.mjs`, `bundle.json`, the toolkit archive and license notices before executing them. Hashes check byte consistency, not authorship or execution safety.
+Use Node.js 22.22.1 and npm 10 or later. Extract the archive into a fresh `celadon-agent-setup` directory. Review `install.mjs`, `bootstrap.mjs`, `runtime.mjs`, `support.mjs`, `bundle.json`, the toolkit archive and license notices before executing them. Hashes check byte consistency, not authorship or execution safety.
 
 From the destination project root:
 
 ```sh
-node polyspoon-agent-setup/install.mjs --app codex --project .
+node celadon-agent-setup/install.mjs --app codex --project .
 node .polyspoon/bootstrap.mjs
 node .polyspoon/runtime.mjs catalog
 node .polyspoon/runtime.mjs build --family bench --parameters '{"width":2.2,"backrest":false}' --out exports/bench-01
@@ -26,7 +26,7 @@ Replace `codex` with your selected adapter. Extraction is a normal archive opera
 | `cursor` | `.cursor/skills/polyspoon/SKILL.md` | [Cursor skills](https://cursor.com/docs/skills) |
 | `copilot` | `.github/skills/polyspoon/SKILL.md` | [GitHub Copilot skills](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills) |
 
-These project discovery paths were checked against official documentation on 23 October 2026. App versions, organization policy and session type can limit discovery. This bundle installs files for supported local/project contexts; it does not install those apps, sign in, change their approvals or establish every cloud/IDE variant. Ask the app to use the `polyspoon` skill after installation; restart/reload its project if needed.
+These project discovery paths were checked against official documentation on 23 October 2026. App versions, organization policy and session type can limit discovery. This bundle installs files for supported local/project contexts; it does not install those apps, sign in, change their approvals or establish every cloud/IDE variant. Ask the app to use the `celadon-lowpoly` skill after installation; restart/reload its project if needed.
 
 ## Local engine and outputs
 
